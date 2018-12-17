@@ -1,0 +1,19 @@
+<simple-app-header [header]="headerModel"></simple-app-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let product of products">
+      <ion-avatar item-left>
+        <img src="assets/imgs/products/product-{{product.type}}.jpg">
+      </ion-avatar>
+      <h2>{{product.name}}</h2>
+      <p>{{product.weight}}g</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-fab right bottom>
+  <button ion-fab (click)="addProduct()" color="bluedark">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>

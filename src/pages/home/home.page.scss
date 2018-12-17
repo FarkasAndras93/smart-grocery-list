@@ -1,0 +1,11 @@
+page-home {
+
+    .title-ios {
+        padding-top: 8px !important;
+        height: auto !important;
+        min-height: unset !important;
+      }
+      .fixed-content {
+        background-color: color($colors, light);
+      }
+}

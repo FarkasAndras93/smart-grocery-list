@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar [color]="header.navbarColor" [hideBackButton]="header.hideDefaultBackBtn">
+    <ion-buttons left>
+      <button ion-button menuToggle icon-only *ngIf="header.leftButton?.type == headerButtonType.MENU_TOGGLE">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <button class="back-button" (click)="onBackButtonClick()" *ngIf="header.leftButton?.type == headerButtonType.BACK">
+        <ion-icon name="arrow-back"></ion-icon>
+        <span>{{header.leftButton?.text}}</span>
+      </button>
+    </ion-buttons>
+    <ion-title *ngIf="!showSearch">{{header.pageTitle}}</ion-title>
+    <div *ngIf="showSearch">
+      <ion-input class="search-input" placeholder="Suchen" [(ngModel)]="search" (input)="searchType()" autofocus #searchInput></ion-input>
+        <button ion-button (click)="clearSearch(true)" *ngIf="search != ''" class="clear-btn">
+          <ion-icon name="close" class="clear-icon"></ion-icon>
+        </button>
+    </div>
+
+    <ion-buttons right>
+      <button ion-button category="bar-button" (click)="toggleSearch()" *ngIf="header.rightButton?.type == headerButtonType.SEARCH">
+        <ion-icon ios="ios-search" md="ios-search"></ion-icon>
+      </button>
+      <button class="save-button" (click)="onSaveButtonClick()" *ngIf="header.rightButton?.type == headerButtonType.SAVE">
+        <ion-icon name="checkmark"></ion-icon>
+        <span>{{header.rightButton?.text}}</span>
+      </button>
+      <button class="close-button" (click)="onCloseButtonClick()" *ngIf="header.rightButton?.type == headerButtonType.CLOSE">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>

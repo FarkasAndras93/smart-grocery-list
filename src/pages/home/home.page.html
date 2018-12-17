@@ -1,0 +1,10 @@
+<simple-app-header [header]="headerModel"></simple-app-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row class="iconed-col-xs-6 iconed-col-xs-custom iconed-col-sm-4 iconed-col-md-3">
+      <iconed-menu-item *ngFor="let item of menuItems" [item]="item" (click)="goToPage(item)">
+      </iconed-menu-item>
+    </ion-row>
+  </ion-grid>
+</ion-content>
