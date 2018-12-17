@@ -57,7 +57,7 @@ export class MyFridgePage {
         if (result.success) {
           this.toast.showSuccessMessage("Product added with success.");
         } else {
-          this.toast.showErrorMessage("Add product failed.");
+          this.toast.showErrorMessage("Add product failed!");
         }
       }
     });
