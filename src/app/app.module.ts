@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { RestProvider } from '../providers/rest/rest';
 import { ProductProvider } from '../providers/product/product.provider';
 import { ToastProvider } from '../providers/tehnical/toast/toast.provider';
+import { GroceryListProvider } from '../providers/grocery-list/grocery-list.provider';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ToastProvider } from '../providers/tehnical/toast/toast.provider';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider,
     ProductProvider,
-    ToastProvider
+    ToastProvider,
+    GroceryListProvider
   ]
 })
 export class AppModule {}

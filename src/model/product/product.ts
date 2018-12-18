@@ -13,9 +13,14 @@ export class Product {
 
     public weight: number;
 
-    constructor(name: string, type: PRODUCT_TYPES, weight: number) {
+    public available?: boolean;
+
+    constructor(name: string, type: PRODUCT_TYPES, weight: number, available?: boolean) {
         this.name = name;
         this.type = type;
         this.weight = weight;
+        if (available != undefined) {
+            this.available = available;
+        }
     }
 }

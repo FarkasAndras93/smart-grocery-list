@@ -5,13 +5,12 @@
       <ion-item *ngFor="let groceryList of groceryLists" (click)="openGroceryList(groceryList)">
         <h2>{{groceryList.name}}</h2>
         <p>{{groceryList.date | date:"MM/dd/yyyy"}}</p>
-        <label class="complete-number">20/10</label>
       </ion-item>
     </ion-list>
   </ion-content>
   
   <ion-fab right bottom>
-    <button ion-fab (click)="createGroceryList()" color="bluedark">
+    <button ion-fab (click)="addProduct()" color="bluedark">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
