@@ -1,5 +1,25 @@
 <simple-app-header [header]="headerModel" (onCloseBtnClick)="dismissModal()"></simple-app-header>
 
 <ion-content padding>
-  new product
+  <ion-item>
+    <ion-label class="label-auto">Name:</ion-label>
+    <ion-input placeholder="Name of the product" [(ngModel)]="product.name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label class="label-auto">Type:</ion-label>
+    <ion-select [(ngModel)]="product.type" multiple="false" cancelText="Cancel" okText="Ok">
+      <ion-option value="{{type.key}}" *ngFor="let type of possibleTypes | mapTransformator">{{type.val}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label class="label-auto">Weight:</ion-label>
+    <ion-label>{{product.weight}}</ion-label>
+  </ion-item>
+
+
+  <ion-row>
+    <ion-col class="center">
+      <button ion-button (click)="addProduct($event)">Add</button>
+    </ion-col>
+  </ion-row>
 </ion-content>

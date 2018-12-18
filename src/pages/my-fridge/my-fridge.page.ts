@@ -54,7 +54,8 @@ export class MyFridgePage {
     modal.present();
     modal.onDidDismiss(result => {
       if (!GlobalUtils.isUndefinedOrNull(result)) {
-        if (result.success) {
+        if (result instanceof Product) {
+          this.products.push(result);
           this.toast.showSuccessMessage("Product added with success.");
         } else {
           this.toast.showErrorMessage("Add product failed!");

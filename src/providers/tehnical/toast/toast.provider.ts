@@ -56,7 +56,7 @@ export class ToastProvider {
   showSuccessMessage(message: string): Promise<any> {
     let toast = this.toastCtrl.create({
       message: message,
-      duration: 2000,
+      duration: 1000,
       position: 'middle',
       dismissOnPageChange: true,
       cssClass: 'success-toast'
