@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, ModalController, ViewController } from 'ionic-angular';
-import { Product, PRODUCT_TYPES } from '../../model/product/product';
-import { ProductProvider } from '../../providers/product/product.provider';
-import { HeaderModel, HEADER_COLORS } from '../../model/common/HeaderModel';
-import { ButtonModel } from '../../model/common/ButtonModel';
-import { HEADER_BUTTON_TYPE } from '../../components/simple-app-header/simple-app-header.component';
-import { GlobalUtils } from '../../utils/global-utils';
-import { ToastProvider } from '../../providers/tehnical/toast/toast.provider';
+import { Product, PRODUCT_TYPES } from '../../../model/product/product';
+import { ProductProvider } from '../../../providers/product/product.provider';
+import { HeaderModel, HEADER_COLORS } from '../../../model/common/HeaderModel';
+import { ButtonModel } from '../../../model/common/ButtonModel';
+import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
+import { GlobalUtils } from '../../../utils/global-utils';
+import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 
 @IonicPage()
 @Component({
