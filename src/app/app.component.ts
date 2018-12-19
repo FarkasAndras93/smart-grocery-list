@@ -19,7 +19,8 @@ type SideMenuItem = { title: MENU_TITLE, component: any, icon?: string, badgeRig
 export enum MENU_TITLE {
   HOME = "Home",
   MY_FRIDGE = "My fridge",
-  GROCERY_LIST = "Grocery list"
+  GROCERY_LIST = "Grocery list",
+  RECIPE_LIST = "Recipe list"
 }
 
 
@@ -55,7 +56,8 @@ export class MyApp {
   private loggedInPages: Array<SideMenuItem> = [
     { title: MENU_TITLE.HOME, component: 'HomePage', icon: 'home' },
     { title: MENU_TITLE.MY_FRIDGE, component: 'MyFridgePage', icon: 'basket' },
-    { title: MENU_TITLE.GROCERY_LIST, component: 'GroceryListPage', icon: 'paper' }
+    { title: MENU_TITLE.GROCERY_LIST, component: 'GroceryListPage', icon: 'cart' },
+    { title: MENU_TITLE.RECIPE_LIST, component: 'RecipeListPage', icon: 'paper'}
   ]
 
 
