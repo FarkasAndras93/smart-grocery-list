@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
-import { Product } from '../../model/product/product';
-import { ProductProvider } from '../../providers/product/product.provider';
-import { HeaderModel, HEADER_COLORS } from '../../model/common/HeaderModel';
-import { ButtonModel } from '../../model/common/ButtonModel';
-import { HEADER_BUTTON_TYPE } from '../../components/simple-app-header/simple-app-header.component';
-import { GroceryList } from '../../model/grocery-list/grocery-list';
-import { GroceryListProvider } from '../../providers/grocery-list/grocery-list.provider';
+import { HeaderModel, HEADER_COLORS } from '../../../model/common/HeaderModel';
+import { ButtonModel } from '../../../model/common/ButtonModel';
+import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
+import { GroceryList } from '../../../model/grocery-list/grocery-list';
+import { GroceryListProvider } from '../../../providers/grocery-list/grocery-list.provider';
 
 @IonicPage()
 @Component({
