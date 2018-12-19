@@ -40,7 +40,8 @@ export class MyFridgePage {
     this.productProvider.getProductsInFrigider().then(result => {
       this.products = result;
     }).catch(error =>{
-      console.log("Error");
+      console.log("Error while geting products in frigider!");
+      this.toast.showErrorMessage("Error while geting products in frigider!");
     })
   }
 

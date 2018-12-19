@@ -10,6 +10,7 @@ import { RestProvider } from '../providers/rest/rest';
 import { ProductProvider } from '../providers/product/product.provider';
 import { ToastProvider } from '../providers/tehnical/toast/toast.provider';
 import { GroceryListProvider } from '../providers/grocery-list/grocery-list.provider';
+import { RecipeProvider } from '../providers/recipe/recipe.provider';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { GroceryListProvider } from '../providers/grocery-list/grocery-list.prov
     RestProvider,
     ProductProvider,
     ToastProvider,
-    GroceryListProvider
+    GroceryListProvider,
+    RecipeProvider
   ]
 })
 export class AppModule {}

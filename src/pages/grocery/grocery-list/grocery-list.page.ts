@@ -5,6 +5,7 @@ import { ButtonModel } from '../../../model/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
 import { GroceryList } from '../../../model/grocery-list/grocery-list';
 import { GroceryListProvider } from '../../../providers/grocery-list/grocery-list.provider';
+import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 
 @IonicPage()
 @Component({
@@ -30,7 +31,7 @@ export class GroceryListPage {
   public groceryLists: GroceryList[];
 
 
-  constructor(public navCtrl: NavController, public groceryListProvider: GroceryListProvider) {
+  constructor(public navCtrl: NavController, public groceryListProvider: GroceryListProvider, private toast: ToastProvider) {
     this.headerModel = new HeaderModel("Grocery List", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
     this.groceryLists = [];
   }
@@ -38,6 +39,9 @@ export class GroceryListPage {
   ionViewDidLoad() {
     this.groceryListProvider.getGroceryLists().then((groceryLists) => {
       this.groceryLists = groceryLists;
+    }).catch(error => {
+      console.error("Error while geting grocery lists from backend!");
+      this.toast.showErrorMessage("Error while geting grocery lists from backend!");
     });
   }
 

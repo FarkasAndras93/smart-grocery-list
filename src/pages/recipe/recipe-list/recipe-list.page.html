@@ -1,7 +1,12 @@
 <simple-app-header [header]="headerModel"></simple-app-header>
 
 <ion-content padding>
-  Test
+  <ion-list>
+    <ion-item *ngFor="let recipe of recipeList" (click)="openRecipeDetails(recipe)">
+      <h2>{{recipe.name}}</h2>
+      <p>{{recipe.description}}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>
 
 <ion-fab right bottom>
