@@ -4,6 +4,7 @@ import { GlobalUtils } from '../../utils/global-utils';
 import { GroceryList } from '../../model/grocery-list/grocery-list';
 import { Recipe } from '../../model/recipe/recipe';
 import { Product, PRODUCT_TYPES } from '../../model/product/product';
+import { RecipeNote } from '../../model/recipe/recipe-note';
 
 @Injectable()
 export class RecipeProvider {
@@ -19,7 +20,8 @@ export class RecipeProvider {
 
     let recipeList: Recipe[] = [
       new Recipe("Sandwich", [new Product("Salami", PRODUCT_TYPES.MEATS, 100, false), new Product("Butter", PRODUCT_TYPES.DAIRY_PRODUCT, 30, false),
-        new Product("Bread", PRODUCT_TYPES.PASTRY, 200, false)], "Cut two slice from the bread and put the butter on the bread slices. After this you can put the salami slices too."),
+        new Product("Bread", PRODUCT_TYPES.PASTRY, 200, false)], "Cut two slice from the bread and put the butter on the bread slices. After this you can put the salami slices too.",
+        [new RecipeNote("It was delicious.", new Date().toString()), new RecipeNote("Don`t forrget to make more times.", new Date().toString())]),
       new Recipe("Viennese", [], ""),
       new Recipe("Lasagne", [], "")
     ];

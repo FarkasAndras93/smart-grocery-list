@@ -19,10 +19,16 @@ export class RecipeListPage {
    * Header model
    *
    * @type {HeaderModel}
-   * @memberof GroceryListPage
+   * @memberof RecipeListPage
    */
   public headerModel: HeaderModel;
 
+  /**
+   * Recipe list.
+   *
+   * @type {Recipe[]}
+   * @memberof RecipeListPage
+   */
   public recipeList: Recipe[];
 
 
@@ -42,16 +48,16 @@ export class RecipeListPage {
   /**
    * Method to open recipe details.
    *
-   * @memberof GroceryListPage
+   * @memberof RecipeListPage
    */
-  public openRecipeDetails(groceryList: GroceryList) {
-    this.navCtrl.push("GroceryListDetailPage", {"grocery-list": groceryList});
+  public openRecipeDetails(recipe: Recipe) {
+    this.navCtrl.push("RecipeDetailPage", {"recipe": recipe});
   }
 
   /**
    * Method to create a new grocery list.
    *
-   * @memberof GroceryListPage
+   * @memberof RecipeListPage
    */
   public createRecipe() {
 
