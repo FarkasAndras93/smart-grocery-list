@@ -4,6 +4,8 @@ import { GlobalUtils } from "../../utils/global-utils";
 
 export class Recipe {
 
+    public id: number;
+
     /**
      * Name of the recipe.
      *

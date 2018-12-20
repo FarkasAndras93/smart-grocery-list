@@ -2,6 +2,8 @@ import { Product } from "../product/product";
 
 export class GroceryList {
 
+    public id: number;
+    
     /**
      * Name of the grocery list.
      *

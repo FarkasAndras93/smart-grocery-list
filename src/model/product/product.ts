@@ -7,6 +7,8 @@ export enum PRODUCT_TYPES {
 
 export class Product {
 
+    public id: number;
+
     public name: string;
 
     public type: PRODUCT_TYPES;

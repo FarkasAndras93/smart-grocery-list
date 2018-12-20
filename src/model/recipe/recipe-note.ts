@@ -7,6 +7,8 @@
  */
 export class RecipeNote {
 
+    public id: number;
+    
     /**
      * Text of the note.
      *
