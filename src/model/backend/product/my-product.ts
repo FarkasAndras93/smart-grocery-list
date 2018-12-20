@@ -10,6 +10,14 @@ import { Product, PRODUCT_TYPES } from "./product";
 export class MyProduct extends Product{
 
     /**
+     * Id of the user to whom belong the product.
+     *
+     * @type {number}
+     * @memberof Recipe
+     */
+    public userId: number;
+
+    /**
      * Weight of the product.
      *
      * @type {number}

@@ -2,8 +2,22 @@ import { Product } from "../product/product";
 
 export class GroceryList {
 
+    /**
+     * Id of the grocery list.
+     *
+     * @type {number}
+     * @memberof GroceryList
+     */
     public id: number;
     
+    /**
+     * Id of the user to whom belong the grocery list.
+     *
+     * @type {number}
+     * @memberof Recipe
+     */
+    public userId: number;
+
     /**
      * Name of the grocery list.
      *

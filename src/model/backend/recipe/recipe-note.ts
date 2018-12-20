@@ -7,6 +7,12 @@
  */
 export class RecipeNote {
 
+    /**
+     * Id of the recipe.
+     *
+     * @type {number}
+     * @memberof RecipeNote
+     */
     public id: number;
     
     /**

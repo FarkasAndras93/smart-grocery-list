@@ -4,7 +4,21 @@ import { GlobalUtils } from "../../../utils/global-utils";
 
 export class Recipe {
 
+    /**
+     * Id of the recipe.
+     *
+     * @type {number}
+     * @memberof Recipe
+     */
     public id: number;
+
+    /**
+     * Id of the user to whom belong the recipe.
+     *
+     * @type {number}
+     * @memberof Recipe
+     */
+    public userId: number;
 
     /**
      * Name of the recipe.
