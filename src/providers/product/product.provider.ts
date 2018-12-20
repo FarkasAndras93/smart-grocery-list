@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Product, PRODUCT_TYPES } from '../../model/backend/product/product';
+import { PRODUCT_TYPES } from '../../model/backend/product/product';
 import { GlobalUtils } from '../../utils/global-utils';
+import { MyProduct } from '../../model/backend/product/my-product';
 
 @Injectable()
 export class ProductProvider {
@@ -12,14 +13,14 @@ export class ProductProvider {
     console.log('Hello RestProvider Provider');
   }
 
-  getProductsInFrigider(): Promise<Product[]> {
+  getProductsInFrigider(): Promise<MyProduct[]> {
     // return this.http.get(this.apiUrl + "/all/product").toPromise();
 
-    let products: Product[] = [
-      new Product("cheese", PRODUCT_TYPES.DAIRY_PRODUCT, 200),
-      new Product("potato", PRODUCT_TYPES.VEGETABLE, 1000),
-      new Product("ham", PRODUCT_TYPES.MEATS, 400),
-      new Product("tomato", PRODUCT_TYPES.VEGETABLE, 300)
+    let products: MyProduct[] = [
+      new MyProduct("cheese", PRODUCT_TYPES.DAIRY_PRODUCT, 200),
+      new MyProduct("potato", PRODUCT_TYPES.VEGETABLE, 1000),
+      new MyProduct("ham", PRODUCT_TYPES.MEATS, 400),
+      new MyProduct("tomato", PRODUCT_TYPES.VEGETABLE, 300)
     ];
     return Promise.resolve(products);
   }

@@ -7,6 +7,7 @@ import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
 import { GlobalUtils } from '../../../utils/global-utils';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
+import { MyProduct } from '../../../model/backend/product/my-product';
 
 @IonicPage()
 @Component({
@@ -18,10 +19,10 @@ export class MyFridgePage {
   /**
    * Products in the fridge.
    *
-   * @type {Product[]}
+   * @type {MyProduct[]}
    * @memberof MyFridgePage
    */
-  products: Product[];
+  products: MyProduct[];
 
   /**
    * Header model
@@ -55,7 +56,7 @@ export class MyFridgePage {
     modal.present();
     modal.onDidDismiss(result => {
       if (!GlobalUtils.isUndefinedOrNull(result)) {
-        if (result instanceof Product) {
+        if (result instanceof MyProduct) {
           this.products.push(result);
           this.toast.showSuccessMessage("Product added with success.");
         } else {

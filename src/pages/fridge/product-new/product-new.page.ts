@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, ModalController, ViewController } from 'ionic-angular';
-import { Product, PRODUCT_TYPES } from '../../../model/backend/product/product';
+import { PRODUCT_TYPES } from '../../../model/backend/product/product';
 import { ProductProvider } from '../../../providers/product/product.provider';
-import { HeaderModel, HEADER_COLORS } from '../../../model/frontend/common/HeaderModel';
+import { HeaderModel } from '../../../model/frontend/common/HeaderModel';
 import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
 import { GlobalUtils } from '../../../utils/global-utils';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
+import { MyProduct } from '../../../model/backend/product/my-product';
 
 @IonicPage()
 @Component({
@@ -18,10 +19,10 @@ export class ProductNewPage {
   /**
    * New product which will be added to the fridge.
    *
-   * @type {Product}
+   * @type {MyProduct}
    * @memberof ProductNewPage
    */
-  product: Product;
+  product: MyProduct;
 
   /**
    * Header model
@@ -45,12 +46,14 @@ export class ProductNewPage {
     this.headerModel = new HeaderModel("New product", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
     this.initPossibleTypes();
-    this.product = new Product("", undefined, 0);
+    this.product = new MyProduct("", undefined, 0);
   }
 
   ionViewDidLoad() {
     this.productProvider.getProductWeightOnSensor().then((weight) => {
       this.product.weight = weight;
+    }).catch(error =>{
+      console.error("Error on weight sensor.");
     });
   }
 
