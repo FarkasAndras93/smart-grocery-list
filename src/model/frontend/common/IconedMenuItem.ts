@@ -1,4 +1,4 @@
-import { MENU_TITLE } from "../../app/app.component";
+import { MENU_TITLE } from "../../../app/app.component";
 
 /**
  * Iconed Menu Item Data Model.

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Product, PRODUCT_TYPES } from '../../model/product/product';
 import { GlobalUtils } from '../../utils/global-utils';
-import { GroceryList } from '../../model/grocery-list/grocery-list';
+import { GroceryList } from '../../model/backend/grocery-list/grocery-list';
 
 @Injectable()
 export class GroceryListProvider {

@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ViewController } from 'ionic-angular';
-import { HeaderModel } from '../../model/common/HeaderModel';
+import { HeaderModel } from '../../model/frontend/common/HeaderModel';
 
 /**
  * Header button types.

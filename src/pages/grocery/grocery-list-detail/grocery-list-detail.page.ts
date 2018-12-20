@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, NavParams } from 'ionic-angular';
-import { HeaderModel, HEADER_COLORS } from '../../../model/common/HeaderModel';
-import { GroceryList } from '../../../model/grocery-list/grocery-list';
+import { HeaderModel, HEADER_COLORS } from '../../../model/frontend/common/HeaderModel';
+import { GroceryList } from '../../../model/backend/grocery-list/grocery-list';
 import { GroceryListProvider } from '../../../providers/grocery-list/grocery-list.provider';
 
 @IonicPage()

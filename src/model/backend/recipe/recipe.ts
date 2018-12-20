@@ -1,6 +1,6 @@
 import { Product } from "../product/product";
 import { RecipeNote } from "./recipe-note";
-import { GlobalUtils } from "../../utils/global-utils";
+import { GlobalUtils } from "../../../utils/global-utils";
 
 export class Recipe {
 

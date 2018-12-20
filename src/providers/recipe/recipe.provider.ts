@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GlobalUtils } from '../../utils/global-utils';
-import { GroceryList } from '../../model/grocery-list/grocery-list';
-import { Recipe } from '../../model/recipe/recipe';
-import { Product, PRODUCT_TYPES } from '../../model/product/product';
-import { RecipeNote } from '../../model/recipe/recipe-note';
+import { Recipe } from '../../model/backend/recipe/recipe';
+import { Product, PRODUCT_TYPES } from '../../model/backend/product/product';
+import { RecipeNote } from '../../model/backend/recipe/recipe-note';
 
 @Injectable()
 export class RecipeProvider {

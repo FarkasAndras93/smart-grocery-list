@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Product, PRODUCT_TYPES } from '../../model/product/product';
+import { Product, PRODUCT_TYPES } from '../../model/backend/product/product';
 import { GlobalUtils } from '../../utils/global-utils';
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IconedMenuItem } from '../../model/common/IconedMenuItem';
+import { IconedMenuItem } from '../../model/frontend/common/IconedMenuItem';
 
 /**
  * Iconed Menu Item Component
