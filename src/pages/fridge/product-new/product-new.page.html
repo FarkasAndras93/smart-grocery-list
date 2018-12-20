@@ -3,17 +3,13 @@
 <ion-content padding>
   <ion-item>
     <ion-label class="label-auto">Name:</ion-label>
-    <ion-input placeholder="Name of the product" [(ngModel)]="product.name"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label class="label-auto">Type:</ion-label>
-    <ion-select [(ngModel)]="product.type" multiple="false" cancelText="Cancel" okText="Ok">
-      <ion-option value="{{type.key}}" *ngFor="let type of possibleTypes | mapTransformator">{{type.val}}</ion-option>
+    <ion-select [(ngModel)]="selectedProductId" multiple="false" cancelText="Cancel" okText="Ok">
+      <ion-option value="{{product.id}}" *ngFor="let product of possibleProducts">{{product.name}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label class="label-auto">Weight:</ion-label>
-    <ion-label>{{product.weight}}</ion-label>
+    <ion-label>{{myProduct.weight}}</ion-label>
   </ion-item>
 
 

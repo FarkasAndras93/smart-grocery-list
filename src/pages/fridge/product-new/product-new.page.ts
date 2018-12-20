@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, ModalController, ViewController } from 'ionic-angular';
-import { PRODUCT_TYPES } from '../../../model/backend/product/product';
+import { PRODUCT_TYPES, Product } from '../../../model/backend/product/product';
 import { ProductProvider } from '../../../providers/product/product.provider';
 import { HeaderModel } from '../../../model/frontend/common/HeaderModel';
 import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
@@ -22,7 +22,7 @@ export class ProductNewPage {
    * @type {MyProduct}
    * @memberof ProductNewPage
    */
-  product: MyProduct;
+  myProduct: MyProduct;
 
   /**
    * Header model
@@ -40,18 +40,39 @@ export class ProductNewPage {
    */
   public possibleTypes: Map<PRODUCT_TYPES, string> = new Map();
 
+  /**
+   * Products which can be choosen.
+   *
+   * @type {Product[]}
+   * @memberof ProductNewPage
+   */
+  public possibleProducts: Product[];
+
+  /**
+   * Selected product id from selection.
+   *
+   * @type {number}
+   * @memberof ProductNewPage
+   */
+  public selectedProductId: number;
+
 
   constructor(public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider,
     public viewCtrl: ViewController) {
     this.headerModel = new HeaderModel("New product", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
     this.initPossibleTypes();
-    this.product = new MyProduct("", undefined, 0);
+    this.myProduct = new MyProduct("", undefined, 0);
   }
 
   ionViewDidLoad() {
+    this.productProvider.getAllProducts().then((products) => {
+      this.possibleProducts = products;
+    }).catch(error =>{
+      console.error("Error while returning all products.");
+    });
     this.productProvider.getProductWeightOnSensor().then((weight) => {
-      this.product.weight = weight;
+      this.myProduct.weight = weight;
     }).catch(error =>{
       console.error("Error on weight sensor.");
     });
@@ -73,14 +94,16 @@ export class ProductNewPage {
    * @memberof ProductNewPage
    */
   public addProduct() {
-    if (GlobalUtils.isEmpty(this.product.name)) {
-      this.toast.showErrorMessage("Product should have a name!")
-    } else if (GlobalUtils.isUndefinedOrNull(this.product.type) || GlobalUtils.isEmpty(this.product.type.toString())) {
-      this.toast.showErrorMessage("Product should have a type!")
-    } else if (this.product.weight == 0) {
+    if (GlobalUtils.isUndefinedOrNull(this.selectedProductId)) {
+      this.toast.showErrorMessage("Product needs to be selected!")
+    } else if (this.myProduct.weight == 0) {
       this.toast.showErrorMessage("There is nothing on sensor!")
     } else {
-      this.viewCtrl.dismiss(this.product);
+      let product: Product = this.getMyProductForId();
+      this.myProduct.name = product.name;
+      this.myProduct.type = product.type;
+      //TODO - set userId for myProduct from local storage
+      this.viewCtrl.dismiss(this.myProduct);
     }
   }
 
@@ -97,4 +120,19 @@ export class ProductNewPage {
     this.possibleTypes.set(PRODUCT_TYPES.VEGETABLE, "Vegetable");
   }
 
+  /**
+   * Method to get product from possibleProducts list for selected id.
+   *
+   * @private
+   * @param {number} id
+   * @returns {Product}
+   * @memberof ProductNewPage
+   */
+  private getMyProductForId(): Product {
+    for (let i = 0;i<this.possibleProducts.length; i++) {
+      if (this.possibleProducts[i].id == this.selectedProductId) {
+        return this.possibleProducts[i];
+      }
+    }
+  }
 }
