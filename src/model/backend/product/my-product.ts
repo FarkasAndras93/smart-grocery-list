@@ -25,19 +25,8 @@ export class MyProduct extends Product{
      */
     public weight: number;
 
-    /**
-     * Availability of the product.
-     *
-     * @type {boolean}
-     * @memberof MyProduct
-     */
-    public available?: boolean;
-
-    constructor(name: string, type: PRODUCT_TYPES, weight: number, available?: boolean) {
+    constructor(name: string, type: PRODUCT_TYPES, weight: number) {
         super(name, type);
         this.weight = weight;
-        if (available != undefined) {
-            this.available = available;
-        }
     }
 }

@@ -1,4 +1,4 @@
-import { Product } from "../product/product";
+import { ProductCheck } from "../product/product-check";
 
 export class GroceryList {
 
@@ -29,14 +29,14 @@ export class GroceryList {
     /**
      * Products in the grocery list.
      *
-     * @type {Product[]}
+     * @type {ProductCheck[]}
      * @memberof GroceryList
      */
-    public products: Product[];
+    public products: ProductCheck[];
 
     public date: string;
 
-    constructor(name: string, products: Product[], date: string) {
+    constructor(name: string, products: ProductCheck[], date: string) {
         this.name = name;
         this.products = products;
         this.date = date;

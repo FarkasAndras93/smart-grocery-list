@@ -15,7 +15,7 @@ export class GroceryListDetailPage {
    * Header model
    *
    * @type {HeaderModel}
-   * @memberof GroceryListPage
+   * @memberof GroceryListDetailPage
    */
   public headerModel: HeaderModel;
 
@@ -23,7 +23,7 @@ export class GroceryListDetailPage {
    * Grocery list
    *
    * @type {GroceryList}
-   * @memberof GroceryListPage
+   * @memberof GroceryListDetailPage
    */
   public groceryList: GroceryList;
 
@@ -34,6 +34,15 @@ export class GroceryListDetailPage {
   }
 
   ionViewDidLoad() {
+
+  }
+
+  /**
+   * Method to check product on list.
+   *
+   * @memberof GroceryListPage
+   */
+  public checkProduct() {
 
   }
 
