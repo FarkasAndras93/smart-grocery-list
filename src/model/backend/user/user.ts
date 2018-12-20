@@ -1,6 +1,6 @@
 import { GlobalUtils } from "../../../utils/global-utils";
 
-export class Recipe {
+export class User {
 
     /**
      * Id of the user.
