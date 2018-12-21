@@ -26,6 +26,14 @@ export class User {
      */
     public password: string;
 
+    /**
+     * Flag to know if user is admin.
+     *
+     * @type {boolean}
+     * @memberof User
+     */
+    public admin: boolean;
+
 
     constructor(username: string, password: string) {
         this.username = username;

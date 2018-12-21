@@ -42,7 +42,7 @@ export class MyApp {
    * @type {*}
    * @memberof MyApp
    */
-  rootPage: any = 'HomePage';
+  rootPage: any = 'LoginPage';
 
   /**
   * List of pages in logged in state

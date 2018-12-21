@@ -1,15 +1,25 @@
 <simple-app-header [header]="headerModel"></simple-app-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let product of products">
-      <ion-avatar item-left>
-        <img src="assets/imgs/products/product-{{product.type}}.jpg">
-      </ion-avatar>
-      <h2>{{product.name}}</h2>
-      <p>{{product.weight}}g</p>
-    </ion-item>
-  </ion-list>
+  <form name="loginForm" #f="ngForm">
+    <ion-list>
+
+      <ion-item>
+        <img item-start src="assets/img/login-icon-user.svg" width="24" height="24" />
+        <ion-input placeholder="Benutzername" id="login_username" type="text" required [(ngModel)]="user.username"
+          name="login_username" #name="ngModel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+          class="user-input"></ion-input>
+      </ion-item>
+      <ion-item>
+        <img item-start src="assets/img/login-icon-password.svg" width="24" height="24" />
+        <ion-input placeholder="Passwort" id="login_password" type="password" [(ngModel)]="user.password" name="login_password"
+          #name="ngModel" class="password-input"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <button id="login_loginButton" (click)="login()" [disabled]="!f.form.valid" ion-button full i18n>Anmelden</button>
+  </form>
 </ion-content>
 
 <ion-fab right bottom>

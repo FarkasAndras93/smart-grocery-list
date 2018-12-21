@@ -11,6 +11,7 @@ import { ProductProvider } from '../providers/product/product.provider';
 import { ToastProvider } from '../providers/tehnical/toast/toast.provider';
 import { GroceryListProvider } from '../providers/grocery-list/grocery-list.provider';
 import { RecipeProvider } from '../providers/recipe/recipe.provider';
+import { UserProvider } from '../providers/user/user.provider';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RecipeProvider } from '../providers/recipe/recipe.provider';
     ProductProvider,
     ToastProvider,
     GroceryListProvider,
-    RecipeProvider
+    RecipeProvider,
+    UserProvider
   ]
 })
 export class AppModule {}
