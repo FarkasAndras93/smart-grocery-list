@@ -12,6 +12,8 @@ import { ToastProvider } from '../providers/tehnical/toast/toast.provider';
 import { GroceryListProvider } from '../providers/grocery-list/grocery-list.provider';
 import { RecipeProvider } from '../providers/recipe/recipe.provider';
 import { UserProvider } from '../providers/user/user.provider';
+import { StorageProvider, StorageProviderLocal } from '../providers/tehnical/storage/storage.provider';
+import { APP_CONFIG_TOKEN, CONFIG_DEFAULT, prefixLocalstorage, prefixLocalStorageFactory } from './app.config';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,10 @@ import { UserProvider } from '../providers/user/user.provider';
     ToastProvider,
     GroceryListProvider,
     RecipeProvider,
-    UserProvider
+    UserProvider,
+    { provide: StorageProvider, useClass: StorageProviderLocal },
+    { provide: APP_CONFIG_TOKEN, useValue: CONFIG_DEFAULT },
+    { provide: prefixLocalstorage, useFactory: prefixLocalStorageFactory },
   ]
 })
 export class AppModule {}
