@@ -61,8 +61,8 @@ export class MyApp {
     { title: MENU_TITLE.MY_FRIDGE, component: 'MyFridgePage', icon: 'basket' },
     { title: MENU_TITLE.GROCERY_LIST, component: 'GroceryListPage', icon: 'cart' },
     { title: MENU_TITLE.RECIPE_LIST, component: 'RecipeListPage', icon: 'paper' },
-    { title: MENU_TITLE.LOGOUT, component: 'LoginPage', icon: 'log-out', badgeRight: false },
-    { title: MENU_TITLE.SETTINGS, component: 'SettingsPage', icon: 'settings' }
+    { title: MENU_TITLE.SETTINGS, component: 'SettingsPage', icon: 'settings' },
+    { title: MENU_TITLE.LOGOUT, component: 'LoginPage', icon: 'log-out', badgeRight: false }
   ]
 
   /**
