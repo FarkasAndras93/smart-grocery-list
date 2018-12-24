@@ -62,6 +62,7 @@ export class MyApp {
     { title: MENU_TITLE.GROCERY_LIST, component: 'GroceryListPage', icon: 'cart' },
     { title: MENU_TITLE.RECIPE_LIST, component: 'RecipeListPage', icon: 'paper' },
     { title: MENU_TITLE.LOGOUT, component: 'LoginPage', icon: 'log-out', badgeRight: false },
+    { title: MENU_TITLE.SETTINGS, component: 'SettingsPage', icon: 'settings' }
   ]
 
   /**
@@ -73,7 +74,7 @@ export class MyApp {
   */
   private loggedOutPages: Array<SideMenuItem> = [
     { title: MENU_TITLE.LOGIN, component: 'LoginPage', icon: 'log-in' },
-    { title: MENU_TITLE.SETTINGS, component: 'ConfigurationPage', icon: 'settings', badgeRight: false }
+    { title: MENU_TITLE.SETTINGS, component: 'SettingsPage', icon: 'settings' }
   ]
 
 

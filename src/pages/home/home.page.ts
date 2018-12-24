@@ -37,6 +37,7 @@ export class HomePage {
     this.menuItems.push(new IconedMenuItem(MENU_TITLE.MY_FRIDGE, "MyFridgePage", "home-icon-statistics.svg"));
     this.menuItems.push(new IconedMenuItem(MENU_TITLE.GROCERY_LIST, "GroceryListPage", "home-icon-search.svg"));
     this.menuItems.push(new IconedMenuItem(MENU_TITLE.RECIPE_LIST, "RecipeListPage", "home-icon-bi-previous.svg"));
+    this.menuItems.push(new IconedMenuItem(MENU_TITLE.SETTINGS, "SettingsPage", "home-icon-settings.svg"));
   }
 
   /**

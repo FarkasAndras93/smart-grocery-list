@@ -46,6 +46,8 @@ export interface AppConfig {
 
   appName: string;
 
+  userAlias: string;
+
 }
 
 export const DEFAULT_LOGIN_CONFIG: LoginConfig = {
@@ -91,6 +93,8 @@ export const CONFIG_DEFAULT: AppConfig = {
   latestInfoDialogCloseEvent: "latestInfoDialogClose",
 
   appName: "MyApp",
+
+  userAlias: "userAlias"
 
 }
 
