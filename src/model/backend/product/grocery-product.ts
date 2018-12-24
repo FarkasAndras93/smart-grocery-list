@@ -4,15 +4,15 @@ import { Product } from "./product";
  * Product checked.
  *
  * @export
- * @class ProductCheck
+ * @class GroceryProduct
  */
-export class ProductCheck {
+export class GroceryProduct {
 
     /**
      * Id of the product check.
      *
      * @type {number}
-     * @memberof ProductCheck
+     * @memberof GroceryProduct
      */
     public id: number;
 
@@ -20,7 +20,7 @@ export class ProductCheck {
      * Product for buy.
      *
      * @type {Product}
-     * @memberof ProductCheck
+     * @memberof GroceryProduct
      */
     public product: Product;
 
@@ -28,7 +28,7 @@ export class ProductCheck {
      * Type of the product.
      *
      * @type {boolean}
-     * @memberof ProductCheck
+     * @memberof GroceryProduct
      */
     public checked: boolean;
 

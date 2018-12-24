@@ -39,6 +39,7 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
+    //TODO - implement autologin
   }
 
   /**
