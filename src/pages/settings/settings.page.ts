@@ -6,6 +6,7 @@ import { HEADER_BUTTON_TYPE } from '../../components/simple-app-header/simple-ap
 import { Config } from '../../model/frontend/config/Config';
 import { AppConfig, APP_CONFIG_TOKEN } from '../../app/app.config';
 import { StorageProvider } from '../../providers/tehnical/storage/storage.provider';
+import { GlobalUtils } from '../../utils/global-utils';
 
 @IonicPage()
 @Component({
@@ -34,7 +35,14 @@ export class SettingsPage {
   constructor(public navCtrl: NavController, @Inject(APP_CONFIG_TOKEN) private appConfig: AppConfig,
     private storage: StorageProvider) {
     this.headerModel = new HeaderModel("Settings", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
+    this.initConfig();
+  }
+
+  private initConfig() {
     this.config = new Config("");
+    if (!GlobalUtils.isEmpty(this.storage.getConfig(this.appConfig.userAlias))) {
+      this.config.alias = this.storage.getConfig(this.appConfig.userAlias);
+    }
   }
 
   /**
