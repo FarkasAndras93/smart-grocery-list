@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, NavParams } from 'ionic-angular';
+import { NavController, IonicPage, NavParams, ModalController } from 'ionic-angular';
 import { HeaderModel, HEADER_COLORS } from '../../../model/frontend/common/HeaderModel';
 import { GroceryList } from '../../../model/backend/grocery-list/grocery-list';
 import { GroceryListProvider } from '../../../providers/grocery-list/grocery-list.provider';
+import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
+import { GlobalUtils } from '../../../utils/global-utils';
+import { GroceryProduct } from '../../../model/backend/product/grocery-product';
 
 @IonicPage()
 @Component({
@@ -28,7 +31,8 @@ export class GroceryListDetailPage {
   public groceryList: GroceryList;
 
 
-  constructor(public navCtrl: NavController, private navParams: NavParams, public groceryListProvider: GroceryListProvider) {
+  constructor(public navCtrl: NavController, private navParams: NavParams, public groceryListProvider: GroceryListProvider,
+    public modalCtrl: ModalController, private toast: ToastProvider) {
     this.groceryList = this.navParams.get("grocery-list");
     this.headerModel = new HeaderModel(this.groceryList.name, HEADER_COLORS.BASE);
   }
@@ -52,7 +56,14 @@ export class GroceryListDetailPage {
    * @memberof GroceryListPage
    */
   public addProduct() {
-
+    let modal = this.modalCtrl.create('GroceryNewProductPage');
+    modal.present();
+    modal.onDidDismiss(result => {
+      if (!GlobalUtils.isUndefinedOrNull(result)) {
+        this.groceryList.products = this.groceryList.products.concat(result);
+        this.toast.showSuccessMessage("Product added with success.");
+      }
+    });
   }
 
 }

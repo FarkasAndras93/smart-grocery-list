@@ -1,0 +1,16 @@
+<simple-app-header [header]="headerModel" (onCloseBtnClick)="dismissModal()"></simple-app-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let item of possibleProducts">
+      <ion-label>{{item.product?.name}}</ion-label>
+      <ion-checkbox [(ngModel)]="item.checked"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-row>
+    <ion-col class="center">
+      <button ion-button (click)="addProducts($event)">Add</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

@@ -33,14 +33,6 @@ export class ProductNewPage {
   public headerModel: HeaderModel;
 
   /**
-   * Possible periods, which can be choosed
-   *
-   * @type {Map<PRODUCT_TYPES, string>}
-   * @memberof StatisticFilterComponent
-   */
-  public possibleTypes: Map<PRODUCT_TYPES, string> = new Map();
-
-  /**
    * Products which can be choosen.
    *
    * @type {Product[]}
@@ -61,7 +53,6 @@ export class ProductNewPage {
     public viewCtrl: ViewController) {
     this.headerModel = new HeaderModel("New product", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
-    this.initPossibleTypes();
     this.myProduct = new MyProduct("", undefined, 0);
   }
 
@@ -105,19 +96,6 @@ export class ProductNewPage {
       //TODO - set userId for myProduct from local storage
       this.viewCtrl.dismiss(this.myProduct);
     }
-  }
-
-  /**
-   * Initializes possible types map.
-   *
-   * @private
-   * @memberof ProductNewPage
-   */
-  private initPossibleTypes() {
-    this.possibleTypes.set(PRODUCT_TYPES.DAIRY_PRODUCT, "Dairy");
-    this.possibleTypes.set(PRODUCT_TYPES.MEATS, "Meat");
-    this.possibleTypes.set(PRODUCT_TYPES.PASTRY, "Pastry");
-    this.possibleTypes.set(PRODUCT_TYPES.VEGETABLE, "Vegetable");
   }
 
   /**
