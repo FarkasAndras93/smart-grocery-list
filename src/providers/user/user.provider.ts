@@ -22,6 +22,7 @@ export class UserProvider {
     // return this.http.get(this.apiUrl + "/all/product").toPromise();
     // this.event.publish(this.config.loginConfig.loggedInCompleteEventKey);
     // this.storage.saveLocal(this.config.loginConfig.hasLoggedIn, true);
+    // this.storage.saveLocal(this.config.loginConfig.loggedInUser, user);
 
 
     //DUMMY
@@ -30,6 +31,7 @@ export class UserProvider {
       user.id = 2;
       this.event.publish(this.config.loginConfig.loggedInCompleteEventKey);
       this.storage.saveLocal(this.config.loginConfig.hasLoggedIn, true);
+      this.storage.saveLocal(this.config.loginConfig.loggedInUser, user);
       return Promise.resolve(user);
     } else if (username == "admin" && password == "admin") {
       let user: User = new User(username, password);
@@ -37,6 +39,7 @@ export class UserProvider {
       user.admin = true;
       this.event.publish(this.config.loginConfig.loggedInCompleteEventKey);
       this.storage.saveLocal(this.config.loginConfig.hasLoggedIn, true);
+      this.storage.saveLocal(this.config.loginConfig.loggedInUser, user);
       return Promise.resolve(user);
     }
     return Promise.reject("error");

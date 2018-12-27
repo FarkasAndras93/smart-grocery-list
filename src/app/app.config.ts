@@ -4,7 +4,7 @@ import { InjectionToken } from '@angular/core';
 export interface LoginConfig {
   systemKey: string;
   loginDataKey: string;
-  loginUsername: string;
+  loggedInUser: string;
   accessToken: string;
   refreshToken: string;
   updatedTokensAvailableEventKey: string;
@@ -53,7 +53,7 @@ export interface AppConfig {
 export const DEFAULT_LOGIN_CONFIG: LoginConfig = {
   systemKey: 'test',
   loginDataKey: 'loginData',
-  loginUsername: 'loginUsername',
+  loggedInUser: 'loggedInUser',
   accessToken: 'accessToken',
   refreshToken: 'refreshToken',
   updatedTokensAvailableEventKey: 'user:loggedIn',

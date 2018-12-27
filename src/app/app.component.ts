@@ -132,6 +132,7 @@ export class MyApp {
   private logoutEventComplete = () => {
     this.pages = this.loggedOutPages;
     this.storage.saveLocal(this.config.loginConfig.hasLoggedIn, false);
+    this.storage.clearConfig(this.config.loginConfig.loggedInUser);
   }
 
   /**
