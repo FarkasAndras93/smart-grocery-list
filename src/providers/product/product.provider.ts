@@ -90,4 +90,17 @@ export class ProductProvider {
     return Promise.resolve(true);
   }
 
+  /**
+   * Method to check product in grocery list.
+   *
+   * @param {number} id
+   * @param {boolean} state
+   * @memberof ProductProvider
+   */
+  checkProductInGrocery(id: number, state: boolean): Promise<boolean> {
+    // return this.http.get(this.apiUrl + "check/product").toPromise();
+
+    return Promise.resolve(true);
+  }
+
 }

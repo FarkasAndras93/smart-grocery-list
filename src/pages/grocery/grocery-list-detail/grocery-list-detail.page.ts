@@ -6,6 +6,7 @@ import { GroceryListProvider } from '../../../providers/grocery-list/grocery-lis
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 import { GlobalUtils } from '../../../utils/global-utils';
 import { GroceryProduct } from '../../../model/backend/product/grocery-product';
+import { ProductProvider } from '../../../providers/product/product.provider';
 
 @IonicPage()
 @Component({
@@ -32,7 +33,7 @@ export class GroceryListDetailPage {
 
 
   constructor(public navCtrl: NavController, private navParams: NavParams, public groceryListProvider: GroceryListProvider,
-    public modalCtrl: ModalController, private toast: ToastProvider) {
+    public modalCtrl: ModalController, private toast: ToastProvider, private productProvider: ProductProvider) {
     this.groceryList = this.navParams.get("grocery-list");
     this.headerModel = new HeaderModel(this.groceryList.name, HEADER_COLORS.BASE);
   }
@@ -46,8 +47,17 @@ export class GroceryListDetailPage {
    *
    * @memberof GroceryListPage
    */
-  public checkProduct() {
-    //TODO - update in database
+  public checkProduct(product: GroceryProduct) {
+    this.productProvider.checkProductInGrocery(product.id, product.checked).then(status => {
+      if (!status) {
+        this.toast.showErrorMessage("Failed to update product state!");
+      } else {
+        console.log("Product state was updated with success.");
+      }
+    }).catch(error => {
+      console.log("Error while updating product state.")
+      this.toast.showErrorMessage("Failed to update product state!");
+    })
   }
 
   /**
