@@ -66,4 +66,31 @@ export class MyFridgePage {
     });
   }
 
+  /**
+   * Method to edit product weight/procent/quantity
+   *
+   * @memberof MyFridgePage
+   */
+  public editProduct(product: MyProduct) {
+
+  }
+
+  /**
+   * Method to remove product from fridge.
+   *
+   * @memberof MyFridgePage
+   */
+  public removeProduct(product: MyProduct) {
+    this.productProvider.removeProductFromFridge(product.id).then((value) =>{
+      if (value) {
+        this.products.splice(this.products.indexOf(product), 1);
+      } else {
+        this.toast.showErrorMessage("Failed to remove product!");
+      }
+    }).catch(error =>{
+      console.log("Error while removing product from the fridge.");
+      this.toast.showErrorMessage("Error while removing product!");
+    })
+  }
+
 }

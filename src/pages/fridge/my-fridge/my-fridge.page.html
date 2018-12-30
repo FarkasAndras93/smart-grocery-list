@@ -8,6 +8,14 @@
       </ion-avatar>
       <h2>{{product.name}}</h2>
       <p>{{product.weight}}g</p>
+      <ion-buttons item-right>
+        <button ion-fab clear (click)="editProduct(product)" color="bluedark" class="list-item-button" style="margin-right:2px">
+          <ion-icon name="md-create"></ion-icon>
+        </button>
+        <button ion-fab clear (click)="removeProduct(product)" color="bluedark" class="list-item-button">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-buttons>
     </ion-item>
   </ion-list>
 </ion-content>

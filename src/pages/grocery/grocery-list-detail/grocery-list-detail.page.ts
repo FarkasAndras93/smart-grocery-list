@@ -47,7 +47,7 @@ export class GroceryListDetailPage {
    * @memberof GroceryListPage
    */
   public checkProduct() {
-
+    //TODO - update in database
   }
 
   /**
