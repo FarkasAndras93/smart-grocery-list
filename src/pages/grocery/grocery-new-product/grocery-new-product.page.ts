@@ -33,6 +33,14 @@ export class GroceryNewProductPage {
    */
   public possibleProducts: GroceryProduct[];
 
+  /**
+   * Filter products.
+   *
+   * @type {string}
+   * @memberof GroceryNewProductPage
+   */
+  public searchProduct: string;
+
 
   constructor(public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider,
     public viewCtrl: ViewController) {
