@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, ModalController } from 'ionic-angular';
+import { NavController, IonicPage, ModalController, AlertController } from 'ionic-angular';
 import { Product } from '../../../model/backend/product/product';
 import { ProductProvider } from '../../../providers/product/product.provider';
 import { HeaderModel, HEADER_COLORS } from '../../../model/frontend/common/HeaderModel';
@@ -33,7 +33,7 @@ export class MyFridgePage {
   public headerModel: HeaderModel;
 
 
-  constructor(public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider) {
+  constructor(public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider, private alertCtrl: AlertController) {
     this.headerModel = new HeaderModel("My fridge", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
   }
 
@@ -72,7 +72,44 @@ export class MyFridgePage {
    * @memberof MyFridgePage
    */
   public editProduct(product: MyProduct) {
+    this.productProvider.getProductWeightOnSensor().then((value: number) => {
+      let message = "";
+      if (value <= 0) {
+        message = "There is nothing on the sensor."
+      } else {
+        message = "The new product weight is:" + value + ". Do you want to update?"
+      }
 
+      let alert = this.alertCtrl.create({
+        title: "Edit product",
+        message: message,
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel'
+          },
+          {
+            text: 'Save',
+            handler: () => {
+              this.productProvider.editProductInTheFridge(product.id, value).then((success) => {
+                if (!success) {
+                  this.toast.showErrorMessage("Failed to update product weight!", 2000, false);
+                } else {
+                  this.products[this.products.indexOf(product)].weight = value;
+                }
+              }).catch(err => {
+                console.error("Error while updating product weight!", err);
+                this.toast.showErrorMessage("Failed to update product weight!", 2000, false);
+              });
+            }
+          }
+        ]
+      });
+      alert.present();
+    }).catch(error => {
+      console.log("Error while reading product weight on sensor!");
+      this.toast.showErrorMessage("Failed to read product weight on sensor!");
+    });
   }
 
   /**

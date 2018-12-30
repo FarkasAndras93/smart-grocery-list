@@ -84,7 +84,7 @@ export class ProductProvider {
    * @returns {Promise<boolean>}
    * @memberof ProductProvider
    */
-  editProductInTheFridge(id:number): Promise<boolean> {
+  editProductInTheFridge(id: number, weight: number): Promise<boolean> {
     // return this.http.get(this.apiUrl + "edit/product").toPromise();
 
     return Promise.resolve(true);
