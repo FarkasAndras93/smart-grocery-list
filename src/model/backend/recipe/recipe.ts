@@ -53,10 +53,13 @@ export class Recipe {
     public notes: RecipeNote[];
 
 
-    constructor(name: string, products: Product[], description: string, notes?: RecipeNote[]) {
+    constructor(name: string, products: Product[], description: string, notes?: RecipeNote[], userId?: number) {
         this.name = name;
         this.products = products;
         this.description = description;
         this.notes = GlobalUtils.isArrayNotNull(notes);
+        if (userId > 0 && !GlobalUtils.isUndefinedOrNull(userId)) {
+            this.userId = userId;
+        }
     }
 }

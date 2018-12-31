@@ -1,0 +1,24 @@
+<simple-app-header [header]="headerModel" (onCloseBtnClick)="dismissModal()"></simple-app-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label>Title:</ion-label>
+    <ion-input [(ngModel)]="newRecipe.name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Description:</ion-label>
+    <ion-input [(ngModel)]="newRecipe.description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label class="label-auto">Ingredients:</ion-label>
+    <ion-select [(ngModel)]="selectedProductId" multiple="true" cancelText="Cancel" okText="Ok">
+      <ion-option value="{{product.id}}" *ngFor="let product of possibleProducts">{{product.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-row>
+    <ion-col class="center">
+      <button ion-button (click)="createNewRecipe()">Create</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

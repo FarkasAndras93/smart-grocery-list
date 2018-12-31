@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, ModalController } from 'ionic-angular';
 import { HeaderModel, HEADER_COLORS } from '../../../model/frontend/common/HeaderModel';
 import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
 import { Recipe } from '../../../model/backend/recipe/recipe';
 import { RecipeProvider } from '../../../providers/recipe/recipe.provider';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
+import { GlobalUtils } from '../../../utils/global-utils';
 
 @IonicPage()
 @Component({
@@ -31,7 +32,7 @@ export class RecipeListPage {
   public recipeList: Recipe[];
 
 
-  constructor(public navCtrl: NavController, public recipeProvider: RecipeProvider, private toast: ToastProvider) {
+  constructor(public navCtrl: NavController, public recipeProvider: RecipeProvider, private toast: ToastProvider, private modalCtrl: ModalController) {
     this.headerModel = new HeaderModel("Recipe List", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
   }
 
@@ -59,7 +60,14 @@ export class RecipeListPage {
    * @memberof RecipeListPage
    */
   public createRecipe() {
-
+    let modal = this.modalCtrl.create('RecipeNewPage');
+    modal.present();
+    modal.onDidDismiss(result => {
+      if (!GlobalUtils.isUndefinedOrNull(result)) {
+        this.recipeList.push(result);
+        this.toast.showSuccessMessage("Recipe list was created.", undefined, false);
+      }
+    });
   }
 
 }
