@@ -8,6 +8,7 @@ import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple
 import { GlobalUtils } from '../../../utils/global-utils';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 import { MyProduct } from '../../../model/backend/product/my-product';
+import { StorageProvider } from '../../../providers/tehnical/storage/storage.provider';
 
 @IonicPage()
 @Component({
@@ -33,12 +34,13 @@ export class MyFridgePage {
   public headerModel: HeaderModel;
 
 
-  constructor(public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider, private alertCtrl: AlertController,
+    private storage: StorageProvider) {
     this.headerModel = new HeaderModel("My fridge", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
   }
 
   ionViewDidLoad() {
-    this.productProvider.getProductsInFrigider().then(result => {
+    this.productProvider.getProductsInFrigider(this.storage.getLoggedUser()).then(result => {
       this.products = result;
     }).catch(error =>{
       console.log("Error while geting products in frigider!");

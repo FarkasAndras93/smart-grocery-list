@@ -8,6 +8,7 @@ import { GroceryListProvider } from '../../../providers/grocery-list/grocery-lis
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 import { GroceryProduct } from '../../../model/backend/product/grocery-product';
 import { GlobalUtils } from '../../../utils/global-utils';
+import { StorageProvider } from '../../../providers/tehnical/storage/storage.provider';
 
 @IonicPage()
 @Component({
@@ -33,13 +34,14 @@ export class GroceryListPage {
   public groceryLists: GroceryList[];
 
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public groceryListProvider: GroceryListProvider, private toast: ToastProvider) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public groceryListProvider: GroceryListProvider, private toast: ToastProvider,
+    private storage: StorageProvider) {
     this.headerModel = new HeaderModel("Grocery List", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
     this.groceryLists = [];
   }
 
   ionViewDidLoad() {
-    this.groceryListProvider.getGroceryLists().then((groceryLists) => {
+    this.groceryListProvider.getGroceryLists(this.storage.getLoggedUser()).then((groceryLists) => {
       this.groceryLists = groceryLists;
     }).catch(error => {
       console.error("Error while geting grocery lists from backend!");
@@ -79,7 +81,7 @@ export class GroceryListPage {
    * @returns
    * @memberof GroceryListPage
    */
-  public getCheckedProductsNumber(groceryProduct: GroceryProduct[]){
+  public getCheckedProductsNumber(groceryProduct: GroceryProduct[]) {
     let checked = 0;
     groceryProduct.forEach((product) => {
       if (product.checked) {
