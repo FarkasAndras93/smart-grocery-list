@@ -1,7 +1,13 @@
-import { Product } from "../product/product";
 import { RecipeNote } from "./recipe-note";
 import { GlobalUtils } from "../../../utils/global-utils";
+import { MyProduct } from "../product/my-product";
 
+/**
+ * Recipe class
+ *
+ * @export
+ * @class Recipe
+ */
 export class Recipe {
 
     /**
@@ -34,7 +40,7 @@ export class Recipe {
      * @type {Product[]}
      * @memberof Recipe
      */
-    public products: Product[];
+    public products: MyProduct[];
 
     /**
      * Description of the recipe
@@ -53,7 +59,7 @@ export class Recipe {
     public notes: RecipeNote[];
 
 
-    constructor(name: string, products: Product[], description: string, notes?: RecipeNote[], userId?: number) {
+    constructor(name: string, products: MyProduct[], description: string, notes?: RecipeNote[], userId?: number) {
         this.name = name;
         this.products = products;
         this.description = description;
