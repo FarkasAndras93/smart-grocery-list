@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, IonicPage, ModalController } from 'ionic-angular';
+import { Component, Inject } from '@angular/core';
+import { NavController, IonicPage, ModalController, Events } from 'ionic-angular';
 import { HeaderModel, HEADER_COLORS } from '../../../model/frontend/common/HeaderModel';
 import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
@@ -7,6 +7,7 @@ import { Recipe } from '../../../model/backend/recipe/recipe';
 import { RecipeProvider } from '../../../providers/recipe/recipe.provider';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 import { GlobalUtils } from '../../../utils/global-utils';
+import { AppConfig, APP_CONFIG_TOKEN } from '../../../app/app.config';
 
 @IonicPage()
 @Component({
@@ -32,7 +33,8 @@ export class RecipeListPage {
   public recipeList: Recipe[];
 
 
-  constructor(public navCtrl: NavController, public recipeProvider: RecipeProvider, private toast: ToastProvider, private modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public recipeProvider: RecipeProvider, private toast: ToastProvider, private modalCtrl: ModalController,
+    private event: Events, @Inject(APP_CONFIG_TOKEN) private config: AppConfig) {
     this.headerModel = new HeaderModel("Recipe List", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
   }
 
@@ -43,6 +45,27 @@ export class RecipeListPage {
       console.error("Error while geting recipe list from backend!");
       this.toast.showErrorMessage("Error while geting recipe list from backend!");
     });
+    this.event.subscribe(this.config.newRecipeCreated, this.addNewRecipe);
+  }
+
+  /**
+   * On destroy unsubscribe
+   *
+   * @memberof RecipeListPage
+   */
+  ngOnDestroy() {
+    this.event.unsubscribe(this.config.newRecipeCreated, this.addNewRecipe);
+  }
+
+  
+  /**
+   * Add new recipe to recipe list.
+   *
+   * @memberof RecipeListPage
+   */
+  public addNewRecipe = (recipe) => {
+    this.recipeList.push(recipe);
+    this.toast.showSuccessMessage("Recipe list was created.", undefined, false);
   }
 
   /**
@@ -55,19 +78,12 @@ export class RecipeListPage {
   }
 
   /**
-   * Method to create a new grocery list.
+   * Method to navigate tonew grocery list page.
    *
    * @memberof RecipeListPage
    */
   public createRecipe() {
-    let modal = this.modalCtrl.create('RecipeNewPage');
-    modal.present();
-    modal.onDidDismiss(result => {
-      if (!GlobalUtils.isUndefinedOrNull(result)) {
-        this.recipeList.push(result);
-        this.toast.showSuccessMessage("Recipe list was created.", undefined, false);
-      }
-    });
+    this.navCtrl.push("RecipeNewPage");
   }
 
 }

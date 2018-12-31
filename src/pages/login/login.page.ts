@@ -1,12 +1,11 @@
-import { Component, Inject } from '@angular/core';
-import { NavController, IonicPage, ModalController, Events } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, IonicPage } from 'ionic-angular';
 import { User } from '../../model/backend/user/user';
 import { HeaderModel, HEADER_COLORS } from '../../model/frontend/common/HeaderModel';
 import { ButtonModel } from '../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../components/simple-app-header/simple-app-header.component';
 import { ToastProvider } from '../../providers/tehnical/toast/toast.provider';
 import { UserProvider } from '../../providers/user/user.provider';
-import { AppConfig, APP_CONFIG_TOKEN } from '../../app/app.config';
 
 @IonicPage()
 @Component({
@@ -32,8 +31,7 @@ export class LoginPage {
   public headerModel: HeaderModel;
 
 
-  constructor(public navCtrl: NavController, private toast: ToastProvider, private userProvider: UserProvider,
-    @Inject(APP_CONFIG_TOKEN) private config: AppConfig, private event: Events) {
+  constructor(public navCtrl: NavController, private toast: ToastProvider, private userProvider: UserProvider) {
     this.headerModel = new HeaderModel("Login page", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
     this.user = new User("", "");
   }

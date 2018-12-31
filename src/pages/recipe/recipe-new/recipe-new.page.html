@@ -9,11 +9,9 @@
     <ion-label>Description:</ion-label>
     <ion-input [(ngModel)]="newRecipe.description"></ion-input>
   </ion-item>
-  <ion-item>
+  <ion-item (click)="loadIngredientsSelect()">
     <ion-label class="label-auto">Ingredients:</ion-label>
-    <ion-select [(ngModel)]="selectedProductId" multiple="true" cancelText="Cancel" okText="Ok">
-      <ion-option value="{{product.id}}" *ngFor="let product of possibleProducts">{{product.name}}</ion-option>
-    </ion-select>
+    <ion-label>Selected ingredients should come here</ion-label>
   </ion-item>
 
   <ion-row>
