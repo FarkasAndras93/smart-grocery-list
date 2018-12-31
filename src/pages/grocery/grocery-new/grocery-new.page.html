@@ -1,0 +1,14 @@
+<simple-app-header [header]="headerModel" (onCloseBtnClick)="dismissModal()"></simple-app-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label>Name:</ion-label>
+    <ion-input [(ngModel)]="groceryListName"></ion-input>
+  </ion-item>
+
+  <ion-row>
+    <ion-col class="center">
+      <button ion-button (click)="createGroceryList()">Create</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

@@ -14,8 +14,14 @@ export class GroceryListProvider {
     console.log('Hello RestProvider Provider');
   }
 
+  /**
+   * Method to get all grocery list from database for user.
+   *
+   * @returns {Promise<GroceryList[]>}
+   * @memberof GroceryListProvider
+   */
   getGroceryLists(): Promise<GroceryList[]> {
-    // return this.http.get(this.apiUrl + "/all/product").toPromise();
+    // return this.http.get(this.apiUrl + "/all/grocery").toPromise();
 
     let groceryLists: GroceryList[] = [
       new GroceryList("Grocery for christmas", [
@@ -32,10 +38,17 @@ export class GroceryListProvider {
     return Promise.resolve(groceryLists);
   }
 
-  getProductWeightOnSensor(): Promise<number> {
-    // return this.http.get(this.apiUrl + "sensor/product").toPromise();
+  /**
+   * Method to create grocery list for user.
+   *
+   * @param {GroceryList} groceryList
+   * @returns {Promise<GroceryList>}
+   * @memberof GroceryListProvider
+   */
+  createGroceryList(groceryList: GroceryList): Promise<GroceryList> {
+    // return this.http.get(this.apiUrl + "/create/grocery").toPromise();
 
-    return Promise.resolve(GlobalUtils.getRandomNumberBetween(0,2));
+    return Promise.resolve(groceryList);
   }
 
 }

@@ -53,12 +53,13 @@ export class ToastProvider {
    * Shows a success message, which disappears automatically
    * @param message message
    */
-  showSuccessMessage(message: string): Promise<any> {
+  showSuccessMessage(message: string, duration?: number, dismissOnPageChange? :boolean): Promise<any> {
+    duration = duration ? duration : message.length < 50 ? 3000 : message.length > 100 ? 5000 : 4000;
     let toast = this.toastCtrl.create({
       message: message,
-      duration: 1000,
+      duration: duration,
       position: 'middle',
-      dismissOnPageChange: true,
+      dismissOnPageChange: dismissOnPageChange,
       cssClass: 'success-toast'
     });
 
