@@ -6,6 +6,9 @@ import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple
 import { GroceryList } from '../../../model/backend/grocery-list/grocery-list';
 import { GroceryListProvider } from '../../../providers/grocery-list/grocery-list.provider';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
+import { GroceryProduct } from '../../../model/backend/product/grocery-product';
+import { CheckedProductsPipe } from '../../../pipes/checked-products/checked-products.pipe';
+import { Product } from '../../../model/backend/product/product';
 
 @IonicPage()
 @Component({
@@ -45,13 +48,22 @@ export class GroceryListPage {
     });
   }
 
+  ionViewDidEnter() {
+    //TODO - ugly solution to update checked products
+    let copy = Object.assign([], this.groceryLists);
+    this.groceryLists = [];
+    setInterval(() => {
+      this.groceryLists = Object.assign([], copy);
+    }, 300);
+  }
+
   /**
    * Method to open grocery list.
    *
    * @memberof GroceryListPage
    */
   public openGroceryList(groceryList: GroceryList) {
-    this.navCtrl.push("GroceryListDetailPage", {"grocery-list": groceryList});
+    this.navCtrl.push("GroceryListDetailPage", { "grocery-list": groceryList });
   }
 
   /**
@@ -60,6 +72,8 @@ export class GroceryListPage {
    * @memberof GroceryListPage
    */
   public createGroceryList() {
+    console.log(JSON.stringify(this.groceryLists));
+    // this.groceryLists.push(new GroceryList("test", [new GroceryProduct(new Product("", null), true)], ""));
 
   }
 

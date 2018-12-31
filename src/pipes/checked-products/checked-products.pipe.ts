@@ -18,6 +18,6 @@ export class CheckedProductsPipe implements PipeTransform {
         checked++;
       }
     });
-    return products.length + "/" + checked;
+    return checked + "/" + products.length;
   }
 }
