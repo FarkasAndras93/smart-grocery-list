@@ -17,10 +17,11 @@ export class GroceryListProvider {
   /**
    * Method to get all grocery list from database for user.
    *
+   * @param {number} userId - logged user id
    * @returns {Promise<GroceryList[]>}
    * @memberof GroceryListProvider
    */
-  getGroceryLists(): Promise<GroceryList[]> {
+  getGroceryLists(userId: number): Promise<GroceryList[]> {
     // return this.http.get(this.apiUrl + "/all/grocery").toPromise();
 
     let groceryLists: GroceryList[] = [

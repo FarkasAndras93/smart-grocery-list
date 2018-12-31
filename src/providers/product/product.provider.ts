@@ -15,10 +15,11 @@ export class ProductProvider {
   /**
    * Method to return all product from the fridge.
    *
+   * @param {number} userId - logged user id
    * @returns {Promise<MyProduct[]>}
    * @memberof ProductProvider
    */
-  getProductsInFrigider(): Promise<MyProduct[]> {
+  getProductsInFrigider(userId: number): Promise<MyProduct[]> {
     // return this.http.get(this.apiUrl + "/all/firdge/product").toPromise();
 
     let products: MyProduct[] = [
