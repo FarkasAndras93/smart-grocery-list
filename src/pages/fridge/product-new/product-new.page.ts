@@ -8,6 +8,7 @@ import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple
 import { GlobalUtils } from '../../../utils/global-utils';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 import { MyProduct } from '../../../model/backend/product/my-product';
+import { StorageProvider } from '../../../providers/tehnical/storage/storage.provider';
 
 @IonicPage()
 @Component({
@@ -50,7 +51,7 @@ export class ProductNewPage {
 
 
   constructor(public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider,
-    public viewCtrl: ViewController) {
+    public viewCtrl: ViewController, private storage: StorageProvider) {
     this.headerModel = new HeaderModel("New product", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
     this.myProduct = new MyProduct("", undefined, 0);
@@ -93,7 +94,7 @@ export class ProductNewPage {
       let product: Product = this.getMyProductForId();
       this.myProduct.name = product.name;
       this.myProduct.type = product.type;
-      //TODO - set userId for myProduct from local storage
+      this.myProduct.userId = this.storage.getLoggedUser();
       this.viewCtrl.dismiss(this.myProduct);
     }
   }

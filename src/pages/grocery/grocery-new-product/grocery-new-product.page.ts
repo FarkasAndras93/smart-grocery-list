@@ -77,7 +77,6 @@ export class GroceryNewProductPage {
         newProducts.push(this.possibleProducts[i])
       }
     }
-    //TODO - set userId for myProducts from local storage
     this.viewCtrl.dismiss(newProducts);
   }
 }

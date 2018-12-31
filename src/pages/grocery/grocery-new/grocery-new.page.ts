@@ -7,6 +7,7 @@ import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider'
 import { GroceryList } from '../../../model/backend/grocery-list/grocery-list';
 import { GlobalUtils } from '../../../utils/global-utils';
 import { GroceryListProvider } from '../../../providers/grocery-list/grocery-list.provider';
+import { StorageProvider } from '../../../providers/tehnical/storage/storage.provider';
 
 @IonicPage()
 @Component({
@@ -32,7 +33,7 @@ export class GroceryNewPage {
   public groceryListName: string;
 
 
-  constructor(private toast: ToastProvider, public viewCtrl: ViewController, private groceryProvider: GroceryListProvider) {
+  constructor(private toast: ToastProvider, public viewCtrl: ViewController, private groceryProvider: GroceryListProvider, private storage: StorageProvider) {
     this.headerModel = new HeaderModel("New grocery list", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
   }
@@ -55,9 +56,8 @@ export class GroceryNewPage {
     if (GlobalUtils.isEmpty(this.groceryListName)) {
       this.toast.showErrorMessage("Grocery list name cannot be empty!");
     } else {
-      let newGroceryList: GroceryList = new GroceryList(this.groceryListName, [], new Date().toString());
+      let newGroceryList: GroceryList = new GroceryList(this.groceryListName, [], new Date().toString(), this.storage.getLoggedUser());
       this.groceryProvider.createGroceryList(newGroceryList).then((groceryList) => {
-        //TODO - set userId for myProducts from local storage
         this.viewCtrl.dismiss(groceryList);
       }).catch(error => {
         console.log("Error while creating grocery list!");

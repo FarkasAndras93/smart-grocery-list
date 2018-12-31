@@ -50,6 +50,8 @@ export abstract class StorageProvider {
   abstract getConfig(key: string): string;
   abstract clearConfig(key: string): string;
 
+  abstract getLoggedUser(): any;
+
 }
 
 
@@ -143,6 +145,14 @@ export class StorageProviderLocal extends StorageProvider {
   }
 
 
+  /**
+   * Method to get logged user from local storage.
+   *
+   * @memberof StorageProviderLocal
+   */
+  getLoggedUser(): any {
+    return this.getLocal(this.config.loginConfig.loggedInUser);
+  }
 }
 
 /**

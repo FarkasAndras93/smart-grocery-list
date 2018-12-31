@@ -1,4 +1,5 @@
 import { GroceryProduct } from "../product/grocery-product";
+import { GlobalUtils } from "../../../utils/global-utils";
 
 export class GroceryList {
 
@@ -34,11 +35,20 @@ export class GroceryList {
      */
     public products: GroceryProduct[];
 
+    /**
+     * When was the grocery list created.
+     *
+     * @type {string}
+     * @memberof GroceryList
+     */
     public date: string;
 
-    constructor(name: string, products: GroceryProduct[], date: string) {
+    constructor(name: string, products: GroceryProduct[], date: string, userId?: number) {
         this.name = name;
         this.products = products;
         this.date = date;
+        if (userId > 0 && !GlobalUtils.isUndefinedOrNull(userId)){
+            this.userId = userId;
+        }
     }
 }
