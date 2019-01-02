@@ -4,7 +4,12 @@
   <ion-item *ngFor="let groceryList of groceryLists" (click)="openGroceryList(groceryList)">
     <h2>{{groceryList.name}}</h2>
     <p>{{groceryList.date | date:"MM/dd/yyyy"}}</p>
-    <label class="complete-number">{{getCheckedProductsNumber(groceryList.products)}}</label>
+    <label item-right>{{getCheckedProductsNumber(groceryList.products)}}</label>
+    <ion-buttons item-right>
+      <button ion-fab clear (click)="removeGroceryList(groceryList)" color="bluedark" class="list-item-button">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-item>
 </ion-content>
 

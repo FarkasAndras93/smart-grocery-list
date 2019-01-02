@@ -75,6 +75,25 @@ export class GroceryListPage {
   }
 
   /**
+   * Method to delete grocery list.
+   *
+   * @param {GroceryList} groceryList
+   * @memberof GroceryListPage
+   */
+  public removeGroceryList(groceryList: GroceryList) {
+    this.groceryListProvider.removeGroceryList(groceryList.id).then((value) =>{
+      if (value) {
+        this.groceryLists.splice(this.groceryLists.indexOf(groceryList), 1);
+      } else {
+        this.toast.showErrorMessage("Failed to delete grocery list!");
+      }
+    }).catch(error =>{
+      console.log("Error while deleting grocery list!.");
+      this.toast.showErrorMessage("Error to delete grocery list!");
+    })
+  }
+
+  /**
    * Method to calculate checked products number for grocery lists.
    *
    * @param {GroceryProduct[]} groceryProduct

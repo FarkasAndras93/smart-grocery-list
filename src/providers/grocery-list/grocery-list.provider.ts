@@ -53,4 +53,17 @@ export class GroceryListProvider {
     return Promise.resolve(groceryList);
   }
 
+  /**
+   * Method to delete grocery list.
+   *
+   * @param {number} id
+   * @returns {Promise<boolean>}
+   * @memberof ProductProvider
+   */
+  removeGroceryList(id: number): Promise<boolean> {
+    // return this.http.get(this.apiUrl + "remove/groceryList").toPromise();
+
+    return Promise.resolve(true);
+  }
+
 }
