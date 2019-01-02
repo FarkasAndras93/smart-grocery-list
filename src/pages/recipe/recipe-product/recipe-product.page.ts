@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, ViewController } from 'ionic-angular';
+import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 import { HeaderModel } from '../../../model/frontend/common/HeaderModel';
 import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
@@ -47,16 +47,23 @@ export class RecipeProductPage {
 
 
   constructor(private toast: ToastProvider, public viewCtrl: ViewController, private groceryProvider: GroceryListProvider, private storage: StorageProvider,
-    public productProvider: ProductProvider) {
+    public productProvider: ProductProvider, private navParams: NavParams) {
     this.headerModel = new HeaderModel("New recipe", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
   }
 
   ionViewDidLoad() {
     this.possibleProducts = [];
+    if (!GlobalUtils.isUndefinedOrNull(this.navParams.get("products") && this.navParams.get("products").length > 0)) {
+      this.navParams.get("products").forEach(product => {
+        this.possibleProducts.push(new RecipeProduct(product.name, product.type, product.weight, true));
+      });
+    }
     this.productProvider.getAllProducts().then((products) => {
       products.forEach(product => {
-        this.possibleProducts.push(new RecipeProduct(product.name, product.type, 0, false));
+        if (GlobalUtils.isUndefinedOrNull(this.possibleProducts.filter(function (obj) { return obj.name == product.name })[0])) {
+          this.possibleProducts.push(new RecipeProduct(product.name, product.type, 0, false));
+        }
       });
     }).catch(error => {
       console.error("Error while returning all products.");
@@ -78,7 +85,12 @@ export class RecipeProductPage {
    * @memberof RecipeProductPage
    */
   public addProducts() {
-    let products: RecipeProduct[] = this.possibleProducts.filter(product => product.checked == true);
+    let products: RecipeProduct[] = this.possibleProducts.filter(product => {
+      return (product.checked == true &&
+        GlobalUtils.isUndefinedOrNull(this.navParams.get("products").filter(prod => prod.name == product.name)[0])) ||
+        (product.checked == false &&
+        !GlobalUtils.isUndefinedOrNull(this.navParams.get("products").filter(prod => prod.name == product.name)[0]))
+    });
     if (products.filter(
       product => {
         if (GlobalUtils.isUndefinedOrNull(product.weight) || product.weight <= 0) {
@@ -89,11 +101,7 @@ export class RecipeProductPage {
       }).length > 0) {
       this.toast.showErrorMessage("All checked products needs to have weight value!")
     } else {
-      let selectedProducts: MyProduct[] = [];
-      products.forEach(product => {
-        selectedProducts.push(new MyProduct(product.name, product.type, product.weight));
-      })
-      this.viewCtrl.dismiss(selectedProducts);
+      this.viewCtrl.dismiss(products);
     }
   }
 
