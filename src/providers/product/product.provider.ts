@@ -111,7 +111,7 @@ export class ProductProvider {
    * @param {MyProduct} product
    * @memberof ProductProvider
    */
-  addProductInFridge(userId: number, product: MyProduct): Promise<MyProduct> {
+  addProductInFridge(product: MyProduct): Promise<MyProduct> {
     // return this.http.get(this.apiUrl + "create/my/product").toPromise();
 
     product.id = GlobalUtils.getRandomNumberBetween(5, 9999999);

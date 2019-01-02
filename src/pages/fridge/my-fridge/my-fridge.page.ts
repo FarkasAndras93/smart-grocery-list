@@ -59,7 +59,7 @@ export class MyFridgePage {
     modal.onDidDismiss(result => {
       if (!GlobalUtils.isUndefinedOrNull(result)) {
         if (result instanceof MyProduct) {
-          this.productProvider.addProductInFridge(this.storage.getLoggedUser(), result).then(newProduct => {
+          this.productProvider.addProductInFridge(result).then(newProduct => {
             this.products.push(result);
             this.toast.showSuccessMessage("Product added with success.");
           }).catch(err =>{

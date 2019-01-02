@@ -49,6 +49,7 @@ export class GroceryListProvider {
   createGroceryList(groceryList: GroceryList): Promise<GroceryList> {
     // return this.http.get(this.apiUrl + "/create/grocery").toPromise();
 
+    groceryList.id = GlobalUtils.getRandomNumberBetween(5, 999999999);
     return Promise.resolve(groceryList);
   }
 
