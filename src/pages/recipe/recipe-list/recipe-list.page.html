@@ -6,7 +6,7 @@
       <h2>{{recipe.name}}</h2>
       <p>{{recipe.description}}</p>
       <ion-buttons item-right>
-        <button ion-fab clear (click)="editRecipe(recipe)" color="bluedark" class="list-item-button" style="margin-right:2px">
+        <button ion-fab clear (click)="editRecipe($event, recipe)" color="bluedark" class="list-item-button" style="margin-right:2px">
           <ion-icon name="md-create"></ion-icon>
         </button>
         <button ion-fab clear (click)="removeRecipe(recipe)" color="bluedark" class="list-item-button">

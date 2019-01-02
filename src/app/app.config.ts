@@ -50,6 +50,8 @@ export interface AppConfig {
 
   newRecipeCreated: string;
 
+  recipeEdited: string;
+
 }
 
 export const DEFAULT_LOGIN_CONFIG: LoginConfig = {
@@ -98,7 +100,9 @@ export const CONFIG_DEFAULT: AppConfig = {
 
   userAlias: "userAlias",
 
-  newRecipeCreated: "newRecipeCreated"
+  newRecipeCreated: "newRecipeCreated",
+  
+  recipeEdited: "recipeEdited"
 
 }
 

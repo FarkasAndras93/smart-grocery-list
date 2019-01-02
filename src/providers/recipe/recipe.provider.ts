@@ -27,7 +27,7 @@ export class RecipeProvider {
 
     let recipeList: Recipe[] = [
       new Recipe("Sandwich", [new MyProduct("Salami", PRODUCT_TYPES.MEATS, 100), new MyProduct("Butter", PRODUCT_TYPES.DAIRY_PRODUCT, 30),
-        new MyProduct("Bread", PRODUCT_TYPES.PASTRY, 200)], "Cut two slice from the bread and put the butter on the bread slices. After this you can put the salami slices too.",
+      new MyProduct("Bread", PRODUCT_TYPES.PASTRY, 200)], "Cut two slice from the bread and put the butter on the bread slices. After this you can put the salami slices too.",
         [new RecipeNote("It was delicious.", new Date().toString()), new RecipeNote("Don`t forrget to make more times.", new Date().toString())]),
       new Recipe("Viennese", [], ""),
       new Recipe("Lasagne", [], "")
@@ -45,10 +45,23 @@ export class RecipeProvider {
    * @returns {Promise<boolean>}
    * @memberof RecipeProvider
    */
-  createRecipe(userId: number, recipe: Recipe): Promise<Recipe> {
+  createRecipe(recipe: Recipe): Promise<Recipe> {
     // return this.http.get(this.apiUrl + "/create/recipe").toPromise();
-    
+
     recipe.id = GlobalUtils.getRandomNumberBetween(4, 99999);
+    return Promise.resolve(recipe);
+  }
+
+  /**
+   * Method to update existent recipe.
+   *
+   * @param {Recipe} recipe
+   * @returns {Promise<Recipe>}
+   * @memberof RecipeProvider
+   */
+  updateRecipe(recipe: Recipe): Promise<Recipe> {
+    // return this.http.get(this.apiUrl + "/update/recipe").toPromise();
+
     return Promise.resolve(recipe);
   }
 

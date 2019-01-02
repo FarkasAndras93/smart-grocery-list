@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { IonicPage, ViewController, ModalController, Events, NavController } from 'ionic-angular';
-import { HeaderModel } from '../../../model/frontend/common/HeaderModel';
+import { IonicPage, ViewController, ModalController, Events, NavController, NavParams } from 'ionic-angular';
+import { HeaderModel, HEADER_COLORS } from '../../../model/frontend/common/HeaderModel';
 import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
@@ -33,7 +33,7 @@ export class RecipeNewPage {
    * @type {Recipe}
    * @memberof RecipeNewPage
    */
-  public newRecipe: Recipe;
+  public recipe: Recipe;
 
   /**
    * Label of the ingredients
@@ -45,10 +45,15 @@ export class RecipeNewPage {
 
 
   constructor(private toast: ToastProvider, public viewCtrl: ViewController, private navCtrl: NavController, private storage: StorageProvider,
-    public productProvider: ProductProvider, private modalCtrl: ModalController, private event: Events, @Inject(APP_CONFIG_TOKEN) private config: AppConfig) {
-    this.headerModel = new HeaderModel("New recipe", undefined, true, undefined,
-      new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
-    this.newRecipe = new Recipe("", [], "", [], storage.getLoggedUser());
+    public productProvider: ProductProvider, private modalCtrl: ModalController, private event: Events, @Inject(APP_CONFIG_TOKEN) private config: AppConfig,
+    private navParams: NavParams) {
+    this.headerModel = new HeaderModel("New recipe", HEADER_COLORS.BASE);
+    if (GlobalUtils.isUndefinedOrNull(navParams.get("recipe"))) {
+      this.recipe = new Recipe("", [], "", [], storage.getLoggedUser());
+    } else {
+      this.recipe = navParams.get("recipe");
+      this.setIngredientsLabel();
+    }
   }
 
   /**
@@ -66,25 +71,19 @@ export class RecipeNewPage {
    * @memberof RecipeNewPage
    */
   public loadIngredientsSelect() {
-    let modal = this.modalCtrl.create('RecipeProductPage', { "products": this.newRecipe.products });
+    let modal = this.modalCtrl.create('RecipeProductPage', { "products": this.recipe.products });
     modal.present();
     modal.onDidDismiss((result: RecipeProduct[]) => {
       if (!GlobalUtils.isUndefinedOrNull(result)) {
         if (result.length > 0) {
           result.forEach(product => {
             if (product.checked) {
-              this.newRecipe.products.push(new MyProduct(product.name, product.type, product.weight));
+              this.recipe.products.push(new MyProduct(product.name, product.type, product.weight));
             } else {
-              this.newRecipe.products = this.newRecipe.products.filter(obj => obj.name != product.name);
+              this.recipe.products = this.recipe.products.filter(obj => obj.name != product.name);
             }
           })
-          this.ingredientsLabel = "";
-          for (let i = 0; i < this.newRecipe.products.length; i++) {
-            this.ingredientsLabel += this.newRecipe.products[i].name;
-            if (i != this.newRecipe.products.length - 1) {
-              this.ingredientsLabel += ",";
-            }
-          }
+          this.setIngredientsLabel();
         }
       }
     });
@@ -95,14 +94,33 @@ export class RecipeNewPage {
    *
    * @memberof RecipeNewPage
    */
-  public createNewRecipe() {
-    if (GlobalUtils.isEmpty(this.newRecipe.name)) {
+  public editRecipe() {
+    if (GlobalUtils.isEmpty(this.recipe.name)) {
       this.toast.showErrorMessage("Recipe title cannot be empty!")
-    } else if (this.newRecipe.products.length == 0) {
+    } else if (this.recipe.products.length == 0) {
       this.toast.showErrorMessage("Recipe needs to have ingredients!")
     } else {
-      this.event.publish(this.config.newRecipeCreated, this.newRecipe);
+      if (GlobalUtils.isUndefinedOrNull(this.recipe.id)) {
+        this.event.publish(this.config.newRecipeCreated, this.recipe);
+      } else {
+        this.event.publish(this.config.recipeEdited, this.recipe);
+      }
       this.navCtrl.pop();
+    }
+  }
+
+  /**
+   * Method to set ingredients label.
+   *
+   * @memberof RecipeNewPage
+   */
+  public setIngredientsLabel() {
+    this.ingredientsLabel = "";
+    for (let i = 0; i < this.recipe.products.length; i++) {
+      this.ingredientsLabel += this.recipe.products[i].name;
+      if (i != this.recipe.products.length - 1) {
+        this.ingredientsLabel += ",";
+      }
     }
   }
 }

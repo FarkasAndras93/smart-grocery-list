@@ -3,11 +3,11 @@
 <ion-content padding>
   <ion-item>
     <ion-label>Title:</ion-label>
-    <ion-input [(ngModel)]="newRecipe.name"></ion-input>
+    <ion-input [(ngModel)]="recipe.name"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Description:</ion-label>
-    <ion-textarea [(ngModel)]="newRecipe.description" rows="4"></ion-textarea>
+    <ion-textarea [(ngModel)]="recipe.description" rows="4"></ion-textarea>
   </ion-item>
   <ion-item (click)="loadIngredientsSelect()">
     <ion-label class="label-auto">Ingredients:</ion-label>
@@ -16,7 +16,7 @@
 
   <ion-row>
     <ion-col class="center">
-      <button ion-button (click)="createNewRecipe()">Create</button>
+      <button ion-button (click)="editRecipe()">Save</button>
     </ion-col>
   </ion-row>
 </ion-content>

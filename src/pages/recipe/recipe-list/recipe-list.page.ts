@@ -47,6 +47,7 @@ export class RecipeListPage {
       this.toast.showErrorMessage("Error while geting recipe list from backend!");
     });
     this.event.subscribe(this.config.newRecipeCreated, this.addNewRecipe);
+    this.event.subscribe(this.config.recipeEdited, this.editRecipeInList);
   }
 
   /**
@@ -56,6 +57,7 @@ export class RecipeListPage {
    */
   ngOnDestroy() {
     this.event.unsubscribe(this.config.newRecipeCreated, this.addNewRecipe);
+    this.event.unsubscribe(this.config.recipeEdited, this.editRecipeInList);
   }
 
 
@@ -64,13 +66,28 @@ export class RecipeListPage {
    *
    * @memberof RecipeListPage
    */
-  public addNewRecipe = (recipe) => {
-    this.recipeProvider.createRecipe(this.storage.getLoggedUser(), recipe).then(newRecipe => {
+  public addNewRecipe = (recipe: Recipe) => {
+    this.recipeProvider.createRecipe(recipe).then(newRecipe => {
       this.recipeList.push(newRecipe);
       this.toast.showSuccessMessage("Recipe list was created.", undefined, false);
     }).catch(error => {
       console.log("Error while creating recipe!");
       this.toast.showSuccessMessage("Failed to create recipe.", undefined, false);
+    });
+  }
+
+  /**
+   * Edit recipe in the recipe list.
+   *
+   * @memberof RecipeListPage
+   */
+  public editRecipeInList = (recipe) => {
+    this.recipeProvider.updateRecipe(recipe).then(updatedRecipe => {
+      this.recipeList.filter(result => result.id == recipe.id)[0] = recipe;
+      this.toast.showSuccessMessage("Recipe list was edited.", undefined, false);
+    }).catch(error => {
+      console.log("Error while editing recipe!");
+      this.toast.showSuccessMessage("Failed to edit recipe.", undefined, false);
     });
   }
 
@@ -97,7 +114,18 @@ export class RecipeListPage {
   }
 
   /**
-   * Method to navigate tonew grocery list page.
+   * Method to navigate to edit recipe page.
+   *
+   * @param {Recipe} recipe
+   * @memberof RecipeListPage
+   */
+  public editRecipe(event: any, recipe: Recipe) {
+    event.stopPropagation();
+    this.navCtrl.push("RecipeNewPage", { "recipe": recipe });
+  }
+
+  /**
+   * Method to navigate to new recipe page.
    *
    * @memberof RecipeListPage
    */
