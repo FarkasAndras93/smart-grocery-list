@@ -7,7 +7,7 @@
   </ion-item>
   <ion-item>
     <ion-label>Description:</ion-label>
-    <ion-input [(ngModel)]="newRecipe.description"></ion-input>
+    <ion-textarea [(ngModel)]="newRecipe.description" rows="4"></ion-textarea>
   </ion-item>
   <ion-item (click)="loadIngredientsSelect()">
     <ion-label class="label-auto">Ingredients:</ion-label>
