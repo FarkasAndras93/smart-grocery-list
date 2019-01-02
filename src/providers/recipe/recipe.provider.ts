@@ -4,6 +4,7 @@ import { Recipe } from '../../model/backend/recipe/recipe';
 import { PRODUCT_TYPES } from '../../model/backend/product/product';
 import { RecipeNote } from '../../model/backend/recipe/recipe-note';
 import { MyProduct } from '../../model/backend/product/my-product';
+import { GlobalUtils } from '../../utils/global-utils';
 
 @Injectable()
 export class RecipeProvider {
@@ -14,8 +15,15 @@ export class RecipeProvider {
     console.log('Hello RestProvider Provider');
   }
 
-  getRecipeList(): Promise<Recipe[]> {
-    // return this.http.get(this.apiUrl + "/all/product").toPromise();
+  /**
+   * Get all recipe for user.
+   *
+   * @param {number} userId
+   * @returns {Promise<Recipe[]>}
+   * @memberof RecipeProvider
+   */
+  getRecipeList(userId: number): Promise<Recipe[]> {
+    // return this.http.get(this.apiUrl + "/all/recipe").toPromise();
 
     let recipeList: Recipe[] = [
       new Recipe("Sandwich", [new MyProduct("Salami", PRODUCT_TYPES.MEATS, 100), new MyProduct("Butter", PRODUCT_TYPES.DAIRY_PRODUCT, 30),
@@ -24,7 +32,37 @@ export class RecipeProvider {
       new Recipe("Viennese", [], ""),
       new Recipe("Lasagne", [], "")
     ];
+    recipeList[0].id = 1;
+    recipeList[1].id = 2;
+    recipeList[2].id = 3;
     return Promise.resolve(recipeList);
+  }
+
+  /**
+   * Create recipe for user.
+   *
+   * @param {Recipe} recipe
+   * @returns {Promise<boolean>}
+   * @memberof RecipeProvider
+   */
+  createRecipe(userId: number, recipe: Recipe): Promise<Recipe> {
+    // return this.http.get(this.apiUrl + "/create/recipe").toPromise();
+    
+    recipe.id = GlobalUtils.getRandomNumberBetween(4, 99999);
+    return Promise.resolve(recipe);
+  }
+
+  /**
+   * Method to delete recipe.
+   *
+   * @param {Recipe} recipe
+   * @returns {Promise<Recipe>}
+   * @memberof RecipeProvider
+   */
+  deleteRecipe(recipe: Recipe): Promise<boolean> {
+    // return this.http.get(this.apiUrl + "/delete/recipe").toPromise();
+
+    return Promise.resolve(true);
   }
 
 }

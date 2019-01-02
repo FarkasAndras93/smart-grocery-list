@@ -109,3 +109,15 @@ ion-datetime {
 .success-toast .toast-wrapper {
   border-bottom: 1px solid #00b900;
 }
+
+// edit and delete buttons on lists
+.list-item-button {
+  height: 25px;
+  width: 25px;
+  display:inline-block;
+  padding: 0 5px;
+  margin-right: -5px;
+  ion-icon {
+    font-size: 20px;
+  }
+}
