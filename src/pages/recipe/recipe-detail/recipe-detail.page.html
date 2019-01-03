@@ -11,10 +11,16 @@
     </ion-item>
   </ion-list>
   <h2>Notes:</h2>
-  <ion-list>
+  <div id="note-scroll">
     <ion-item *ngFor="let note of recipe.notes">
       <p>{{note.text}}</p>
-      <p>{{note.date | date:"MM/dd/yyyy"}}</p>
+      <p>{{note.date | date:"MM/dd/yyyy HH:mm"}}</p>
     </ion-item>
-  </ion-list>
+  </div>
+  <div class="message-form">
+    <ion-textarea rows="1" [(ngModel)]="myNote" placeholder="Add note"></ion-textarea>
+    <button ion-button secondary (click)="addNote()">
+        <ion-icon ios="md-arrow-forward" md="md-arrow-forward"></ion-icon>
+    </button>
+  </div>
 </ion-content>

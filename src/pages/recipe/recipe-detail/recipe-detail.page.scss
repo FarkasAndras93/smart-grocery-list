@@ -1,3 +1,41 @@
 recipe-detail {
 
+    #note-scroll {
+        height: 300px; 
+        overflow-y: auto;
+        background-color: #FFF;
+    }
+
+    .message-form {
+        position: relative;
+        padding: 7px;
+        min-height: 30px;
+        background-color: #e2e8ea;
+        display: flex;
+        align-items: stretch;
+    
+        .button {
+          width: 40px;
+          height: auto;
+          min-height: 30px;
+          box-shadow: none;
+          margin: 0;
+          text-align: center;
+          padding: 0;
+          line-height: 30px;
+          text-transform: none;
+          font-weight: 400;
+          font-size: 14px;
+        }
+      
+        textarea {
+          background:#FFF;
+          border: none;
+          margin: 0;
+          width: 100%;
+          padding: 6px;
+          height: 30px;
+          min-height: 30px;
+        }
+    }
 }
