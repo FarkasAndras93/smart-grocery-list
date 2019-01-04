@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { APP_CONFIG_TOKEN, AppConfig } from './app.config';
 import { StorageProvider } from '../providers/tehnical/storage/storage.provider';
+import * as firebase from 'firebase';
+
 
 /**
  * Side Menu Type
@@ -25,6 +27,15 @@ export enum MENU_TITLE {
   LOGIN = "Login",
   SETTINGS = "Settings"
 }
+
+export const  firebaseconfig =  {
+  apiKey: "AIzaSyAc3OYh3-4dbTQ8DPuVzDICUOmPW7EiZoM",
+  authDomain: "smartfridgeshoppinglist.firebaseapp.com",
+  databaseURL: "https://smartfridgeshoppinglist.firebaseio.com",
+  projectId: "smartfridgeshoppinglist",
+  storageBucket: "smartfridgeshoppinglist.appspot.com",
+  messagingSenderId: "561908035299"
+};
 
 
 @Component({
@@ -100,6 +111,7 @@ export class MyApp {
       this.event.subscribe(this.config.loginConfig.logoutEventKey, this.logoutEventComplete);
       this.event.subscribe(this.config.loginConfig.loggedInCompleteEventKey, this.loginEventComplete);
     });
+    firebase.initializeApp(firebaseconfig);
   }
 
   /**

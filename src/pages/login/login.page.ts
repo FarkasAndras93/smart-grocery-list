@@ -6,6 +6,7 @@ import { ButtonModel } from '../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../components/simple-app-header/simple-app-header.component';
 import { ToastProvider } from '../../providers/tehnical/toast/toast.provider';
 import { UserProvider } from '../../providers/user/user.provider';
+import {AngularFireAuth} from 'angularfire2/auth'
 
 @IonicPage()
 @Component({
@@ -31,7 +32,7 @@ export class LoginPage {
   public headerModel: HeaderModel;
 
 
-  constructor(public navCtrl: NavController, private toast: ToastProvider, private userProvider: UserProvider) {
+  constructor(private afAuth: AngularFireAuth,public navCtrl: NavController, private toast: ToastProvider, private userProvider: UserProvider) {
     this.headerModel = new HeaderModel("Login page", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
     this.user = new User("", "");
   }
@@ -61,5 +62,22 @@ export class LoginPage {
           }
           return error;
         })
+  }
+
+  public register(){
+    this.navCtrl.push("RegisterPage");
+  }
+
+  async loginFirebase(user: User){
+    try{
+      const result = this.afAuth.auth.signInWithEmailAndPassword(user.username, user.password);
+      console.log(result);
+      if(result){
+        this.navCtrl.setRoot("HomePage");
+      }
+      
+    }catch(e){
+      console.error(e);
+    }
   }
 }
