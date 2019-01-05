@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GlobalUtils } from '../../utils/global-utils';
 import { GroceryList } from '../../model/backend/grocery-list/grocery-list';
-import { Product, PRODUCT_TYPES } from '../../model/backend/product/product';
+import { PRODUCT_TYPES } from '../../model/backend/product/product';
 import { GroceryProduct } from '../../model/backend/product/grocery-product';
+import { MyProduct } from '../../model/backend/product/my-product';
 
 @Injectable()
 export class GroceryListProvider {
@@ -26,11 +27,11 @@ export class GroceryListProvider {
 
     let groceryLists: GroceryList[] = [
       new GroceryList("Grocery for christmas", [
-        new GroceryProduct(new Product("Salami", PRODUCT_TYPES.MEATS), false),
-        new GroceryProduct(new Product("Butter", PRODUCT_TYPES.DAIRY_PRODUCT), false),
-        new GroceryProduct(new Product("Milk", PRODUCT_TYPES.DAIRY_PRODUCT), false),
-        new GroceryProduct(new Product("Pasta", PRODUCT_TYPES.PASTRY), false),
-        new GroceryProduct(new Product("Bread", PRODUCT_TYPES.GRAIN_PARTIES), false)
+        new GroceryProduct(new MyProduct("Salami", PRODUCT_TYPES.MEATS, 500), false),
+        new GroceryProduct(new MyProduct("Butter", PRODUCT_TYPES.DAIRY_PRODUCT, 200), false),
+        new GroceryProduct(new MyProduct("Milk", PRODUCT_TYPES.DAIRY_PRODUCT, 1000), false),
+        new GroceryProduct(new MyProduct("Pasta", PRODUCT_TYPES.PASTRY, 300), false),
+        new GroceryProduct(new MyProduct("Bread", PRODUCT_TYPES.GRAIN_PARTIES, 1000), false)
       ], new Date().toString()),
       new GroceryList("Grocery for new year", [], new Date().toString()),
       new GroceryList("Grocery for my birthday", [], new Date().toString())
