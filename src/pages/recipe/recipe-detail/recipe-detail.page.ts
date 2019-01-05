@@ -12,6 +12,7 @@ import { ProductProvider } from '../../../providers/product/product.provider';
 import { GroceryListProvider } from '../../../providers/grocery-list/grocery-list.provider';
 import { GroceryList } from '../../../model/backend/grocery-list/grocery-list';
 import { GroceryProduct } from '../../../model/backend/product/grocery-product';
+import { MyProduct } from '../../../model/backend/product/my-product';
 
 @IonicPage()
 @Component({
@@ -64,11 +65,12 @@ export class RecipeDetailPage {
   public createGroceryList() {
     this.productProvider.getProductsInFrigider(this.storage.getLoggedUser()).then(productsInFridge => {
       let productsNeeded: GroceryProduct[] = [];
-      this.recipe.products.forEach(recieProduct => {
-        let prodInFridge = productsInFridge.filter(fridgeProd => fridgeProd.name == recieProduct.name)[0];
-        if (GlobalUtils.isUndefinedOrNull(prodInFridge) || prodInFridge.weight < recieProduct.weight) {
-          this.productProvider.getProductForName(recieProduct.name).then(product => {
-            productsNeeded.push(new GroceryProduct(product, false));
+      this.recipe.products.forEach(recipeProduct => {
+        let prodInFridge = productsInFridge.filter(fridgeProd => fridgeProd.name == recipeProduct.name)[0];
+        if (GlobalUtils.isUndefinedOrNull(prodInFridge) || prodInFridge.weight < recipeProduct.weight) {
+          this.productProvider.getProductForName(recipeProduct.name).then(product => {
+            productsNeeded.push(new GroceryProduct(new MyProduct(product.name, product.type, 
+              GlobalUtils.isUndefinedOrNull(prodInFridge) ? recipeProduct.weight : recipeProduct.weight - prodInFridge.weight), false));
           }).catch(error =>{
             console.log("Error while geting product for name!", error);
             this.toast.showErrorMessage("Error not all products are added to grocery list!");
