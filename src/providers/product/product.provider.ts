@@ -32,6 +32,19 @@ export class ProductProvider {
   }
 
   /**
+   * Method to get product for name.
+   *
+   * @param {string} productName
+   * @returns {Promise<Product>}
+   * @memberof ProductProvider
+   */
+  getProductForName(productName: string): Promise<Product> {
+    // return this.http.get(this.apiUrl + "/name/product").toPromise();
+
+    return Promise.resolve(new Product("test", PRODUCT_TYPES.MEATS));
+  }
+
+  /**
    * Method to return product weight on sensor.
    *
    * @returns {Promise<number>}

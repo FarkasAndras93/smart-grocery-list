@@ -1,8 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { IonicPage, ViewController, ModalController, Events, NavController, NavParams } from 'ionic-angular';
 import { HeaderModel, HEADER_COLORS } from '../../../model/frontend/common/HeaderModel';
-import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
-import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 import { GlobalUtils } from '../../../utils/global-utils';
 import { StorageProvider } from '../../../providers/tehnical/storage/storage.provider';

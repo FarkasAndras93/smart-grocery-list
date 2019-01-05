@@ -1,4 +1,5 @@
 import { Product } from "./product";
+import { MyProduct } from "./my-product";
 
 /**
  * Product checked.
@@ -19,10 +20,10 @@ export class GroceryProduct {
     /**
      * Product for buy.
      *
-     * @type {Product}
+     * @type {MyProduct}
      * @memberof GroceryProduct
      */
-    public product: Product;
+    public product: MyProduct;
 
     /**
      * Type of the product.
@@ -32,7 +33,7 @@ export class GroceryProduct {
      */
     public checked: boolean;
 
-    constructor(product: Product, checked: boolean) {
+    constructor(product: MyProduct, checked: boolean) {
         this.product = product;
         this.checked = checked;
     }

@@ -5,6 +5,8 @@ import { HeaderModel } from '../../../model/frontend/common/HeaderModel';
 import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
 import { GroceryProduct } from '../../../model/backend/product/grocery-product';
+import { MyProduct } from '../../../model/backend/product/my-product';
+import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 
 @IonicPage()
 @Component({
@@ -38,7 +40,7 @@ export class GroceryNewProductPage {
   public searchProduct: string;
 
 
-  constructor(public productProvider: ProductProvider, public viewCtrl: ViewController) {
+  constructor(public productProvider: ProductProvider, public viewCtrl: ViewController, private toast: ToastProvider) {
     this.headerModel = new HeaderModel("New products", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
   }
@@ -47,7 +49,7 @@ export class GroceryNewProductPage {
     this.possibleProducts = [];
     this.productProvider.getAllProducts().then((products) => {
       products.forEach(product => {
-        this.possibleProducts.push(new GroceryProduct(product, false));
+        this.possibleProducts.push(new GroceryProduct(new MyProduct(product.name, product.type, 0), false));
       });
     }).catch(error => {
       console.error("Error while returning all products.");
@@ -73,6 +75,10 @@ export class GroceryNewProductPage {
     let newProducts: GroceryProduct[] = [];
     for (let i = 0; i < this.possibleProducts.length; i++) {
       if (this.possibleProducts[i].checked == true) {
+        if (this.possibleProducts[i].product.weight <= 0) {
+          this.toast.showErrorMessage("All checked products needs to have weight value!");
+          return;
+        }
         this.possibleProducts[i].checked = false;
         newProducts.push(this.possibleProducts[i])
       }

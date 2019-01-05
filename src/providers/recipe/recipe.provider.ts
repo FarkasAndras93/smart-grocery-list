@@ -78,4 +78,18 @@ export class RecipeProvider {
     return Promise.resolve(true);
   }
 
+  /**
+   * Method to create recipe note.
+   *
+   * @param {Recipe} recipeId
+   * @param {RecipeNote} note
+   * @memberof RecipeProvider
+   */
+  createNote(recipeId: number, note: RecipeNote): Promise<RecipeNote> {
+    // return this.http.get(this.apiUrl + "/create/note/recipe").toPromise();
+
+    note.id = GlobalUtils.getRandomNumberBetween(5, 99999999);
+    return Promise.resolve(note);
+  }
+
 }
