@@ -3,32 +3,123 @@ import { HttpClient } from '@angular/common/http';
 import { PRODUCT_TYPES, Product } from '../../model/backend/product/product';
 import { GlobalUtils } from '../../utils/global-utils';
 import { MyProduct } from '../../model/backend/product/my-product';
+import { MyProductFirebase } from '../../model/backend/product/my-product-firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import {FirebaseObjectObservable} from 'firebase/database'
+import { Observable } from 'rxjs';
+import { Action } from 'rxjs/scheduler/Action';
+import { FirebaseAuth } from 'angularfire2';
 
 @Injectable()
 export class ProductProvider {
 
   private apiUrl = 'https://restcountries.eu/rest/v2/all';
+  private userUid ;
 
-  constructor(public http: HttpClient) {
+  private products : Product[];
+  private myProducts: MyProduct[];
+  private  myProductsF :MyProductFirebase[] ;
+  private  productsObservables : Observable<any>;
+  private myProductObservables : Observable<any>;
+
+  constructor(public http: HttpClient,private afAuth :AngularFireAuth, private fdb: AngularFireDatabase) {
+    // return this.http.get(this.apiUrl + "/all/firdge/product").toPromise();
+    //let products : Produssct[] ;t
+  
+    this.afAuth.authState.subscribe(data =>{
+      if(data && data.email && data.uid){
+        this.userUid = data.uid;
+        console.log(this.userUid);
+      }
+      });
+    let productsObservables : Observable<any>;
+    let myProductObservables : Observable<any>;
+
+    productsObservables = this.fdb.object("Product").valueChanges();
+    // productsObservables.forEach( p => {
+    //   this.products = p;
+    //     console.log("here...");
+    //     console.log(this.products);
+    // });
+
+    productsObservables.forEach(p => {
+      this.products = p;
+        console.log("here...");
+        console.log(this.products);
+    })
+    // await GlobalUtils.asyncForEach(productsObservables,async(prodObs:any) =>{
+    //     this.products = prodObs;
+    //     console.log("here...");
+    //     console.log(this.products);
+    // });
+    myProductObservables = this.fdb.object("MyProduct").valueChanges();
+    this.myProductsF = [];
+
+    myProductObservables.forEach(mp =>{
+      this.myProductsF=mp;
+      console.log(this.myProductsF);
+    })
+    // await GlobalUtils.asyncForEach(myProductObservables, async(myProd:any) => {
+    //   this.myProductsF=myProd;
+    //   console.log(this.myProductsF);
+    // }) ;
+    this.myProducts = [];
+    this.myProductsF.forEach(myProdf => {
+      console.log("...");
+      console.log(myProdf.userId);
+      console.log(this.userUid);
+      console.log("....");
+      if(myProdf.userId == this.userUid){
+        let p : Product ;
+        this.products.forEach(productt => {
+          if(productt.id == myProdf.productId){
+            p=productt;
+            console.log(p);
+          }
+        })
+        // await GlobalUtils.asyncForEach(this.products, async(productt:any) =>{
+        //   if(productt.id == myProdf.productId){
+        //     p=productt;
+        //     console.log(p);
+        //   }
+        //});
+        let mp : MyProduct = new MyProduct(p.id, p.name, p.type, myProdf.weight);
+        console.log(mp);
+        this.myProducts.push(mp);
+      }
+    })
+    // await GlobalUtils.asyncForEach(this.myProductsF, async(myProdf:any) =>{
+    //   console.log("...");
+    //   console.log(myProdf.userId);
+    //   console.log(this.userUid);
+    //   console.log("....");
+    //   if(myProdf.userId == this.userUid){
+    //     let p : Product ;
+    //     await GlobalUtils.asyncForEach(this.products, async(productt:any) =>{
+    //       if(productt.id == myProdf.productId){
+    //         p=productt;
+    //         console.log(p);
+    //       }
+    //     });
+    //     let mp : MyProduct = new MyProduct(p.id, p.name, p.type, myProdf.weight);
+    //     console.log(mp);
+    //     this.myProducts.push(mp);
+    //   }
+    // });
+      
   }
 
   /**
    * Method to return all product from the fridge.
-   *
-   * @param {number} userId - logged user id
    * @returns {Promise<MyProduct[]>}
    * @memberof ProductProvider
    */
-  getProductsInFrigider(userId: number): Promise<MyProduct[]> {
-    // return this.http.get(this.apiUrl + "/all/firdge/product").toPromise();
+async getProductsInFrigider(): Promise<MyProduct[]> {
 
-    let products: MyProduct[] = [
-      new MyProduct("cheese", PRODUCT_TYPES.DAIRY_PRODUCT, 200),
-      new MyProduct("potato", PRODUCT_TYPES.VEGETABLE, 1000),
-      new MyProduct("ham", PRODUCT_TYPES.MEATS, 400),
-      new MyProduct("tomato", PRODUCT_TYPES.VEGETABLE, 300)
-    ];
-    return Promise.resolve(products);
+    console.log("return promise");
+    return Promise.resolve(this.myProducts);
+    
   }
 
   /**
@@ -38,10 +129,15 @@ export class ProductProvider {
    * @returns {Promise<Product>}
    * @memberof ProductProvider
    */
-  getProductForName(productName: string): Promise<Product> {
+  async getProductForName(productName: string): Promise<Product> {
     // return this.http.get(this.apiUrl + "/name/product").toPromise();
-
-    return Promise.resolve(new Product("test", PRODUCT_TYPES.MEATS));
+    let p: Product;
+    await GlobalUtils.asyncForEach(this.products, async(product: Product) => {
+        if(product.name == productName){
+          p = product;
+        }
+    })
+    return Promise.resolve(p);
   }
 
   /**
@@ -63,13 +159,13 @@ export class ProductProvider {
    * @memberof ProductProvider
    */
   getAllProducts(): Promise<Product[]> {
-    // return this.http.get(this.apiUrl + "all/product").toPromise();
+    //return this.http.get(this.apiUrl + "all/product").toPromise();
 
     let products: Product[] = [
-      new Product("Salami", PRODUCT_TYPES.MEATS),
-      new Product("Milk", PRODUCT_TYPES.DAIRY_PRODUCT),
-      new Product("Butter", PRODUCT_TYPES.DAIRY_PRODUCT),
-      new Product("Bread", PRODUCT_TYPES.GRAIN_PARTIES)
+      new Product( 1,"Salami", PRODUCT_TYPES.MEATS),
+      new Product(2,"Milk", PRODUCT_TYPES.DAIRY_PRODUCT),
+      new Product(3,"Butter", PRODUCT_TYPES.DAIRY_PRODUCT),
+      new Product(4,"Bread", PRODUCT_TYPES.GRAIN_PARTIES)
     ]
     products[0].id = 1;
     products[1].id = 2;
@@ -85,7 +181,7 @@ export class ProductProvider {
    * @returns {Promise<boolean>}
    * @memberof ProductProvider
    */
-  removeProductFromFridge(id: number): Promise<boolean> {
+  removeProductFromFridge(product: MyProduct): Promise<boolean> {
     // return this.http.get(this.apiUrl + "remove/product").toPromise();
 
     return Promise.resolve(true);
@@ -126,8 +222,15 @@ export class ProductProvider {
    */
   addProductInFridge(product: MyProduct): Promise<MyProduct> {
     // return this.http.get(this.apiUrl + "create/my/product").toPromise();
-
-    product.id = GlobalUtils.getRandomNumberBetween(5, 9999999);
+    this.afAuth.authState.subscribe(data =>{
+      if(data && data.email && data.uid){
+        this.userUid = data.uid;
+        console.log(this.userUid);
+      }
+      });
+    //product.id = GlobalUtils.getRandomNumberBetween(5, 9999999);
+    let firebaseMyProduct : MyProductFirebase = new MyProductFirebase(product.id,null,this.userUid,product.weight);
+    this.fdb.list("MyProduct").push(firebaseMyProduct);
     return Promise.resolve(product);
   }
 

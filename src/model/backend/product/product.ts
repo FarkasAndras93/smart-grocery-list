@@ -32,7 +32,8 @@ export class Product {
      */
     public type: PRODUCT_TYPES;
 
-    constructor(name: string, type: PRODUCT_TYPES) {
+    constructor(id: number,name: string, type: PRODUCT_TYPES) {
+        this.id = id;
         this.name = name;
         this.type = type;
     }

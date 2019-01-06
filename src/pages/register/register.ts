@@ -52,6 +52,7 @@ export class RegisterPage {
 
     }
     catch(e){
+      this.toast.showErrorMessage("Could not register");
       console.error(e);
     }
   }

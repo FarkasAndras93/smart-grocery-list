@@ -9,6 +9,7 @@ import { GlobalUtils } from '../../../utils/global-utils';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 import { MyProduct } from '../../../model/backend/product/my-product';
 import { StorageProvider } from '../../../providers/tehnical/storage/storage.provider';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 @IonicPage()
 @Component({
@@ -50,16 +51,19 @@ export class ProductNewPage {
   public selectedProductId: number;
 
 
-  constructor(public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider,
+  constructor(private fauth: AngularFireAuth,public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider,
     public viewCtrl: ViewController, private storage: StorageProvider) {
     this.headerModel = new HeaderModel("New product", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
-    this.myProduct = new MyProduct("", undefined, 0);
+    this.myProduct = new MyProduct(0,"", undefined, 0);
   }
 
   ionViewDidLoad() {
     this.productProvider.getAllProducts().then((products) => {
       this.possibleProducts = products;
+      
+      console.log("hereeeeeeeeeeeeee.....................");
+      console.log(this.possibleProducts);
     }).catch(error =>{
       console.error("Error while returning all products.");
     });
@@ -87,15 +91,24 @@ export class ProductNewPage {
    */
   public addProduct() {
     if (GlobalUtils.isUndefinedOrNull(this.selectedProductId)) {
-      this.toast.showErrorMessage("Product needs to be selected!")
-    } else if (this.myProduct.weight == 0) {
-      this.toast.showErrorMessage("There is nothing on sensor!")
-    } else {
-      let product: Product = this.getMyProductForId();
-      this.myProduct.name = product.name;
-      this.myProduct.type = product.type;
-      this.myProduct.userId = this.storage.getLoggedUser();
-      this.viewCtrl.dismiss(this.myProduct);
+      this.toast.showErrorMessage("Product needs to be selected!")}
+    // } else if (this.myProduct.weight == 0) {
+    //   this.toast.showErrorMessage("There is nothing on sensor!")
+    // } 
+    else  {
+      let userId: string;
+      this.fauth.authState.subscribe(data =>{
+        if(data && data.email && data.uid){
+          userId = data.uid;
+          console.log(this.fauth);
+        }
+        });
+       let product: Product = this.getMyProductForId();
+       this.myProduct.id = product.id;
+       this.myProduct.name = product.name;
+       this.myProduct.type = product.type;
+       this.myProduct.userId = userId;
+       this.viewCtrl.dismiss(this.myProduct);
     }
   }
 
