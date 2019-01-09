@@ -104,12 +104,10 @@ export class ProductProvider {
    * @memberof ProductProvider
    */
   async getProductsInFrigider(): Promise<MyProduct[]> {
-    this.fdb.object("Product").valueChanges().toPromise().then(products => {
-      console.log(products);
+    this.fdb.object("MyProduct").valueChanges().subscribe((products: MyProduct[]) => {
+      let myProduct = products.filter(product => product.userId == this.storage.getLoggedUser().id);
+      return myProduct;
     });
-
-    let test = this.fdb.object("Product").valueChanges();
-    console.log(test);
 
     console.log("return promise");
     return Promise.resolve(this.myProducts);
