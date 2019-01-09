@@ -32,7 +32,7 @@ export abstract class StorageProvider {
    *
    * @memberOf StorageImpl
    */
-  abstract getLocal(key: string): Promise<any>;
+  abstract getLocal(key: string): any;
 
   /**
    * Removes the value under key
@@ -103,8 +103,8 @@ export class StorageProviderLocal extends StorageProvider {
    *
    * @memberOf StorageProviderLocal
    */
-  getLocal(key: string): Promise<any> {
-    return Promise.resolve(JSON.parse(localStorage.getItem(this.prefix + key)));
+  getLocal(key: string): any {
+    return JSON.parse(localStorage.getItem(this.prefix + key));
   }
 
   /**

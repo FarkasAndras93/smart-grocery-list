@@ -1,5 +1,4 @@
 import { Product, PRODUCT_TYPES } from "./product";
-import { Identifiers } from "@angular/compiler";
 
 /**
  * My products.
@@ -8,7 +7,7 @@ import { Identifiers } from "@angular/compiler";
  * @class MyProduct
  * @extends {Product}
  */
-export class MyProduct extends Product{
+export class MyProduct extends Product {
 
     /**
      * Id of the user to whom belong the product.
@@ -26,9 +25,8 @@ export class MyProduct extends Product{
      */
     public weight: number;
 
-    constructor(id:number, name: string, type: PRODUCT_TYPES, weight: number) {
-        super(id,name, type);
-        this.id = id;
+    constructor(id: number, name: string, type: PRODUCT_TYPES, weight: number) {
+        super(id, name, type);
         this.weight = weight;
     }
 }

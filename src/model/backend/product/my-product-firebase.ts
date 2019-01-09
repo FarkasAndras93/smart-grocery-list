@@ -1,6 +1,3 @@
-
-import { Identifiers } from "@angular/compiler";
-
 /**
  * My products.
  *

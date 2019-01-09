@@ -5,8 +5,6 @@ import { ButtonModel } from '../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../components/simple-app-header/simple-app-header.component';
 import { IconedMenuItem } from '../../model/frontend/common/IconedMenuItem';
 import { MENU_TITLE } from '../../app/app.component';
-import {AngularFireAuth} from 'angularfire2/auth';
-import { ToastProvider } from '../../providers/tehnical/toast/toast.provider';
 
 
 @IonicPage()
@@ -33,7 +31,7 @@ export class HomePage {
   menuItems: Array<IconedMenuItem>;
 
   
-  constructor(private toast: ToastProvider ,public navCtrl: NavController, private afAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController) {
     this.headerModel = new HeaderModel("Home", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
   
     this.menuItems = new Array<IconedMenuItem>();
@@ -55,18 +53,6 @@ export class HomePage {
     if (page.pageToOpen != this.navCtrl.getActive().name) {
       this.navCtrl.setRoot(page.pageToOpen);
     }
-  }
-
-  ionViewWillLoad() {
-    this.afAuth.authState.subscribe(data =>{
-      if(data && data.email && data.uid){
-        this.toast.showSuccessMessage("Welcome to Smart grocery" + data.email);
-      }
-      else{
-        this.toast.showErrorMessage("Could not find authentication details");
-      }
-      
-    });
   }
 
 }

@@ -61,9 +61,7 @@ export class ProductNewPage {
   ionViewDidLoad() {
     this.productProvider.getAllProducts().then((products) => {
       this.possibleProducts = products;
-      
-      console.log("hereeeeeeeeeeeeee.....................");
-      console.log(this.possibleProducts);
+      console.log("Product new page loaded with following products:" + this.possibleProducts);
     }).catch(error =>{
       console.error("Error while returning all products.");
     });
@@ -91,23 +89,15 @@ export class ProductNewPage {
    */
   public addProduct() {
     if (GlobalUtils.isUndefinedOrNull(this.selectedProductId)) {
-      this.toast.showErrorMessage("Product needs to be selected!")}
-    // } else if (this.myProduct.weight == 0) {
-    //   this.toast.showErrorMessage("There is nothing on sensor!")
-    // } 
-    else  {
-      let userId: string;
-      this.fauth.authState.subscribe(data =>{
-        if(data && data.email && data.uid){
-          userId = data.uid;
-          console.log(this.fauth);
-        }
-        });
+      this.toast.showErrorMessage("Product needs to be selected!")
+    } else if (this.myProduct.weight == 0) {
+      this.toast.showErrorMessage("There is nothing on sensor!")
+    } else {
        let product: Product = this.getMyProductForId();
        this.myProduct.id = product.id;
        this.myProduct.name = product.name;
        this.myProduct.type = product.type;
-       this.myProduct.userId = userId;
+       this.myProduct.userId = this.storage.getLoggedUser().id;
        this.viewCtrl.dismiss(this.myProduct);
     }
   }

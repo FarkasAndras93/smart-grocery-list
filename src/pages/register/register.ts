@@ -38,7 +38,7 @@ export class RegisterPage {
   public headerModel: HeaderModel;
 
   constructor(private afauth :AngularFireAuth,public navCtrl: NavController, public navParams: NavParams,  private toast: ToastProvider) {
-    this.headerModel = new HeaderModel("Login page", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
+    this.headerModel = new HeaderModel("Register page", HEADER_COLORS.BASE);
     this.user = new User("", "");
   }
 
@@ -48,8 +48,8 @@ export class RegisterPage {
     try{
       const result = await this.afauth.auth.createUserWithEmailAndPassword(user.username, user.password);
       console.log(result);
-      this.toast.showSuccessMessage("You have registered successfully!");
-
+      this.toast.showSuccessMessage("You have registered successfully!", undefined, false);
+      this.navCtrl.popTo("LoginPage");
     }
     catch(e){
       this.toast.showErrorMessage("Could not register");
