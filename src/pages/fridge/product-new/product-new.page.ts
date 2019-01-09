@@ -9,7 +9,6 @@ import { GlobalUtils } from '../../../utils/global-utils';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 import { MyProduct } from '../../../model/backend/product/my-product';
 import { StorageProvider } from '../../../providers/tehnical/storage/storage.provider';
-import {AngularFireAuth} from 'angularfire2/auth';
 
 @IonicPage()
 @Component({
@@ -51,11 +50,11 @@ export class ProductNewPage {
   public selectedProductId: number;
 
 
-  constructor(private fauth: AngularFireAuth,public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider,
+  constructor(public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider,
     public viewCtrl: ViewController, private storage: StorageProvider) {
     this.headerModel = new HeaderModel("New product", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
-    this.myProduct = new MyProduct(0,"", undefined, 0);
+    this.myProduct = new MyProduct("", undefined, 0, 0);
   }
 
   ionViewDidLoad() {

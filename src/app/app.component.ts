@@ -111,7 +111,6 @@ export class MyApp {
       this.event.subscribe(this.config.loginConfig.logoutEventKey, this.logoutEventComplete);
       this.event.subscribe(this.config.loginConfig.loggedInCompleteEventKey, this.loginEventComplete);
     });
-    firebase.initializeApp(firebaseconfig);
   }
 
   /**

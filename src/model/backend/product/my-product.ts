@@ -25,7 +25,7 @@ export class MyProduct extends Product {
      */
     public weight: number;
 
-    constructor(id: number, name: string, type: PRODUCT_TYPES, weight: number) {
+    constructor(name: string, type: PRODUCT_TYPES, weight: number, id?: number) {
         super(id, name, type);
         this.weight = weight;
     }

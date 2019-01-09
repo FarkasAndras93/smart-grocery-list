@@ -62,7 +62,7 @@ export class RecipeDetailPage {
    * @memberof RecipeDetailPage
    */
   public createGroceryList() {
-    this.productProvider.getProductsInFrigider(this.storage.getLoggedUser()).then(productsInFridge => {
+    this.productProvider.getProductsInFrigider().then(productsInFridge => {
       let productsNeeded: GroceryProduct[] = [];
       this.recipe.products.forEach(recieProduct => {
         let prodInFridge = productsInFridge.filter(fridgeProd => fridgeProd.name == recieProduct.name)[0];

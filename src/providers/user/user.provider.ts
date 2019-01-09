@@ -28,14 +28,14 @@ export class UserProvider {
     //DUMMY
     if (username == "user" && password == "user") {
       let user: User = new User(username, password);
-      user.id = 2;
+      user.id = "2";
       this.event.publish(this.config.loginConfig.loggedInCompleteEventKey);
       this.storage.saveLocal(this.config.loginConfig.hasLoggedIn, true);
       this.storage.saveLocal(this.config.loginConfig.loggedInUser, user);
       return Promise.resolve(user);
     } else if (username == "admin" && password == "admin") {
       let user: User = new User(username, password);
-      user.id = 1;
+      user.id = "1";
       user.admin = true;
       this.event.publish(this.config.loginConfig.loggedInCompleteEventKey);
       this.storage.saveLocal(this.config.loginConfig.hasLoggedIn, true);
@@ -55,10 +55,10 @@ export class UserProvider {
     // return this.http.get(this.apiUrl + "sensor/product").toPromise();
 
     let products: Product[] = [
-      new Product("Salami", PRODUCT_TYPES.MEATS),
-      new Product("Milk", PRODUCT_TYPES.DAIRY_PRODUCT),
-      new Product("Butter", PRODUCT_TYPES.DAIRY_PRODUCT),
-      new Product("Bread", PRODUCT_TYPES.GRAIN_PARTIES)
+      new Product(1, "Salami", PRODUCT_TYPES.MEATS),
+      new Product(2, "Milk", PRODUCT_TYPES.DAIRY_PRODUCT),
+      new Product(3, "Butter", PRODUCT_TYPES.DAIRY_PRODUCT),
+      new Product(4, "Bread", PRODUCT_TYPES.GRAIN_PARTIES)
     ]
     products[0].id = 1;
     products[1].id = 2;

@@ -85,7 +85,7 @@ export class LoginPage {
   public loginFirebase(user: User) {
     try {
       this.afAuth.auth.signInWithEmailAndPassword(user.username, user.password).then(result => {
-        user.id = result.uid;
+        user.id = result.user.uid;
         this.storage.saveLocal(this.config.loginConfig.loggedInUser, user);
         this.event.publish(this.config.loginConfig.loggedInCompleteEventKey);
         this.storage.saveLocal(this.config.loginConfig.hasLoggedIn, true);
