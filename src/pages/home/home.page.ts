@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, ToastController, Toast } from 'ionic-angular';
 import { HeaderModel, HEADER_COLORS } from '../../model/frontend/common/HeaderModel';
 import { ButtonModel } from '../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../components/simple-app-header/simple-app-header.component';
 import { IconedMenuItem } from '../../model/frontend/common/IconedMenuItem';
 import { MENU_TITLE } from '../../app/app.component';
+
 
 @IonicPage()
 @Component({

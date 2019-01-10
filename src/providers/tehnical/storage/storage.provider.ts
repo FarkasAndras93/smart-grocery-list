@@ -1,6 +1,7 @@
 import { Events } from 'ionic-angular';
 import { Injectable, Inject } from '@angular/core';
 import { AppConfig, APP_CONFIG_TOKEN, prefixLocalstorage } from '../../../app/app.config';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 /**
@@ -32,7 +33,7 @@ export abstract class StorageProvider {
    *
    * @memberOf StorageImpl
    */
-  abstract getLocal(key: string): Promise<any>;
+  abstract getLocal(key: string): any;
 
   /**
    * Removes the value under key
@@ -64,7 +65,7 @@ export abstract class StorageProvider {
 @Injectable()
 export class StorageProviderLocal extends StorageProvider {
 
-  constructor(@Inject(APP_CONFIG_TOKEN) private config: AppConfig, private events: Events, @Inject(prefixLocalstorage) private prefix: string) {
+  constructor(private afAuth: AngularFireAuth ,@Inject(APP_CONFIG_TOKEN) private config: AppConfig, private events: Events, @Inject(prefixLocalstorage) private prefix: string) {
 
     super();
 
@@ -75,6 +76,7 @@ export class StorageProviderLocal extends StorageProvider {
           localStorage.removeItem(key);
         }
       });
+      this.afAuth.auth.signOut();
     })
 
   }
@@ -103,8 +105,8 @@ export class StorageProviderLocal extends StorageProvider {
    *
    * @memberOf StorageProviderLocal
    */
-  getLocal(key: string): Promise<any> {
-    return Promise.resolve(JSON.parse(localStorage.getItem(this.prefix + key)));
+  getLocal(key: string): any {
+    return JSON.parse(localStorage.getItem(this.prefix + key));
   }
 
   /**

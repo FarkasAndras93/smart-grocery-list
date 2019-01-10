@@ -9,6 +9,7 @@ import { GlobalUtils } from '../../../utils/global-utils';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 import { MyProduct } from '../../../model/backend/product/my-product';
 import { StorageProvider } from '../../../providers/tehnical/storage/storage.provider';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 @IonicPage()
 @Component({
@@ -34,13 +35,13 @@ export class MyFridgePage {
   public headerModel: HeaderModel;
 
 
-  constructor(public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider, private alertCtrl: AlertController,
+  constructor( private afAuth: AngularFireAuth,public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider, private alertCtrl: AlertController,
     private storage: StorageProvider) {
     this.headerModel = new HeaderModel("My fridge", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
   }
 
   ionViewDidLoad() {
-    this.productProvider.getProductsInFrigider(this.storage.getLoggedUser()).then(result => {
+    this.productProvider.getProductsInFrigider().then(result => {
       this.products = result;
     }).catch(error =>{
       console.log("Error while geting products in frigider!");
@@ -60,6 +61,7 @@ export class MyFridgePage {
       if (!GlobalUtils.isUndefinedOrNull(result)) {
         if (result instanceof MyProduct) {
           this.productProvider.addProductInFridge(result).then(newProduct => {
+            console.log( result);
             this.products.push(result);
             this.toast.showSuccessMessage("Product added with success.");
           }).catch(err =>{
@@ -125,7 +127,7 @@ export class MyFridgePage {
    * @memberof MyFridgePage
    */
   public removeProduct(product: MyProduct) {
-    this.productProvider.removeProductFromFridge(product.id).then((value) =>{
+    this.productProvider.removeProductFromFridge(product).then((value) =>{
       if (value) {
         this.products.splice(this.products.indexOf(product), 1);
       } else {

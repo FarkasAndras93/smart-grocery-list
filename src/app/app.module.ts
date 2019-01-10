@@ -4,6 +4,9 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
+import {AngularFireModule} from 'angularfire2';
+import{AngularFireAuthModule} from 'angularfire2/auth';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
 
 import { MyApp } from './app.component';
 import { RestProvider } from '../providers/rest/rest';
@@ -14,6 +17,7 @@ import { RecipeProvider } from '../providers/recipe/recipe.provider';
 import { UserProvider } from '../providers/user/user.provider';
 import { StorageProvider, StorageProviderLocal } from '../providers/tehnical/storage/storage.provider';
 import { APP_CONFIG_TOKEN, CONFIG_DEFAULT, prefixLocalstorage, prefixLocalStorageFactory } from './app.config';
+import {firebaseconfig} from './app.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,10 @@ import { APP_CONFIG_TOKEN, CONFIG_DEFAULT, prefixLocalstorage, prefixLocalStorag
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseconfig),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

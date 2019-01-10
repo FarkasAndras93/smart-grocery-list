@@ -7,7 +7,7 @@ import { Product, PRODUCT_TYPES } from "./product";
  * @class MyProduct
  * @extends {Product}
  */
-export class MyProduct extends Product{
+export class MyProduct extends Product {
 
     /**
      * Id of the user to whom belong the product.
@@ -15,7 +15,7 @@ export class MyProduct extends Product{
      * @type {number}
      * @memberof Recipe
      */
-    public userId: number;
+    public userId: string;
 
     /**
      * Weight of the product.
@@ -25,8 +25,8 @@ export class MyProduct extends Product{
      */
     public weight: number;
 
-    constructor(name: string, type: PRODUCT_TYPES, weight: number) {
-        super(name, type);
+    constructor(name: string, type: PRODUCT_TYPES, weight: number, id?: number) {
+        super(id, name, type);
         this.weight = weight;
     }
 }

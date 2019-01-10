@@ -54,12 +54,13 @@ export class ProductNewPage {
     public viewCtrl: ViewController, private storage: StorageProvider) {
     this.headerModel = new HeaderModel("New product", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
-    this.myProduct = new MyProduct("", undefined, 0);
+    this.myProduct = new MyProduct("", undefined, 0, 0);
   }
 
   ionViewDidLoad() {
     this.productProvider.getAllProducts().then((products) => {
       this.possibleProducts = products;
+      console.log("Product new page loaded with following products:" + this.possibleProducts);
     }).catch(error =>{
       console.error("Error while returning all products.");
     });
@@ -91,11 +92,12 @@ export class ProductNewPage {
     } else if (this.myProduct.weight == 0) {
       this.toast.showErrorMessage("There is nothing on sensor!")
     } else {
-      let product: Product = this.getMyProductForId();
-      this.myProduct.name = product.name;
-      this.myProduct.type = product.type;
-      this.myProduct.userId = this.storage.getLoggedUser();
-      this.viewCtrl.dismiss(this.myProduct);
+       let product: Product = this.getMyProductForId();
+       this.myProduct.id = product.id;
+       this.myProduct.name = product.name;
+       this.myProduct.type = product.type;
+       this.myProduct.userId = this.storage.getLoggedUser().id;
+       this.viewCtrl.dismiss(this.myProduct);
     }
   }
 

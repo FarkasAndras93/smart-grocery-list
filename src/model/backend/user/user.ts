@@ -5,16 +5,16 @@ export class User {
     /**
      * Id of the user.
      *
-     * @type {number}
-     * @memberof Recipe
+     * @type {string}
+     * @memberof User
      */
-    public id: number;
+    public id: string;
 
     /**
      * User name.
      *
      * @type {string}
-     * @memberof Recipe
+     * @memberof User
      */
     public username: string;
 
@@ -22,7 +22,7 @@ export class User {
      * Password of the user.
      *
      * @type {string}
-     * @memberof Recipe
+     * @memberof User
      */
     public password: string;
 
@@ -33,7 +33,6 @@ export class User {
      * @memberof User
      */
     public admin: boolean;
-
 
     constructor(username: string, password: string) {
         this.username = username;
