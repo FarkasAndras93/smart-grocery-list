@@ -104,13 +104,24 @@ export class ProductProvider {
    * @memberof ProductProvider
    */
   async getProductsInFrigider(): Promise<MyProduct[]> {
-    this.fdb.object("MyProduct").valueChanges().subscribe((products: MyProduct[]) => {
-      let myProduct = products.filter(product => product.userId == this.storage.getLoggedUser().id);
-      return myProduct;
+    return new Promise<MyProduct[]>((resolve, reject) => {
+      this.fdb.list("MyProduct").valueChanges().subscribe((products: MyProductFirebase[]) => {
+        let myProducts: MyProductFirebase[] = products.filter(product => product.userId == this.storage.getLoggedUser().id);
+        this.fdb.list("Product").valueChanges().subscribe((baseProducts: Product[]) => {
+          let returnMyProduct: MyProduct[] = [];
+          myProducts.forEach(myProduct => {
+            let tempProduct = baseProducts.filter(baseProduct => baseProduct.id == myProduct.productId)[0];
+            returnMyProduct.push(new MyProduct(tempProduct.name, tempProduct.type, myProduct.weight)); //TODO - myProduct firebase key-t hozzaadni
+          });
+          resolve(returnMyProduct);
+        });
+      }, error => {
+        reject(error);
+      });
     });
 
-    console.log("return promise");
-    return Promise.resolve(this.myProducts);
+    // console.log("return promise");
+    // return Promise.resolve(this.myProducts);
 
   }
 
