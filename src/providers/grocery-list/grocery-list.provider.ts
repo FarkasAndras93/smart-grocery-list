@@ -32,7 +32,7 @@ export class GroceryListProvider {
         new GroceryProduct(new MyProduct("Milk", PRODUCT_TYPES.DAIRY_PRODUCT, 1000), false),
         new GroceryProduct(new MyProduct("Pasta", PRODUCT_TYPES.PASTRY, 300), false),
         new GroceryProduct(new MyProduct("Bread", PRODUCT_TYPES.GRAIN_PARTIES, 1000), false)
-      ], new Date().toString()),
+      ], new Date().toString(), undefined, "Andras"),
       new GroceryList("Grocery for new year", [], new Date().toString()),
       new GroceryList("Grocery for my birthday", [], new Date().toString())
     ];
@@ -63,6 +63,19 @@ export class GroceryListProvider {
    */
   removeGroceryList(id: number): Promise<boolean> {
     // return this.http.get(this.apiUrl + "remove/groceryList").toPromise();
+
+    return Promise.resolve(true);
+  }
+
+  /**
+   * Method to update grocery list accepted by property in database.
+   *
+   * @param {GroceryList} groceryList
+   * @returns {Promise<boolean>}
+   * @memberof GroceryListProvider
+   */
+  acceptGroceryList(groceryList: GroceryList): Promise<boolean> {
+
 
     return Promise.resolve(true);
   }
