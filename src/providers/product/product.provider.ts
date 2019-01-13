@@ -250,4 +250,16 @@ export class ProductProvider {
     return Promise.resolve(product);
   }
 
+  /**
+   * Method to remove product from database.
+   *
+   * @param {Product} product
+   * @returns {Promise<Product>}
+   * @memberof ProductProvider
+   */
+  removeProductFromDatabase(product: Product): Promise<boolean> {
+
+    return Promise.resolve(true);
+  }
+
 }

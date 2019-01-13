@@ -5,6 +5,7 @@ import { ButtonModel } from '../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../components/simple-app-header/simple-app-header.component';
 import { IconedMenuItem } from '../../model/frontend/common/IconedMenuItem';
 import { MENU_TITLE } from '../../app/app.component';
+import { StorageProvider } from '../../providers/tehnical/storage/storage.provider';
 
 
 @IonicPage()
@@ -31,7 +32,7 @@ export class HomePage {
   menuItems: Array<IconedMenuItem>;
 
   
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private storage: StorageProvider) {
     this.headerModel = new HeaderModel("Home", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
   
     this.menuItems = new Array<IconedMenuItem>();
@@ -39,6 +40,9 @@ export class HomePage {
     this.menuItems.push(new IconedMenuItem(MENU_TITLE.GROCERY_LIST, "GroceryListPage", "home-icon-search.svg"));
     this.menuItems.push(new IconedMenuItem(MENU_TITLE.RECIPE_LIST, "RecipeListPage", "home-icon-bi-previous.svg"));
     this.menuItems.push(new IconedMenuItem(MENU_TITLE.SETTINGS, "SettingsPage", "home-icon-settings.svg"));
+    // if (storage.getLoggedUser().admin) {
+      this.menuItems.push(new IconedMenuItem(MENU_TITLE.PRODUCT_EDITOR, "ProductEditorPage", "home-icon-settings.svg"));
+    // }
   }
 
   /**
