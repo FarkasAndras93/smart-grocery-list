@@ -12,6 +12,7 @@ import { StorageProvider } from '../tehnical/storage/storage.provider';
 export class ProductProvider {
 
   private apiUrl = 'https://restcountries.eu/rest/v2/all';
+  private sensorUrl = 'http://192.168.0.105:8888';
 
   private products: Product[];
   private myProducts: MyProduct[];
@@ -104,22 +105,22 @@ export class ProductProvider {
    * @memberof ProductProvider
    */
   async getProductsInFrigider(): Promise<MyProduct[]> {
-    return new Promise<MyProduct[]>((resolve, reject) => {
-      this.fdb.list("MyProduct").valueChanges().subscribe((products: MyProductFirebase[]) => {
-        let myProducts: MyProductFirebase[] = products.filter(product => product.userId == this.storage.getLoggedUser().id);
-        this.fdb.list("Product").valueChanges().subscribe((baseProducts: Product[]) => {
-          let returnMyProduct: MyProduct[] = [];
-          myProducts.forEach(myProduct => {
-            let tempProduct = baseProducts.filter(baseProduct => baseProduct.id == myProduct.productId)[0];
-            returnMyProduct.push(new MyProduct(tempProduct.name, tempProduct.type, myProduct.weight)); //TODO - myProduct firebase key-t hozzaadni
-          });
-          resolve(returnMyProduct);
-        });
-      }, error => {
-        reject(error);
-      });
-    });
-
+    // return new Promise<MyProduct[]>((resolve, reject) => {
+    //   this.fdb.list("MyProduct").valueChanges().subscribe((products: MyProductFirebase[]) => {
+    //     let myProducts: MyProductFirebase[] = products.filter(product => product.userId == this.storage.getLoggedUser().id);
+    //     this.fdb.list("Product").valueChanges().subscribe((baseProducts: Product[]) => {
+    //       let returnMyProduct: MyProduct[] = [];
+    //       myProducts.forEach(myProduct => {
+    //         let tempProduct = baseProducts.filter(baseProduct => baseProduct.id == myProduct.productId)[0];
+    //         returnMyProduct.push(new MyProduct(tempProduct.name, tempProduct.type, myProduct.weight)); //TODO - myProduct firebase key-t hozzaadni
+    //       });
+    //       resolve(returnMyProduct);
+    //     });
+    //   }, error => {
+    //     reject(error);
+    //   });
+    // });
+    return [];
     // console.log("return promise");
     // return Promise.resolve(this.myProducts);
 
@@ -150,9 +151,15 @@ export class ProductProvider {
    * @memberof ProductProvider
    */
   getProductWeightOnSensor(): Promise<number> {
-    // return this.http.get(this.apiUrl + "sensor/product").toPromise();
+    return new Promise((resolve, reject) => {
+      this.http.get(this.sensorUrl + "/weight").subscribe((result: number) => {
+        resolve(result);
+      }, error => {
+        console.error("Error while getting the value from sensor", error);
+      });
+    });
 
-    return Promise.resolve(GlobalUtils.getRandomNumberBetween(0, 2));
+    // return Promise.resolve(GlobalUtils.getRandomNumberBetween(0, 2));
   }
 
   /**
