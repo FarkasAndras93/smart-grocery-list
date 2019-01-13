@@ -100,7 +100,7 @@ export class MyFridgePage {
           {
             text: 'Save',
             handler: () => {
-              this.productProvider.editProductInTheFridge(product.id, value).then((success) => {
+              this.productProvider.editProductInTheFridge(product, value).then((success) => {
                 if (!success) {
                   this.toast.showErrorMessage("Failed to update product weight!", 2000, false);
                 } else {

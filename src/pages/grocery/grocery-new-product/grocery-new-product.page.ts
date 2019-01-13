@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, ViewController } from 'ionic-angular';
+import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 import { ProductProvider } from '../../../providers/product/product.provider';
 import { HeaderModel } from '../../../model/frontend/common/HeaderModel';
 import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
@@ -40,7 +40,7 @@ export class GroceryNewProductPage {
   public searchProduct: string;
 
 
-  constructor(public productProvider: ProductProvider, public viewCtrl: ViewController, private toast: ToastProvider) {
+  constructor(private navParams: NavParams,public productProvider: ProductProvider, public viewCtrl: ViewController, private toast: ToastProvider) {
     this.headerModel = new HeaderModel("New products", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
   }
@@ -49,7 +49,9 @@ export class GroceryNewProductPage {
     this.possibleProducts = [];
     this.productProvider.getAllProducts().then((products) => {
       products.forEach(product => {
-        this.possibleProducts.push(new GroceryProduct(new MyProduct(product.name, product.type, 0), false));
+        if(this.navParams.get("existentProducts").filter(posProd => posProd.product.name).length <= 0){
+          this.possibleProducts.push(new GroceryProduct("",product, false));
+        }
       });
     }).catch(error => {
       console.error("Error while returning all products.");
@@ -75,14 +77,14 @@ export class GroceryNewProductPage {
     let newProducts: GroceryProduct[] = [];
     for (let i = 0; i < this.possibleProducts.length; i++) {
       if (this.possibleProducts[i].checked == true) {
-        if (this.possibleProducts[i].product.weight <= 0) {
-          this.toast.showErrorMessage("All checked products needs to have weight value!");
-          return;
-        }
+        // if (this.possibleProducts[i].product.weight <= 0) {
+        //   this.toast.showErrorMessage("All checked products needs to have weight value!");
+        //   return;
+        // } -----------------GROCERY PRODUCT -nak  nincs sulya, az csak egy lista amit kell vasaroljon
         this.possibleProducts[i].checked = false;
         newProducts.push(this.possibleProducts[i])
       }
     }
-    this.viewCtrl.dismiss(newProducts);
+      return this.viewCtrl.dismiss(newProducts);;
   }
 }

@@ -48,7 +48,7 @@ export class GroceryListDetailPage {
    * @memberof GroceryListPage
    */
   public checkProduct(product: GroceryProduct) {
-    this.productProvider.checkProductInGrocery(product.id, product.checked).then(status => {
+    this.productProvider.checkProductInGrocery(product, product.checked).then(status => {
       if (!status) {
         this.toast.showErrorMessage("Failed to update product state!");
       } else {
@@ -66,12 +66,17 @@ export class GroceryListDetailPage {
    * @memberof GroceryListPage
    */
   public addProduct() {
-    let modal = this.modalCtrl.create('GroceryNewProductPage');
+    let modal = this.modalCtrl.create('GroceryNewProductPage',{"existentProducts": this.groceryList.products});
     modal.present();
     modal.onDidDismiss(result => {
       if (!GlobalUtils.isUndefinedOrNull(result)) {
-        this.groceryList.products = this.groceryList.products.concat(result);
-        this.toast.showSuccessMessage("Product added with success.");
+        this.productProvider.createGroceryProducts(result, this.groceryList).then(products => {
+          this.groceryList.products = this.groceryList.products.concat(products);
+          this.toast.showSuccessMessage("Product added with success!");
+        }, error => {
+          console.error("Failed to create new grocery products!");
+          this.toast.showErrorMessage("Failed to create new grocery products!");
+        });
       }
     });
   }

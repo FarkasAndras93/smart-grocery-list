@@ -9,6 +9,8 @@ import { Product, PRODUCT_TYPES } from "./product";
  */
 export class MyProduct extends Product {
 
+    public myProductId: string;
+
     /**
      * Id of the user to whom belong the product.
      *
@@ -25,8 +27,10 @@ export class MyProduct extends Product {
      */
     public weight: number;
 
-    constructor(name: string, type: PRODUCT_TYPES, weight: number, id?: number) {
+    constructor(name: string, type: PRODUCT_TYPES, weight: number, id:string ,userId: string,myProductId: string ) {
         super(id, name, type);
         this.weight = weight;
+        this.userId = userId;
+        this.myProductId = myProductId;
     }
 }

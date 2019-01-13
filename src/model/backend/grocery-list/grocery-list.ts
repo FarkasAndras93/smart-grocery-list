@@ -9,7 +9,7 @@ export class GroceryList {
      * @type {number}
      * @memberof GroceryList
      */
-    public id: number;
+    public id: string;
     
     /**
      * Id of the user to whom belong the grocery list.

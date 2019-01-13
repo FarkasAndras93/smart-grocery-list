@@ -47,14 +47,14 @@ export class ProductNewPage {
    * @type {number}
    * @memberof ProductNewPage
    */
-  public selectedProductId: number;
+  public selectedProductId: string;
 
 
   constructor(public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider,
     public viewCtrl: ViewController, private storage: StorageProvider) {
     this.headerModel = new HeaderModel("New product", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
-    this.myProduct = new MyProduct("", undefined, 0, 0);
+    this.myProduct = new MyProduct("", PRODUCT_TYPES.DAIRY_PRODUCT, 0, "","","");
   }
 
   ionViewDidLoad() {

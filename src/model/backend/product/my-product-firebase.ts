@@ -12,7 +12,7 @@ export class MyProductFirebase {
      * @type {number}
      * @memberof MyProductFirebase
      */
-    public productId: number;
+    public productId: string;
 
         /**
      * Id of the user to whom belong the product.
@@ -20,7 +20,7 @@ export class MyProductFirebase {
      * @type {number}
      * @memberof Recipe
      */
-    public recipeId: number;
+    public recipeId: string;
 
     /**
      * Id of the user to whom belong the product.
@@ -38,7 +38,10 @@ export class MyProductFirebase {
      */
     public weight: number;
 
-    constructor(productId:number,recipeId:number,userId:string, weight: number) {
+
+    public key:string;
+
+    constructor(productId:string,recipeId:string,userId:string, weight: number) {
         this.productId = productId;
         this.recipeId = recipeId;
         this.userId = userId;

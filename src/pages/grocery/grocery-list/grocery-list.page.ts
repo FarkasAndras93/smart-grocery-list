@@ -41,7 +41,7 @@ export class GroceryListPage {
   }
 
   ionViewDidLoad() {
-    this.groceryListProvider.getGroceryLists(this.storage.getLoggedUser()).then((groceryLists) => {
+    this.groceryListProvider.getGroceryLists().then((groceryLists) => {
       this.groceryLists = groceryLists;
     }).catch(error => {
       console.error("Error while geting grocery lists from backend!");
@@ -81,7 +81,7 @@ export class GroceryListPage {
    * @memberof GroceryListPage
    */
   public removeGroceryList(groceryList: GroceryList) {
-    this.groceryListProvider.removeGroceryList(groceryList.id).then((value) =>{
+    this.groceryListProvider.removeGroceryList(groceryList).then((value) =>{
       if (value) {
         this.groceryLists.splice(this.groceryLists.indexOf(groceryList), 1);
       } else {
