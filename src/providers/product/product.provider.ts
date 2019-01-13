@@ -7,6 +7,8 @@ import { MyProductFirebase } from '../../model/backend/product/my-product-fireba
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { StorageProvider } from '../tehnical/storage/storage.provider';
+import {RequestOptions, Request, Headers } from '@angular/http';
+import { GroceryProduct } from '../../model/backend/product/grocery-product';
 
 @Injectable()
 export class ProductProvider {
@@ -152,14 +154,12 @@ export class ProductProvider {
    */
   getProductWeightOnSensor(): Promise<number> {
     return new Promise((resolve, reject) => {
-      this.http.get(this.sensorUrl + "/weight").subscribe((result: number) => {
-        resolve(result);
+      this.http.get(this.sensorUrl + "/weight").subscribe((result: any) => {
+        resolve(Math.round(result.weight));
       }, error => {
         console.error("Error while getting the value from sensor", error);
       });
     });
-
-    // return Promise.resolve(GlobalUtils.getRandomNumberBetween(0, 2));
   }
 
   /**
@@ -234,6 +234,19 @@ export class ProductProvider {
     let firebaseMyProduct: MyProductFirebase
       = new MyProductFirebase(product.id, null, this.storage.getLoggedUser().id, product.weight);
     this.fdb.list("MyProduct").push(firebaseMyProduct);
+    return Promise.resolve(product);
+  }
+
+  /**
+   * Method to create product in database.
+   *
+   * @param {Product} product
+   * @returns {Promise<Product>}
+   * @memberof ProductProvider
+   */
+  createProductInDatabase(product: Product): Promise<Product> {
+
+    product.id = GlobalUtils.getRandomNumberBetween(5, 999999999);
     return Promise.resolve(product);
   }
 
