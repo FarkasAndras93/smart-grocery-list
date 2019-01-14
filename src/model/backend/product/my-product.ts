@@ -1,5 +1,11 @@
 import { Product, PRODUCT_TYPES } from "./product";
 
+export enum MYPRODUCT_TYPE {
+    FRIDGE = 1,
+    GROCERY = 2,
+    RECIPE = 3
+}
+
 /**
  * My products.
  *
@@ -27,10 +33,19 @@ export class MyProduct extends Product {
      */
     public weight: number;
 
-    constructor(name: string, type: PRODUCT_TYPES, weight: number, id:string ,userId: string,myProductId: string ) {
+    /**
+     * Type of the product.
+     *
+     * @type {PRODUCT_TYPES}
+     * @memberof Product
+     */
+    public myProductType: MYPRODUCT_TYPE;
+
+    constructor(name: string, type: PRODUCT_TYPES, weight: number, id:string ,userId: string,myProductId: string ,myProductType: MYPRODUCT_TYPE) {
         super(id, name, type);
         this.weight = weight;
         this.userId = userId;
         this.myProductId = myProductId;
+        this.myProductType = myProductType;
     }
 }

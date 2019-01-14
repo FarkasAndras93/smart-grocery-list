@@ -35,6 +35,7 @@ export class GroceryListDetailPage {
   constructor(public navCtrl: NavController, private navParams: NavParams, public groceryListProvider: GroceryListProvider,
     public modalCtrl: ModalController, private toast: ToastProvider, private productProvider: ProductProvider) {
     this.groceryList = this.navParams.get("grocery-list");
+    //console.log(this.groceryList);
     this.headerModel = new HeaderModel(this.groceryList.name, HEADER_COLORS.BASE);
   }
 

@@ -23,7 +23,7 @@ export class GroceryProduct {
      * @type {MyProduct}
      * @memberof GroceryProduct
      */
-    public product: Product;
+    public myProduct: MyProduct;
 
     /**
      * Type of the product.
@@ -33,9 +33,9 @@ export class GroceryProduct {
      */
     public checked: boolean;
 
-    constructor(id: string, product: Product, checked: boolean) {
+    constructor(id: string, product: MyProduct, checked: boolean) {
         this.id= id;
-        this.product = product;
+        this.myProduct = product;
         this.checked = checked;
     }
 }

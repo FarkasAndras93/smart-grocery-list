@@ -34,8 +34,9 @@ export class User {
      */
     public admin: boolean;
 
-    constructor(username: string, password: string) {
+    constructor(username: string, password: string, admin: boolean) {
         this.username = username;
         this.password = password;
+        this.admin = admin;
     }
 }

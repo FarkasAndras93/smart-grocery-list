@@ -23,7 +23,7 @@ export class GroceryProductFirebase {
      * @type {MyProduct}
      * @memberof GroceryProduct
      */
-    public productId: string;
+    public myProductId: string;
 
         /**
      * Product for buy.
@@ -41,9 +41,9 @@ export class GroceryProductFirebase {
      */
     public checked: boolean;
 
-    constructor(id: string, productId: string, checked: boolean, groceryListId:string) {
+    constructor(id: string, myProductId: string, checked: boolean, groceryListId:string) {
         this.id= id;
-        this.productId = productId;
+        this.myProductId = myProductId;
         this.checked = checked;
         this.groceryListId= groceryListId;
     }

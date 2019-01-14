@@ -43,6 +43,14 @@ export class GroceryList {
      */
     public date: string;
 
+        /**
+     * When was the grocery list created.
+     *
+     * @type {string}
+     * @memberof GroceryList
+     */
+    public acceptedBy: string;
+
     constructor(name: string, products: GroceryProduct[], date: string, userId?: number) {
         this.name = name;
         this.products = products;

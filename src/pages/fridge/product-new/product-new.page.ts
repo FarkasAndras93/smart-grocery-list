@@ -7,7 +7,7 @@ import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
 import { GlobalUtils } from '../../../utils/global-utils';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
-import { MyProduct } from '../../../model/backend/product/my-product';
+import { MyProduct, MYPRODUCT_TYPE } from '../../../model/backend/product/my-product';
 import { StorageProvider } from '../../../providers/tehnical/storage/storage.provider';
 
 @IonicPage()
@@ -54,7 +54,7 @@ export class ProductNewPage {
     public viewCtrl: ViewController, private storage: StorageProvider) {
     this.headerModel = new HeaderModel("New product", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
-    this.myProduct = new MyProduct("", PRODUCT_TYPES.DAIRY_PRODUCT, 0, "","","");
+    this.myProduct = new MyProduct("", PRODUCT_TYPES.DAIRY_PRODUCT, 0, "","","", MYPRODUCT_TYPE.FRIDGE);
   }
 
   ionViewDidLoad() {

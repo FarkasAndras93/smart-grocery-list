@@ -1,3 +1,4 @@
+import {  MYPRODUCT_TYPE } from "./my-product";
 /**
  * My products.
  *
@@ -41,10 +42,19 @@ export class MyProductFirebase {
 
     public key:string;
 
-    constructor(productId:string,recipeId:string,userId:string, weight: number) {
+       /**
+     * Type of the product.
+     *
+     * @type {PRODUCT_TYPES}
+     * @memberof Product
+     */
+    public myProductType: MYPRODUCT_TYPE;
+
+    constructor(productId:string,recipeId:string,userId:string, weight: number,myProductType: MYPRODUCT_TYPE) {
         this.productId = productId;
         this.recipeId = recipeId;
         this.userId = userId;
         this.weight = weight;
+        this.myProductType = myProductType;
     }
 }

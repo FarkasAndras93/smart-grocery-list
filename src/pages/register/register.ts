@@ -6,6 +6,8 @@ import { HeaderModel, HEADER_COLORS } from '../../model/frontend/common/HeaderMo
 import { ButtonModel } from '../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../components/simple-app-header/simple-app-header.component';
 import { ToastProvider } from '../../providers/tehnical/toast/toast.provider';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { FirebaseDatabaseUser } from '../../model/backend/user/firebaseDatabaseUser';
 
 /**
  * Generated class for the RegisterPage page.
@@ -37,9 +39,9 @@ export class RegisterPage {
    */
   public headerModel: HeaderModel;
 
-  constructor(private afauth :AngularFireAuth,public navCtrl: NavController, public navParams: NavParams,  private toast: ToastProvider) {
+  constructor(private fdb: AngularFireDatabase,private afauth :AngularFireAuth,public navCtrl: NavController, public navParams: NavParams,  private toast: ToastProvider) {
     this.headerModel = new HeaderModel("Register page", HEADER_COLORS.BASE);
-    this.user = new User("", "");
+    this.user = new User("", "",false);
   }
 
 
@@ -47,6 +49,8 @@ export class RegisterPage {
   async register(user: User){
     try{
       const result = await this.afauth.auth.createUserWithEmailAndPassword(user.username, user.password);
+      let fuser: FirebaseDatabaseUser = new FirebaseDatabaseUser(user.id, user.admin);
+      this.fdb.list("User").push(user);
       console.log(result);
       this.toast.showSuccessMessage("You have registered successfully!", undefined, false);
       this.navCtrl.popTo("LoginPage");

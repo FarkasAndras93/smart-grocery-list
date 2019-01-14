@@ -9,13 +9,14 @@ import { MyProduct } from '../../model/backend/product/my-product';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { GroceryProductFirebase } from '../../model/backend/product/grocery-product-firebase';
 import { StorageProvider } from '../tehnical/storage/storage.provider';
+import { ProductProvider } from '../product/product.provider';
 
 @Injectable()
 export class GroceryListProvider {
 
   private apiUrl = 'https://restcountries.eu/rest/v2/all';
 
-  constructor(public http: HttpClient, private fdb: AngularFireDatabase, private storage: StorageProvider) {
+  constructor(public http: HttpClient, private fdb: AngularFireDatabase, private storage: StorageProvider, private productProvider: ProductProvider) {
     console.log('Hello RestProvider Provider');
   }
 
@@ -30,13 +31,16 @@ export class GroceryListProvider {
     // return this.http.get(this.apiUrl + "/all/grocery").toPromise();
     let groceryLists: GroceryList[] =[];
     return new Promise<GroceryList[]>((resolve, reject)=>{
-      let products: Product[] = [];
-      this.fdb.object("Product").valueChanges().subscribe(p => {
-        Object.keys(p).forEach(key => {
-          let prod : Product = p[key];  
-          products.push(prod);
-        });
-      });
+      // let products: MyProduct[] = [];
+      // this.fdb.object("MyProduct").valueChanges().subscribe(p => {
+      //   Object.keys(p).forEach(key => {
+      //     let prod : MyProduct = p[key];  
+      //     products.push(prod);
+      //   });
+      // });
+      // products = products.filter(p => p.myProductType.toString() == "GROCERY");
+      let products: MyProduct[] ;
+      this.productProvider.getAllMyProducts().then(result => {products = result});
       this.fdb.object("GroceryList").valueChanges().subscribe(gl => {
         Object.keys(gl).forEach(key =>{
           let groceryList : GroceryList = gl[key];
@@ -45,17 +49,21 @@ export class GroceryListProvider {
              Object.keys(gp).forEach(keyy => {
                let groceryProductFirebase: GroceryProductFirebase = gp[keyy];
                if(groceryProductFirebase.groceryListId == groceryList.id){
-                 let prod: Product = products.filter(p => p.id == groceryProductFirebase.productId)[0];
+                
+                 let prod: MyProduct = products.filter(p => p.myProductId == groceryProductFirebase.myProductId)[0];
+                
                  let groceryProduct : GroceryProduct = new GroceryProduct(groceryProductFirebase.id,prod, groceryProductFirebase.checked)
                  groceryProducts.push(groceryProduct);
                 }
              })
            });
            groceryList.products = groceryProducts;
+           console.log(groceryList);
           groceryLists.push(groceryList);
         })
       });
       groceryLists = groceryLists.filter(gl => gl.userId == this.storage.getLoggedUser().id);
+      groceryLists.forEach(g => console.log(g));
       resolve(groceryLists);
     })
   }
