@@ -87,6 +87,7 @@ export class GroceryListDetailPage {
    * @memberof GroceryListDetailPage
    */
   public acceptGroceryList() {
+    this.headerModel = new HeaderModel(this.groceryList.name, HEADER_COLORS.BASE);
     this.groceryList.acceptedBy = this.storage.getConfig(this.appConfig.userAlias);
     this.groceryListProvider.acceptGroceryList(this.groceryList);
   }
