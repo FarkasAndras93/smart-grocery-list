@@ -121,3 +121,26 @@ ion-datetime {
     font-size: 20px;
   }
 }
+
+.back-button,
+.save-button,
+.close-button {
+  margin: 0;
+  padding: 0 5px;
+  height: 32px;
+  border: 0;
+  font-size: 18px;
+  font-weight: 500;
+  background: none;
+  color: white;
+  ion-icon {
+    vertical-align: middle;
+    &.icon-md {
+      font-size: 24px;
+    }
+    &.icon-ios {
+      font-size: 32px;
+      padding-left: 2px;
+    }
+  }
+}

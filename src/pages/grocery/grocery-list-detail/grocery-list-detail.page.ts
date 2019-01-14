@@ -39,8 +39,8 @@ export class GroceryListDetailPage {
   constructor(public navCtrl: NavController, private navParams: NavParams, public groceryListProvider: GroceryListProvider, @Inject(APP_CONFIG_TOKEN) private appConfig: AppConfig,
     public modalCtrl: ModalController, private toast: ToastProvider, private productProvider: ProductProvider, private storage: StorageProvider) {
     this.groceryList = this.navParams.get("grocery-list");
-    this.headerModel = new HeaderModel(this.groceryList.name, HEADER_COLORS.BASE, undefined, undefined, new ButtonModel("Accept", undefined, undefined, 
-      undefined, HEADER_BUTTON_TYPE.SAVE.toString()));
+    this.headerModel = new HeaderModel(this.groceryList.name, HEADER_COLORS.BASE, undefined, undefined, GlobalUtils.isEmpty(this.groceryList.acceptedBy) ?
+     new ButtonModel("Accept", undefined, undefined, undefined, HEADER_BUTTON_TYPE.SAVE.toString()) : undefined);
   }
 
   ionViewDidLoad() {
