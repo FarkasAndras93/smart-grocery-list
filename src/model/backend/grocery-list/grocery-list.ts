@@ -43,20 +43,23 @@ export class GroceryList {
      */
     public date: string;
 
-        /**
-     * When was the grocery list created.
+    /**
+     * Grocery list was accepted by
      *
      * @type {string}
      * @memberof GroceryList
      */
     public acceptedBy: string;
 
-    constructor(name: string, products: GroceryProduct[], date: string, userId?: number) {
+    constructor(name: string, products: GroceryProduct[], date: string, userId?: number, acceptedBy?: string) {
         this.name = name;
         this.products = products;
         this.date = date;
         if (userId > 0 && !GlobalUtils.isUndefinedOrNull(userId)){
             this.userId = userId;
+        }
+        if (!GlobalUtils.isUndefinedOrNull(acceptedBy)) {
+            this.acceptedBy = acceptedBy;
         }
     }
 }

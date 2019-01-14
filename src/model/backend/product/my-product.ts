@@ -1,9 +1,9 @@
 import { Product, PRODUCT_TYPES } from "./product";
 
 export enum MYPRODUCT_TYPE {
-    FRIDGE = 1,
-    GROCERY = 2,
-    RECIPE = 3
+    FRIDGE = "FRIDGE",
+    GROCERY = "GROCERY",
+    RECIPE = "RECIPE"
 }
 
 /**
