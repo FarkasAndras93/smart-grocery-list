@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PRODUCT_TYPES, Product } from '../../model/backend/product/product';
 import { GlobalUtils } from '../../utils/global-utils';
@@ -7,14 +7,14 @@ import { MyProductFirebase } from '../../model/backend/product/my-product-fireba
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { StorageProvider } from '../tehnical/storage/storage.provider';
-import {RequestOptions, Request, Headers } from '@angular/http';
+import { RequestOptions, Request, Headers } from '@angular/http';
 import { GroceryProduct } from '../../model/backend/product/grocery-product';
+import { AppConfig, APP_CONFIG_TOKEN } from '../../app/app.config';
 
 @Injectable()
 export class ProductProvider {
 
   private apiUrl = 'https://restcountries.eu/rest/v2/all';
-  private sensorUrl = 'http://192.168.0.105:8888';
 
   private products: Product[];
   private myProducts: MyProduct[];
@@ -22,7 +22,7 @@ export class ProductProvider {
   private productsObservables: Observable<any>;
   private myProductObservables: Observable<any>;
 
-  constructor(public http: HttpClient, private fdb: AngularFireDatabase, private storage: StorageProvider) {
+  constructor(public http: HttpClient, private fdb: AngularFireDatabase, private storage: StorageProvider, @Inject(APP_CONFIG_TOKEN) private appConfig: AppConfig) {
 
     let productsObservables: Observable<any>;
     let myProductObservables: Observable<any>;
@@ -154,7 +154,8 @@ export class ProductProvider {
    */
   getProductWeightOnSensor(): Promise<number> {
     return new Promise((resolve, reject) => {
-      this.http.get(this.sensorUrl + "/weight").subscribe((result: any) => {
+      let url = this.storage.getConfig(this.appConfig.fridgeUrl);
+      this.http.get(url + "/weight").subscribe((result: any) => {
         resolve(Math.round(result.weight));
       }, error => {
         console.error("Error while getting the value from sensor", error);
