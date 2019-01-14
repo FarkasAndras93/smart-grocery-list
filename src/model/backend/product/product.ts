@@ -3,7 +3,9 @@ export enum PRODUCT_TYPES {
     VEGETABLE = 2,
     MEATS = 3,
     PASTRY = 4,
-    GRAIN_PARTIES = 5
+    GRAIN_PARTIES = 5,
+    DRINK = 6,
+    SWEETS = 7
 }
 
 /**

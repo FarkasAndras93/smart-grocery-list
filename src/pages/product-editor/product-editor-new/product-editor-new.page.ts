@@ -91,5 +91,7 @@ export class ProductEditorNewPage {
     this.productTypes.set("Meats", PRODUCT_TYPES.MEATS);
     this.productTypes.set("Pastry", PRODUCT_TYPES.PASTRY);
     this.productTypes.set("Vegetable", PRODUCT_TYPES.VEGETABLE);
+    this.productTypes.set("Sweets", PRODUCT_TYPES.SWEETS);
+    this.productTypes.set("Drink", PRODUCT_TYPES.DRINK);
   }
 }
