@@ -14,7 +14,7 @@ export enum PRODUCT_TYPES {
  */
 export class Product {
 
-    public id: number;
+    public id: string;
 
     /**
      * Name of the product.
@@ -32,7 +32,7 @@ export class Product {
      */
     public type: PRODUCT_TYPES;
 
-    constructor(id: number,name: string, type: PRODUCT_TYPES) {
+    constructor(id: string,name: string, type: PRODUCT_TYPES) {
         this.id = id;
         this.name = name;
         this.type = type;
