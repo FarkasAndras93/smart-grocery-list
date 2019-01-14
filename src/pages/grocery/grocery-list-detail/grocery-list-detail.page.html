@@ -7,7 +7,7 @@
   <ion-item *ngFor="let item of groceryList.products | groceryProductsOrder">
     <ion-label>{{item.product.name}}</ion-label>
     <ion-checkbox [(ngModel)]="item.checked" (ionChange)="checkProduct(item)"></ion-checkbox>
-    <ion-label>{{item.product.weight}}</ion-label>
+    <ion-label>{{item.product.weight}}g</ion-label>
   </ion-item>
 </ion-content>
 
