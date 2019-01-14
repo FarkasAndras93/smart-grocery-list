@@ -30,7 +30,7 @@ export class GroceryListProvider {
         new GroceryProduct(new MyProduct("Salami", PRODUCT_TYPES.MEATS, 500), false),
         new GroceryProduct(new MyProduct("Butter", PRODUCT_TYPES.DAIRY_PRODUCT, 200), false),
         new GroceryProduct(new MyProduct("Milk", PRODUCT_TYPES.DAIRY_PRODUCT, 1000), false),
-        new GroceryProduct(new MyProduct("Pasta", PRODUCT_TYPES.PASTRY, 300), false),
+        new GroceryProduct(new MyProduct("Pasta", PRODUCT_TYPES.PASTA, 300), false),
         new GroceryProduct(new MyProduct("Bread", PRODUCT_TYPES.GRAIN_PARTIES, 1000), false)
       ], new Date().toString(), undefined, "Andras"),
       new GroceryList("Grocery for new year", [], new Date().toString()),

@@ -27,7 +27,7 @@ export class RecipeProvider {
 
     let recipeList: Recipe[] = [
       new Recipe("Sandwich", [new MyProduct("Salami", PRODUCT_TYPES.MEATS, 100), new MyProduct("Butter", PRODUCT_TYPES.DAIRY_PRODUCT, 30),
-      new MyProduct("Bread", PRODUCT_TYPES.PASTRY, 200)], "Cut two slice from the bread and put the butter on the bread slices. After this you can put the salami slices too.",
+      new MyProduct("Bread", PRODUCT_TYPES.PASTA, 200)], "Cut two slice from the bread and put the butter on the bread slices. After this you can put the salami slices too.",
         [new RecipeNote("It was delicious.", new Date().toString()), new RecipeNote("Don`t forrget to make more times.", new Date().toString())]),
       new Recipe("Viennese", [], ""),
       new Recipe("Lasagne", [], "")
