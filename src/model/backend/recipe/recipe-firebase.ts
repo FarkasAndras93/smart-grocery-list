@@ -6,7 +6,7 @@ import { MyProduct } from "../product/my-product";
  * Recipe class
  *
  * @export
- * @class Recipe
+ * @class Recipe0
  */
 export class RecipeFirebase {
 
