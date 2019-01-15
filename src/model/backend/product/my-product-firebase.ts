@@ -1,3 +1,4 @@
+import {  MYPRODUCT_TYPE } from "./my-product";
 /**
  * My products.
  *
@@ -12,7 +13,7 @@ export class MyProductFirebase {
      * @type {number}
      * @memberof MyProductFirebase
      */
-    public productId: number;
+    public productId: string;
 
         /**
      * Id of the user to whom belong the product.
@@ -20,7 +21,7 @@ export class MyProductFirebase {
      * @type {number}
      * @memberof Recipe
      */
-    public recipeId: number;
+    public recipeId: string;
 
     /**
      * Id of the user to whom belong the product.
@@ -38,10 +39,22 @@ export class MyProductFirebase {
      */
     public weight: number;
 
-    constructor(productId:number,recipeId:number,userId:string, weight: number) {
+
+    public key:string;
+
+       /**
+     * Type of the product.
+     *
+     * @type {PRODUCT_TYPES}
+     * @memberof Product
+     */
+    public myProductType: MYPRODUCT_TYPE;
+
+    constructor(productId:string,recipeId:string,userId:string, weight: number,myProductType: MYPRODUCT_TYPE) {
         this.productId = productId;
         this.recipeId = recipeId;
         this.userId = userId;
         this.weight = weight;
+        this.myProductType = myProductType;
     }
 }

@@ -7,7 +7,7 @@ import { MyProduct } from "./my-product";
  * @export
  * @class GroceryProduct
  */
-export class GroceryProduct {
+export class GroceryProductFirebase {
 
     /**
      * Id of the product check.
@@ -23,7 +23,15 @@ export class GroceryProduct {
      * @type {MyProduct}
      * @memberof GroceryProduct
      */
-    public myProduct: MyProduct;
+    public myProductId: string;
+
+        /**
+     * Product for buy.
+     *
+     * @type {MyProduct}
+     * @memberof GroceryProduct
+     */
+    public groceryListId: string;
 
     /**
      * Type of the product.
@@ -33,9 +41,10 @@ export class GroceryProduct {
      */
     public checked: boolean;
 
-    constructor(id: string, product: MyProduct, checked: boolean) {
+    constructor(id: string, myProductId: string, checked: boolean, groceryListId:string) {
         this.id= id;
-        this.myProduct = product;
+        this.myProductId = myProductId;
         this.checked = checked;
+        this.groceryListId= groceryListId;
     }
 }

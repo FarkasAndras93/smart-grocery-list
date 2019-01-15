@@ -97,7 +97,7 @@ export class RecipeDetailPage {
    */
   public async addNote() {
     this.myNote = await this.storage.getConfig(this.config.userAlias) + ":" + this.myNote;
-    this.recipeProvider.createNote(this.recipe.id, new RecipeNote(this.myNote, new Date().toString())).then(note => {
+    this.recipeProvider.createNote(this.recipe, new RecipeNote("",this.myNote, (new Date()).toString(),this.recipe.id)).then(note => {
       if (GlobalUtils.isUndefinedOrNull(this.recipe.notes)) {
         this.recipe.notes = [];
       }

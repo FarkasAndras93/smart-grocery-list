@@ -13,7 +13,7 @@ export class RecipeNote {
      * @type {number}
      * @memberof RecipeNote
      */
-    public id: number;
+    public id: string;
     
     /**
      * Text of the note.
@@ -31,8 +31,18 @@ export class RecipeNote {
      */
     public date: string;
 
-    constructor(text: string, date: string) {
+        /**
+     * Text of the note.
+     *
+     * @type {string}
+     * @memberof RecipeNotes
+     */
+    public recipeId: string;
+
+    constructor(id:string, text: string, date: string,recipeId : string) {
         this.text = text;
         this.date = date;
+        this.id = id;
+        this.recipeId = recipeId;
     }
 }

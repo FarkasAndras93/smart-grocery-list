@@ -47,7 +47,7 @@ export class RecipeNewPage {
     private navParams: NavParams) {
     this.headerModel = new HeaderModel("New recipe", HEADER_COLORS.BASE);
     if (GlobalUtils.isUndefinedOrNull(navParams.get("recipe"))) {
-      this.recipe = new Recipe("", [], "", [], storage.getLoggedUser());
+      this.recipe = new Recipe("","","", [], "", [], this.storage.getLoggedUser().id);
     } else {
       this.recipe = navParams.get("recipe");
       this.setIngredientsLabel();

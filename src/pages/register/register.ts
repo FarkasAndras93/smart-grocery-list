@@ -6,6 +6,8 @@ import { HeaderModel, HEADER_COLORS } from '../../model/frontend/common/HeaderMo
 import { ButtonModel } from '../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../components/simple-app-header/simple-app-header.component';
 import { ToastProvider } from '../../providers/tehnical/toast/toast.provider';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { FirebaseDatabaseUser } from '../../model/backend/user/firebaseDatabaseUser';
 import { GlobalUtils } from '../../utils/global-utils';
 
 /**
@@ -46,10 +48,9 @@ export class RegisterPage {
    */
   public headerModel: HeaderModel;
 
-
-  constructor(private afauth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams, private toast: ToastProvider) {
+  constructor(private fdb: AngularFireDatabase,private afauth :AngularFireAuth,public navCtrl: NavController, public navParams: NavParams,  private toast: ToastProvider) {
     this.headerModel = new HeaderModel("Register page", HEADER_COLORS.BASE);
-    this.user = new User("", "");
+    this.user = new User("", "",false);
   }
 
   /**

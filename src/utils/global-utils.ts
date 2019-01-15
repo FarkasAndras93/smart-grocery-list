@@ -208,4 +208,8 @@ export class GlobalUtils {
   public static getRandomNumberBetween(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
+
+  public static convertProductObjectToList(products){
+    return Object.keys(products).map(i => products[i]);
+  }
 }
