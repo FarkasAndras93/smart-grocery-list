@@ -54,16 +54,16 @@ export class UserProvider {
   getAllProducts(): Promise<Product[]> {
     // return this.http.get(this.apiUrl + "sensor/product").toPromise();
 
-    let products: Product[] = [
-      new Product(1, "Salami", PRODUCT_TYPES.MEATS),
-      new Product(2, "Milk", PRODUCT_TYPES.DAIRY_PRODUCT),
-      new Product(3, "Butter", PRODUCT_TYPES.DAIRY_PRODUCT),
-      new Product(4, "Bread", PRODUCT_TYPES.GRAIN_PARTIES)
-    ]
-    products[0].id = 1;
-    products[1].id = 2;
-    products[2].id = 3;
-    products[3].id = 4;
+    let products: Product[] = [];
+    //   new Product(1, "Salami", PRODUCT_TYPES.MEATS),
+    //   new Product(2, "Milk", PRODUCT_TYPES.DAIRY_PRODUCT),
+    //   new Product(3, "Butter", PRODUCT_TYPES.DAIRY_PRODUCT),
+    //   new Product(4, "Bread", PRODUCT_TYPES.GRAIN_PARTIES)
+    // ]
+    // products[0].id = 1;
+    // products[1].id = 2;
+    // products[2].id = 3;
+    // products[3].id = 4;
     return Promise.resolve(products);
   }
 

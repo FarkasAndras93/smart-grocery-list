@@ -8,7 +8,7 @@ import { MyProduct } from "../product/my-product";
  * @export
  * @class Recipe
  */
-export class Recipe {
+export class RecipeFirebase {
 
     /**
      * Id of the recipe.
@@ -48,35 +48,14 @@ export class Recipe {
      * @type {number}
      * @memberof Recipe
      */
-    public userId: string;
+    public userId: number;
 
 
-    /**
-     * Products needed in the recipe.
-     *
-     * @type {Product[]}
-     * @memberof Recipe
-     */
-    public products: MyProduct[];
-
-
-
-    /**
-     * Recipe notes.
-     *
-     * @type {RecipeNote}
-     * @memberof Recipe
-     */
-    public notes: RecipeNote[];
-
-
-    constructor(id:string,name: string,key:string, products: MyProduct[], description: string, notes: RecipeNote[], userId: string) {
+    constructor(id:string,name: string,key:string, description: string,  userId: number) {
         this.id = id;
         this.name = name;
         this.key = key;
-        this.products = products;
         this.description = description;
-        this.notes = GlobalUtils.isArrayNotNull(notes);
         this.userId = userId;
         
     }

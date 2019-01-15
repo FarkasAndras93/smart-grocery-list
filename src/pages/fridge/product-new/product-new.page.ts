@@ -54,7 +54,7 @@ export class ProductNewPage {
     public viewCtrl: ViewController, private storage: StorageProvider) {
     this.headerModel = new HeaderModel("New product", undefined, true, undefined,
       new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.CLOSE.toString()));
-    this.myProduct = new MyProduct("", PRODUCT_TYPES.DAIRY_PRODUCT, 0, "","","", MYPRODUCT_TYPE.FRIDGE);
+    this.myProduct = new MyProduct("", PRODUCT_TYPES.DAIRY_PRODUCT, 0, "","","", MYPRODUCT_TYPE.FRIDGE,"");
   }
 
   ionViewDidLoad() {

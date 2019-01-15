@@ -25,6 +25,14 @@ export class MyProduct extends Product {
      */
     public userId: string;
 
+        /**
+     * Id of the user to whom belong the product.
+     *
+     * @type {number}
+     * @memberof Recipe
+     */
+    public recipeId: string;
+
     /**
      * Weight of the product.
      *
@@ -41,11 +49,12 @@ export class MyProduct extends Product {
      */
     public myProductType: MYPRODUCT_TYPE;
 
-    constructor(name: string, type: PRODUCT_TYPES, weight: number, id:string ,userId: string,myProductId: string ,myProductType: MYPRODUCT_TYPE) {
+    constructor(name: string, type: PRODUCT_TYPES, weight: number, id:string ,userId: string,myProductId: string ,myProductType: MYPRODUCT_TYPE, recipeId: string) {
         super(id, name, type);
         this.weight = weight;
         this.userId = userId;
         this.myProductId = myProductId;
         this.myProductType = myProductType;
+        this.recipeId = recipeId;
     }
 }

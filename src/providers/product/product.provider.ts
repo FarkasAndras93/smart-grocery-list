@@ -46,7 +46,7 @@ export class ProductProvider {
           mpf.key = key;
           this.myProductFirebaseList.push(mpf);
           let productInstance: Product = this.products.filter(pr => pr.id == mpf.productId)[0];
-          let myProductObjectInstance: MyProduct = new MyProduct(productInstance.name, productInstance.type, mpf.weight, productInstance.id, mpf.userId, mpf.key, mpf.myProductType);
+          let myProductObjectInstance: MyProduct = new MyProduct(productInstance.name, productInstance.type, mpf.weight, productInstance.id, mpf.userId, mpf.key, mpf.myProductType, mpf.recipeId);
           this.myProducts.push(myProductObjectInstance);
         });
         this.myProducts = this.myProducts.filter(mp => mp.userId == this.storage.getLoggedUser().id);
@@ -144,7 +144,7 @@ export class ProductProvider {
           mpf.key = key;
           this.myProductFirebaseList.push(mpf);
           let productInstance: Product = this.products.filter(pr => pr.id == mpf.productId)[0];
-          let myProductObjectInstance: MyProduct = new MyProduct(productInstance.name, productInstance.type, mpf.weight, productInstance.id, mpf.userId, mpf.key, mpf.myProductType);
+          let myProductObjectInstance: MyProduct = new MyProduct(productInstance.name, productInstance.type, mpf.weight, productInstance.id, mpf.userId, mpf.key, mpf.myProductType, mpf.recipeId);
           this.myProducts.push(myProductObjectInstance);
         });
         this.myProducts = this.myProducts.filter(mp => mp.userId == this.storage.getLoggedUser().id);
