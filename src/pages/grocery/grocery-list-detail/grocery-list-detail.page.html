@@ -2,9 +2,9 @@
 
 <ion-content padding>
   <ion-item *ngFor="let item of groceryList.products | groceryProductsOrder">
-    <ion-label>{{item.myProduct.name}}</ion-label>
+    <ion-label>{{item.myProduct?.name}}</ion-label>
     <ion-checkbox [(ngModel)]="item.checked" (ionChange)="checkProduct(item)"></ion-checkbox>
-    <ion-label>{{item.myProduct.weight}}</ion-label>
+    <ion-label>{{item.myProduct?.weight}}</ion-label>
   </ion-item>
 </ion-content>
 

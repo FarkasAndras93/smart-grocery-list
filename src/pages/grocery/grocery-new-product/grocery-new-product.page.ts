@@ -51,17 +51,17 @@ export class GroceryNewProductPage {
   ionViewDidLoad() {
     this.possibleProducts = [];
     console.log(this.navParams.get("existentProducts"));
-    // this.productProvider.getAllProducts().then((products) => {
-    //   console.log(products);
-    //   products.forEach(product => {
-    //     console.log(product);
-    //     if(this.navParams.get("existentProducts").filter(posProd => posProd.myProduct.name == product.name).length <= 0){
-    //       this.possibleProducts.push(new GroceryProduct("",new MyProduct(product.name, product.type, 0,product.id,this.storage.getLoggedUser().id,"",MYPRODUCT_TYPE.GROCERY), false));
-    //     }
-    //   });
-    // }).catch(error => {
-    //   console.error("Error while returning all products.");
-    // });
+    this.productProvider.getAllProducts().then((products) => {
+      console.log(products);
+      products.forEach(product => {
+        console.log(product);
+        if(this.navParams.get("existentProducts").filter(posProd => posProd.myProduct.name == product.name).length <= 0){
+          this.possibleProducts.push(new GroceryProduct("",new MyProduct(product.name, product.type, 0,product.id,this.storage.getLoggedUser().id,"",MYPRODUCT_TYPE.GROCERY), false));
+        }
+      });
+    }).catch(error => {
+      console.error("Error while returning all products.");
+    });
     
     
   }

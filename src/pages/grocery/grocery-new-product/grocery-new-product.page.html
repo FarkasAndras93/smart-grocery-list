@@ -3,7 +3,7 @@
 <ion-content padding>
   <ion-list>
     <ion-searchbar class="custom-searchbar" placeholder="Suche" [(ngModel)]="searchProduct"></ion-searchbar>
-    <ion-item *ngFor="let item of possibleProducts | fullTextSearch:searchProduct:'product':'name'">
+    <ion-item *ngFor="let item of possibleProducts | fullTextSearch:searchProduct:'myProduct':'name'">
       <ion-label>{{item.myProduct?.name}}</ion-label>
       <ion-checkbox [(ngModel)]="item.checked"></ion-checkbox>
       <ion-input [(ngModel)]="item.myProduct.weight"></ion-input>

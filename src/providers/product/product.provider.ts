@@ -23,7 +23,7 @@ export class ProductProvider {
 
   constructor(public http: HttpClient, private fdb: AngularFireDatabase, private storage: StorageProvider) {
   }
- 
+
   /**
    * Method to return all product from the fridge.
    * @returns {Promise<MyProduct[]>}
@@ -32,37 +32,37 @@ export class ProductProvider {
   async getProductsInFrigider(): Promise<MyProduct[]> {
     return new Promise<MyProduct[]>((resolve, reject) => {
       this.myProducts = [];
-      this.products  = [];
-      this.myProductFirebaseList=[];
+      this.products = [];
+      this.myProductFirebaseList = [];
       let subscribe1 = this.fdb.object("Product").valueChanges().subscribe(p => {
         Object.keys(p).forEach(key => {
-          let prod : Product = p[key];  
+          let prod: Product = p[key];
           this.products.push(prod);
         });
       });
       let subscribe2 = this.fdb.object("MyProduct").valueChanges().subscribe(p => {
-      Object.keys(p).forEach(key => {
-        let mpf : MyProductFirebase = p[key];  
-        mpf.key = key;
-        this.myProductFirebaseList.push(mpf);
-        let productInstance :Product = this.products.filter(pr => pr.id == mpf.productId)[0];
-        let myProductObjectInstance : MyProduct = new MyProduct(productInstance.name, productInstance.type, mpf.weight, productInstance.id, mpf.userId,mpf.key, mpf.myProductType);
-        this.myProducts.push(myProductObjectInstance);
-      });
-      this.myProducts= this.myProducts.filter(mp => mp.userId == this.storage.getLoggedUser().id);
-      this.myProducts = this.myProducts.filter(mp => mp.myProductType.toString() == "FRIDGE");
-      subscribe1.unsubscribe();
-      subscribe2.unsubscribe();
-      resolve(this.myProducts);
-    })
-   
-      });
-    }
+        Object.keys(p).forEach(key => {
+          let mpf: MyProductFirebase = p[key];
+          mpf.key = key;
+          this.myProductFirebaseList.push(mpf);
+          let productInstance: Product = this.products.filter(pr => pr.id == mpf.productId)[0];
+          let myProductObjectInstance: MyProduct = new MyProduct(productInstance.name, productInstance.type, mpf.weight, productInstance.id, mpf.userId, mpf.key, mpf.myProductType);
+          this.myProducts.push(myProductObjectInstance);
+        });
+        this.myProducts = this.myProducts.filter(mp => mp.userId == this.storage.getLoggedUser().id);
+        this.myProducts = this.myProducts.filter(mp => mp.myProductType.toString() == "FRIDGE");
+        subscribe1.unsubscribe();
+        subscribe2.unsubscribe();
+        resolve(this.myProducts);
+      })
 
-    // console.log("return promise");
-    // return Promise.resolve(this.myProducts);
+    });
+  }
 
-  
+  // console.log("return promise");
+  // return Promise.resolve(this.myProducts);
+
+
 
   /**
    * Method to get product for name.    
@@ -76,8 +76,8 @@ export class ProductProvider {
     let pp: Product;
     this.fdb.object("Product").valueChanges().subscribe(p => {
       Object.keys(p).forEach(key => {
-        let prod : Product = p[key];  
-        if(prod.name == productName){
+        let prod: Product = p[key];
+        if (prod.name == productName) {
           return Promise.resolve(prod);
         }
       });
@@ -106,10 +106,10 @@ export class ProductProvider {
   getAllProducts(): Promise<Product[]> {
     //return this.http.get(this.apiUrl + "all/product").toPromise();
     return new Promise((resolve, reject) => {
-      let productss : Product[] = [];
+      let productss: Product[] = [];
       let subscribe1 = this.fdb.object("Product").valueChanges().subscribe(p => {
         Object.keys(p).forEach(key => {
-          let prod : Product = p[key];  
+          let prod: Product = p[key];
           productss.push(prod);
         });
         subscribe1.unsubscribe();
@@ -130,28 +130,28 @@ export class ProductProvider {
   getAllMyProducts(): Promise<MyProduct[]> {
     return new Promise<MyProduct[]>((resolve, reject) => {
       this.myProducts = [];
-      this.products  = [];
-      this.myProductFirebaseList=[];
+      this.products = [];
+      this.myProductFirebaseList = [];
       this.fdb.object("Product").valueChanges().subscribe(p => {
         Object.keys(p).forEach(key => {
-          let prod : Product = p[key];  
+          let prod: Product = p[key];
           this.products.push(prod);
         });
       });
       this.fdb.object("MyProduct").valueChanges().subscribe(p => {
-      Object.keys(p).forEach(key => {
-        let mpf : MyProductFirebase = p[key];  
-        mpf.key = key;
-        this.myProductFirebaseList.push(mpf);
-        let productInstance :Product = this.products.filter(pr => pr.id == mpf.productId)[0];
-        let myProductObjectInstance : MyProduct = new MyProduct(productInstance.name, productInstance.type, mpf.weight, productInstance.id, mpf.userId,mpf.key, mpf.myProductType);
-        this.myProducts.push(myProductObjectInstance);
-      });
-      this.myProducts= this.myProducts.filter(mp => mp.userId == this.storage.getLoggedUser().id);
-      resolve(this.myProducts);
-    })
-   
-      });
+        Object.keys(p).forEach(key => {
+          let mpf: MyProductFirebase = p[key];
+          mpf.key = key;
+          this.myProductFirebaseList.push(mpf);
+          let productInstance: Product = this.products.filter(pr => pr.id == mpf.productId)[0];
+          let myProductObjectInstance: MyProduct = new MyProduct(productInstance.name, productInstance.type, mpf.weight, productInstance.id, mpf.userId, mpf.key, mpf.myProductType);
+          this.myProducts.push(myProductObjectInstance);
+        });
+        this.myProducts = this.myProducts.filter(mp => mp.userId == this.storage.getLoggedUser().id);
+        resolve(this.myProducts);
+      })
+
+    });
   }
 
 
@@ -179,7 +179,7 @@ export class ProductProvider {
   editProductInTheFridge(myProd: MyProduct, weight: number): Promise<boolean> {
     // return this.http.get(this.apiUrl + "edit/product").toPromise();
     this.fdb.object('/MyProduct/' + myProd.myProductId)
-    .update({productId: myProd.id, userId: myProd.userId, weight: weight, myProductType: myProd.myProductType });
+      .update({ productId: myProd.id, userId: myProd.userId, weight: weight, myProductType: myProd.myProductType });
     this.getProductsInFrigider();
     return Promise.resolve(true);
   }
@@ -194,12 +194,12 @@ export class ProductProvider {
   checkProductInGrocery(groceryproduct: GroceryProduct, state: boolean): Promise<boolean> {
     // return this.http.get(this.apiUrl + "check/product").toPromise();
     console.log(groceryproduct.checked);  // undefined
-    this.fdb.object("GroceryProduct").valueChanges().subscribe(p=>{
-      Object.keys(p).forEach(key=>{
+    this.fdb.object("GroceryProduct").valueChanges().subscribe(p => {
+      Object.keys(p).forEach(key => {
         let gprodF: GroceryProductFirebase = p[key];
-        if(gprodF.id == groceryproduct.id){
-          this.fdb.object('/GroceryProduct/'+key).update({
-            checked: state, groceryListId: gprodF.groceryListId, id: gprodF.id, productId:gprodF.myProductId
+        if (gprodF.id == groceryproduct.id) {
+          this.fdb.object('/GroceryProduct/' + key).update({
+            checked: state, groceryListId: gprodF.groceryListId, id: gprodF.id, productId: gprodF.myProductId
           });
         }
       })
@@ -229,20 +229,26 @@ export class ProductProvider {
    * @returns {Promise<GroceryProduct[]>}
    * @memberof ProductProvider
    */
-  createGroceryProducts(groceryProd: GroceryProduct[], grocerylist: GroceryList) :Promise<GroceryProduct[]> {
+  createGroceryProducts(groceryProd: GroceryProduct[], grocerylist: GroceryList): Promise<GroceryProduct[]> {
     groceryProd.forEach(gp => {
+
+      let firebaseMyProduct: MyProductFirebase
+        = new MyProductFirebase(gp.myProduct.id, null, this.storage.getLoggedUser().id, gp.myProduct.weight, MYPRODUCT_TYPE.GROCERY);
+      let test = this.fdb.list("MyProduct").push(firebaseMyProduct);
+      gp.myProduct.myProductId = test.key;
+
       gp.id = GlobalUtils.getRandomNumberBetween(5, 999999999).toString();
-      let gpf : GroceryProductFirebase = new GroceryProductFirebase(gp.id, gp.myProduct.myProductId,gp.checked, grocerylist.id);
+      let gpf: GroceryProductFirebase = new GroceryProductFirebase(gp.id, gp.myProduct.myProductId, gp.checked, grocerylist.id);
       this.fdb.list("GroceryProduct").push(gpf);
       this.fdb.object("GroceryProduct").valueChanges().subscribe(gl => {
-        Object.keys(gl).forEach(key =>{
-          let groceryProductR : GroceryProductFirebase = gl[key];
-          if(groceryProductR.id == gpf.id){
+        Object.keys(gl).forEach(key => {
+          let groceryProductR: GroceryProductFirebase = gl[key];
+          if (groceryProductR.id == gpf.id) {
             console.log("hereeee");
             gpf.id = key;
             //let myProdd: MyProduct = new MyProduct();
             this.fdb.object('/GroceryProduct/' + gpf.id).update({
-              checked:gpf.checked , groceryListId:gpf.groceryListId, id:gpf.id, myProductId:gpf.myProductId
+              checked: gpf.checked, groceryListId: gpf.groceryListId, id: gpf.id, myProductId: gpf.myProductId
             })
           }
         })
