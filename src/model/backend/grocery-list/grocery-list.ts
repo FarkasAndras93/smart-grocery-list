@@ -28,6 +28,14 @@ export class GroceryList {
     public name: string;
 
     /**
+     * Grocery list accepted by.
+     *
+     * @type {string}
+     * @memberof GroceryList
+     */
+    public acceptedBy: string;
+
+    /**
      * Products in the grocery list.
      *
      * @type {ProductCheck[]}
@@ -42,14 +50,6 @@ export class GroceryList {
      * @memberof GroceryList
      */
     public date: string;
-
-    /**
-     * Grocery list was accepted by
-     *
-     * @type {string}
-     * @memberof GroceryList
-     */
-    public acceptedBy: string;
 
     constructor(name: string, products: GroceryProduct[], date: string, userId?: number, acceptedBy?: string) {
         this.name = name;

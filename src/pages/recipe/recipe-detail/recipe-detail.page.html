@@ -6,8 +6,7 @@
   <ion-list>
     <ion-item *ngFor="let product of recipe.products">
       <p>{{product.name}}</p>
-      <p>{{product.weight}}</p>
-      <p>{{product.available}}</p>
+      <p>{{product.weight}}g</p>
     </ion-item>
   </ion-list>
   <button ion-button (click)="createGroceryList()">

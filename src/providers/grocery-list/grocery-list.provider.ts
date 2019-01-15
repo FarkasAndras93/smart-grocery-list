@@ -126,4 +126,17 @@ export class GroceryListProvider {
     return Promise.resolve(true);
   }
 
+  /**
+   * Method to update grocery list accepted by property in database.
+   *
+   * @param {GroceryList} groceryList
+   * @returns {Promise<boolean>}
+   * @memberof GroceryListProvider
+   */
+  acceptGroceryList(groceryList: GroceryList): Promise<boolean> {
+
+
+    return Promise.resolve(true);
+  }
+
 }

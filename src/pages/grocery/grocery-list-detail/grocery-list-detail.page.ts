@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NavController, IonicPage, NavParams, ModalController } from 'ionic-angular';
 import { HeaderModel, HEADER_COLORS } from '../../../model/frontend/common/HeaderModel';
 import { GroceryList } from '../../../model/backend/grocery-list/grocery-list';
@@ -7,6 +7,10 @@ import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider'
 import { GlobalUtils } from '../../../utils/global-utils';
 import { GroceryProduct } from '../../../model/backend/product/grocery-product';
 import { ProductProvider } from '../../../providers/product/product.provider';
+import { ButtonModel } from '../../../model/frontend/common/ButtonModel';
+import { HEADER_BUTTON_TYPE } from '../../../components/simple-app-header/simple-app-header.component';
+import { StorageProvider } from '../../../providers/tehnical/storage/storage.provider';
+import { AppConfig, APP_CONFIG_TOKEN } from '../../../app/app.config';
 
 @IonicPage()
 @Component({
@@ -32,11 +36,11 @@ export class GroceryListDetailPage {
   public groceryList: GroceryList;
 
 
-  constructor(public navCtrl: NavController, private navParams: NavParams, public groceryListProvider: GroceryListProvider,
-    public modalCtrl: ModalController, private toast: ToastProvider, private productProvider: ProductProvider) {
+  constructor(public navCtrl: NavController, private navParams: NavParams, public groceryListProvider: GroceryListProvider, @Inject(APP_CONFIG_TOKEN) private appConfig: AppConfig,
+    public modalCtrl: ModalController, private toast: ToastProvider, private productProvider: ProductProvider, private storage: StorageProvider) {
     this.groceryList = this.navParams.get("grocery-list");
-    //console.log(this.groceryList);
-    this.headerModel = new HeaderModel(this.groceryList.name, HEADER_COLORS.BASE);
+    this.headerModel = new HeaderModel(this.groceryList.name, HEADER_COLORS.BASE, undefined, undefined, GlobalUtils.isEmpty(this.groceryList.acceptedBy) ?
+     new ButtonModel("Accept", undefined, undefined, undefined, HEADER_BUTTON_TYPE.SAVE.toString()) : undefined);
   }
 
   ionViewDidLoad() {
@@ -80,6 +84,17 @@ export class GroceryListDetailPage {
         });
       }
     });
+  }
+
+  /**
+   * Method to accept grocery list
+   *
+   * @memberof GroceryListDetailPage
+   */
+  public acceptGroceryList() {
+    this.headerModel = new HeaderModel(this.groceryList.name, HEADER_COLORS.BASE);
+    this.groceryList.acceptedBy = this.storage.getConfig(this.appConfig.userAlias);
+    this.groceryListProvider.acceptGroceryList(this.groceryList);
   }
 
 }

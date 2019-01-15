@@ -25,10 +25,11 @@ export enum MENU_TITLE {
   RECIPE_LIST = "Recipe list",
   LOGOUT = "Logout",
   LOGIN = "Login",
-  SETTINGS = "Settings"
+  SETTINGS = "Settings",
+  PRODUCT_EDITOR = "Product editor"
 }
 
-export const  firebaseconfig =  {
+export const firebaseconfig = {
   apiKey: "AIzaSyAc3OYh3-4dbTQ8DPuVzDICUOmPW7EiZoM",
   authDomain: "smartfridgeshoppinglist.firebaseapp.com",
   databaseURL: "https://smartfridgeshoppinglist.firebaseio.com",
@@ -74,6 +75,17 @@ export class MyApp {
     { title: MENU_TITLE.RECIPE_LIST, component: 'RecipeListPage', icon: 'paper' },
     { title: MENU_TITLE.SETTINGS, component: 'SettingsPage', icon: 'settings' },
     { title: MENU_TITLE.LOGOUT, component: 'LoginPage', icon: 'log-out', badgeRight: false }
+  ]
+
+  /**
+    * List of pages in logged in state
+    *
+    * @private
+    * @type {Array<SideMenuItem>}
+    * @memberof MyApp
+    */
+  private adminPages: Array<SideMenuItem> = [
+    { title: MENU_TITLE.PRODUCT_EDITOR, component: 'ProductEditorPage', icon: 'create' }
   ]
 
   /**
@@ -131,7 +143,13 @@ export class MyApp {
    * @memberof MyApp
    */
   private loginEventComplete = () => {
-    this.pages = this.loggedInPages;
+    this.pages = this.loggedInPages.map(x => Object.assign({}, x));
+
+    // if (this.storage.getLoggedUser().admin) {
+    this.pages.pop();
+    this.pages.push(this.adminPages[0]);
+    this.pages.push(this.loggedInPages[this.loggedInPages.length - 1]);
+    // }
   }
 
   /**

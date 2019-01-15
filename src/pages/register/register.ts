@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../model/backend/user/user';
-import { AngularFireAuth} from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { HeaderModel, HEADER_COLORS } from '../../model/frontend/common/HeaderModel';
 import { ButtonModel } from '../../model/frontend/common/ButtonModel';
 import { HEADER_BUTTON_TYPE } from '../../components/simple-app-header/simple-app-header.component';
 import { ToastProvider } from '../../providers/tehnical/toast/toast.provider';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseDatabaseUser } from '../../model/backend/user/firebaseDatabaseUser';
+import { GlobalUtils } from '../../utils/global-utils';
 
 /**
  * Generated class for the RegisterPage page.
@@ -23,15 +24,23 @@ import { FirebaseDatabaseUser } from '../../model/backend/user/firebaseDatabaseU
 })
 export class RegisterPage {
 
-    /**
-   * User for login.
+  /**
+   * User for register.
    *
    * @type {MyProduct[]}
    * @memberof RegisterPage
    */
   user: User;
 
-    /**
+  /**
+   * Confirm password field.
+   *
+   * @type {string}
+   * @memberof RegisterPage
+   */
+  confirmPassword: string;
+
+  /**
    * Header model
    *
    * @type {HeaderModel}
@@ -44,21 +53,48 @@ export class RegisterPage {
     this.user = new User("", "",false);
   }
 
-
-
-  async register(user: User){
-    try{
-      const result = await this.afauth.auth.createUserWithEmailAndPassword(user.username, user.password);
-      let fuser: FirebaseDatabaseUser = new FirebaseDatabaseUser(user.id, user.admin);
-      this.fdb.list("User").push(user);
-      console.log(result);
-      this.toast.showSuccessMessage("You have registered successfully!", undefined, false);
-      this.navCtrl.popTo("LoginPage");
+  /**
+   * Registers a new user
+   *
+   * @param {User} user
+   * @memberof RegisterPage
+   */
+  public async register() {
+    if (this.validate()) {
+      try {
+        const result = await this.afauth.auth.createUserWithEmailAndPassword(this.user.username, this.user.password);
+        console.log(result);
+        this.toast.showSuccessMessage("You have registered successfully!", undefined, false);
+        this.navCtrl.popTo("LoginPage");
+      } catch (e) {
+        this.toast.showErrorMessage("Could not register");
+        console.error("Error in register", e);
+      }
     }
-    catch(e){
-      this.toast.showErrorMessage("Could not register");
-      console.error(e);
+  }
+
+  /**
+   * Method to validate register
+   *
+   * @returns {boolean}
+   * @memberof RegisterPage
+   */
+  public validate(): boolean {
+    let valid: boolean = false;
+
+    if (GlobalUtils.isEmpty(this.user.username)) {
+      this.toast.showErrorMessage("Email cannot be empty!");
+    } else if (this.user.username.indexOf("@") == -1) {
+      this.toast.showErrorMessage("Not well formed email!");
+    } else if (GlobalUtils.isEmpty(this.user.password)) {
+      this.toast.showErrorMessage("Password cannot be empty!");
+    } else if (this.confirmPassword != this.user.password) {
+      this.toast.showErrorMessage("Password and confirm password is not the same!");
+    } else {
+      valid = true;
     }
+
+    return valid;
   }
 
 }

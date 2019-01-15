@@ -1,10 +1,13 @@
-<simple-app-header [header]="headerModel"></simple-app-header>
+<simple-app-header [header]="headerModel" (onSaveBtnClick)="acceptGroceryList()"></simple-app-header>
 
 <ion-content padding>
+  <ion-item *ngIf="groceryList.acceptedBy != undefined">
+    <ion-label>Grocery list was accepted by {{groceryList.acceptedBy}}</ion-label>
+  </ion-item>
   <ion-item *ngFor="let item of groceryList.products | groceryProductsOrder">
     <ion-label>{{item.myProduct?.name}}</ion-label>
     <ion-checkbox [(ngModel)]="item.checked" (ionChange)="checkProduct(item)"></ion-checkbox>
-    <ion-label>{{item.myProduct?.weight}}</ion-label>
+    <ion-label>{{item.myProduct?.weight}}g</ion-label>
   </ion-item>
 </ion-content>
 

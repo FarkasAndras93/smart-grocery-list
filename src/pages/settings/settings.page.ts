@@ -43,6 +43,11 @@ export class SettingsPage {
     if (!GlobalUtils.isEmpty(this.storage.getConfig(this.appConfig.userAlias))) {
       this.config.alias = this.storage.getConfig(this.appConfig.userAlias);
     }
+    if (!GlobalUtils.isEmpty(this.storage.getConfig(this.appConfig.fridgeUrl))) {
+      this.config.fridgeUrl = this.storage.getConfig(this.appConfig.fridgeUrl);
+    } else {
+      this.config.fridgeUrl = 'http://192.168.0.105:8888';
+    }
   }
 
   /**
@@ -74,6 +79,8 @@ export class SettingsPage {
   public getConfigKey(key: string): string {
     if (key == "alias") {
       return this.appConfig.userAlias;
+    } else if (key == "fridgeUrl") {
+      return this.appConfig.fridgeUrl;
     }
     return "";
   }

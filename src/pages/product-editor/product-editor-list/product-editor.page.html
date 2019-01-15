@@ -1,0 +1,23 @@
+<simple-app-header [header]="headerModel"></simple-app-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let product of products">
+      <ion-avatar item-left>
+        <img src="assets/imgs/products/product-{{product.type}}.jpg">
+      </ion-avatar>
+      <h2>{{product.name}}</h2>
+      <ion-buttons item-right>
+        <button ion-fab clear (click)="removeProduct(product)" color="bluedark" class="list-item-button">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-fab right bottom>
+  <button ion-fab (click)="createProduct()" color="bluedark">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>

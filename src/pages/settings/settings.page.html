@@ -6,4 +6,9 @@
     <ion-input type="text" placeholder="Empty" [(ngModel)]="config.alias" (change)="setConfig('alias')"></ion-input>
     <ion-icon name="close" item-end (click)="clear('alias')"></ion-icon>
   </ion-item>
+  <ion-item>
+    <ion-label color="primary" stacked>Fridge url</ion-label>
+    <ion-input type="text" placeholder="Empty" [(ngModel)]="config.fridgeUrl" (change)="setConfig('fridgeUrl')"></ion-input>
+    <ion-icon name="close" item-end (click)="clear('fridgeUrl')"></ion-icon>
+  </ion-item>
 </ion-content>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PRODUCT_TYPES, Product } from '../../model/backend/product/product';
 import { GlobalUtils } from '../../utils/global-utils';
@@ -11,6 +11,8 @@ import { User } from '../../model/backend/user/user';
 import { populateNodeData } from 'ionic-angular/umd/components/virtual-scroll/virtual-util';
 import { GroceryProductFirebase } from '../../model/backend/product/grocery-product-firebase';
 import { GroceryList } from '../../model/backend/grocery-list/grocery-list';
+import { RequestOptions, Request, Headers } from '@angular/http';
+import { AppConfig, APP_CONFIG_TOKEN } from '../../app/app.config';
 
 @Injectable()
 export class ProductProvider {
@@ -21,7 +23,7 @@ export class ProductProvider {
   private myProductFirebaseList: MyProductFirebase[];
   private myProducts: MyProduct[];
 
-  constructor(public http: HttpClient, private fdb: AngularFireDatabase, private storage: StorageProvider) {
+  constructor(public http: HttpClient, private fdb: AngularFireDatabase, private storage: StorageProvider, @Inject(APP_CONFIG_TOKEN) private appConfig: AppConfig) {
   }
 
   /**
@@ -92,9 +94,14 @@ export class ProductProvider {
    * @memberof ProductProvider
    */
   getProductWeightOnSensor(): Promise<number> {
-    // return this.http.get(this.apiUrl + "sensor/product").toPromise();
-
-    return Promise.resolve(GlobalUtils.getRandomNumberBetween(0, 2));
+    return new Promise((resolve, reject) => {
+      let url = this.storage.getConfig(this.appConfig.fridgeUrl);
+      this.http.get(url + "/weight").subscribe((result: any) => {
+        resolve(Math.round(result.weight));
+      }, error => {
+        console.error("Error while getting the value from sensor", error);
+      });
+    });
   }
 
   /**

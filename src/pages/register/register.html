@@ -15,9 +15,14 @@
         <ion-input placeholder="Passwort" id="login_password" type="password" [(ngModel)]="user.password" name="login_password"
           #name="ngModel" class="password-input"></ion-input>
       </ion-item>
+      <ion-item>
+        <img item-start src="assets/imgs/login-icon-password.svg" width="24" height="24" />
+        <ion-input placeholder="Confirm passwort" type="password" [(ngModel)]="confirmPassword" name="register_confrim_password"
+          #name="ngModel" class="password-input"></ion-input>
+      </ion-item>
 
     </ion-list>
 
-    <button color="light" id="register_registerSaveButton" (click)="register(user)"  ion-button full i18n>Register</button>
+    <button color="light" id="register_registerSaveButton" (click)="register()"  ion-button full i18n>Register</button>
   </form>
 </ion-content>

@@ -9,6 +9,9 @@
       <button ion-fab clear (click)="removeGroceryList(groceryList)" color="bluedark" class="list-item-button">
         <ion-icon name="trash"></ion-icon>
       </button>
+      <button *ngIf="groceryList.acceptedBy != undefined" ion-fab clear class="list-item-button grocery-accepted">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-item>
 </ion-content>
