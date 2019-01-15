@@ -9,7 +9,7 @@ import { GlobalUtils } from '../../../utils/global-utils';
 import { ToastProvider } from '../../../providers/tehnical/toast/toast.provider';
 import { MyProduct } from '../../../model/backend/product/my-product';
 import { StorageProvider } from '../../../providers/tehnical/storage/storage.provider';
-import {AngularFireAuth} from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @IonicPage()
 @Component({
@@ -35,7 +35,7 @@ export class MyFridgePage {
   public headerModel: HeaderModel;
 
 
-  constructor( private afAuth: AngularFireAuth,public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider, private alertCtrl: AlertController,
+  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public productProvider: ProductProvider, public modalCtrl: ModalController, private toast: ToastProvider, private alertCtrl: AlertController,
     private storage: StorageProvider) {
     this.headerModel = new HeaderModel("My fridge", HEADER_COLORS.BASE, true, new ButtonModel(undefined, undefined, undefined, undefined, HEADER_BUTTON_TYPE.MENU_TOGGLE.toString()));
   }
@@ -43,7 +43,7 @@ export class MyFridgePage {
   ionViewDidLoad() {
     this.productProvider.getProductsInFrigider().then(result => {
       this.products = result;
-    }).catch(error =>{
+    }).catch(error => {
       console.log("Error while geting products in frigider!");
       this.toast.showErrorMessage("Error while geting products in frigider!");
     })
@@ -61,10 +61,9 @@ export class MyFridgePage {
       if (!GlobalUtils.isUndefinedOrNull(result)) {
         if (result instanceof MyProduct) {
           this.productProvider.addProductInFridge(result).then(newProduct => {
-            console.log( result);
             this.products.push(result);
             this.toast.showSuccessMessage("Product added with success.");
-          }).catch(err =>{
+          }).catch(err => {
             console.error("Failed to add new product in my fridge!", err);
             this.toast.showErrorMessage("Add product failed!");
           })
@@ -100,16 +99,18 @@ export class MyFridgePage {
           {
             text: 'Save',
             handler: () => {
-              this.productProvider.editProductInTheFridge(product, value).then((success) => {
-                if (!success) {
+              if (value > 0) {
+                this.productProvider.editProductInTheFridge(product, value).then((success) => {
+                  if (!success) {
+                    this.toast.showErrorMessage("Failed to update product weight!", 2000, false);
+                  } else {
+                    this.products[this.products.indexOf(product)].weight = value;
+                  }
+                }).catch(err => {
+                  console.error("Error while updating product weight!", err);
                   this.toast.showErrorMessage("Failed to update product weight!", 2000, false);
-                } else {
-                  this.products[this.products.indexOf(product)].weight = value;
-                }
-              }).catch(err => {
-                console.error("Error while updating product weight!", err);
-                this.toast.showErrorMessage("Failed to update product weight!", 2000, false);
-              });
+                });
+              }
             }
           }
         ]
@@ -127,13 +128,13 @@ export class MyFridgePage {
    * @memberof MyFridgePage
    */
   public removeProduct(product: MyProduct) {
-    this.productProvider.removeProductFromFridge(product).then((value) =>{
+    this.productProvider.removeProductFromFridge(product).then((value) => {
       if (value) {
         this.products.splice(this.products.indexOf(product), 1);
       } else {
         this.toast.showErrorMessage("Failed to remove product!");
       }
-    }).catch(error =>{
+    }).catch(error => {
       console.log("Error while removing product from the fridge.");
       this.toast.showErrorMessage("Error while removing product!");
     })

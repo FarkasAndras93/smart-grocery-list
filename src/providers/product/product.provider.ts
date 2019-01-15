@@ -34,13 +34,13 @@ export class ProductProvider {
       this.myProducts = [];
       this.products  = [];
       this.myProductFirebaseList=[];
-      this.fdb.object("Product").valueChanges().subscribe(p => {
+      let subscribe1 = this.fdb.object("Product").valueChanges().subscribe(p => {
         Object.keys(p).forEach(key => {
           let prod : Product = p[key];  
           this.products.push(prod);
         });
       });
-      this.fdb.object("MyProduct").valueChanges().subscribe(p => {
+      let subscribe2 = this.fdb.object("MyProduct").valueChanges().subscribe(p => {
       Object.keys(p).forEach(key => {
         let mpf : MyProductFirebase = p[key];  
         mpf.key = key;
@@ -51,6 +51,8 @@ export class ProductProvider {
       });
       this.myProducts= this.myProducts.filter(mp => mp.userId == this.storage.getLoggedUser().id);
       this.myProducts = this.myProducts.filter(mp => mp.myProductType.toString() == "FRIDGE");
+      subscribe1.unsubscribe();
+      subscribe2.unsubscribe();
       resolve(this.myProducts);
     })
    
@@ -103,14 +105,20 @@ export class ProductProvider {
    */
   getAllProducts(): Promise<Product[]> {
     //return this.http.get(this.apiUrl + "all/product").toPromise();
-    let productss : Product[] = [];
-    this.fdb.object("Product").valueChanges().subscribe(p => {
-      Object.keys(p).forEach(key => {
-        let prod : Product = p[key];  
-        productss.push(prod);
+    return new Promise((resolve, reject) => {
+      let productss : Product[] = [];
+      let subscribe1 = this.fdb.object("Product").valueChanges().subscribe(p => {
+        Object.keys(p).forEach(key => {
+          let prod : Product = p[key];  
+          productss.push(prod);
+        });
+        subscribe1.unsubscribe();
+        resolve(productss);
       });
-    });
-    return Promise.resolve(productss);
+    })
+
+    // subscribe1.unsubscribe();
+    // return Promise.resolve(productss);
   }
 
   /**
@@ -209,7 +217,8 @@ export class ProductProvider {
   addProductInFridge(product: MyProduct): Promise<MyProduct> {
     let firebaseMyProduct: MyProductFirebase
       = new MyProductFirebase(product.id, null, this.storage.getLoggedUser().id, product.weight, product.myProductType);
-    this.fdb.list("MyProduct").push(firebaseMyProduct);
+    let test = this.fdb.list("MyProduct").push(firebaseMyProduct);
+    product.myProductId = test.key;
     return Promise.resolve(product);
   }
 
