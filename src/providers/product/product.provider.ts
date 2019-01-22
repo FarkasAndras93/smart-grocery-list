@@ -201,17 +201,20 @@ export class ProductProvider {
   checkProductInGrocery(groceryproduct: GroceryProduct, state: boolean): Promise<boolean> {
     // return this.http.get(this.apiUrl + "check/product").toPromise();
     console.log(groceryproduct.checked);  // undefined
-    this.fdb.object("GroceryProduct").valueChanges().subscribe(p => {
-      Object.keys(p).forEach(key => {
-        let gprodF: GroceryProductFirebase = p[key];
-        if (gprodF.id == groceryproduct.id) {
-          this.fdb.object('/GroceryProduct/' + key).update({
-            checked: state, groceryListId: gprodF.groceryListId, id: gprodF.id, productId: gprodF.myProductId
-          });
-        }
+    return new Promise((resolve, reject) => {
+      let subscribe1 = this.fdb.object("GroceryProduct").valueChanges().subscribe(p => {
+        Object.keys(p).forEach(key => {
+          let gprodF: GroceryProductFirebase = p[key];
+          if (gprodF.id == groceryproduct.id) {
+            this.fdb.object('/GroceryProduct/' + key).update({
+              checked: state, groceryListId: gprodF.groceryListId, id: gprodF.id, productId: gprodF.myProductId
+            });
+          }
+        })
+        subscribe1.unsubscribe();
+        resolve(true);
       })
     })
-    return Promise.resolve(true);
   }
 
   /**
